@@ -1,0 +1,81 @@
+/* === Drop Cap === */
+.nui-drop-cap > p:first-of-type::first-letter,
+.nui-drop-cap > :first-child::first-letter {
+  float: left;
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  font-size: 4.2em;
+  line-height: 0.82;
+  margin: 0.05em 0.1em 0 0;
+  color: var(--nui-text-primary);
+}
+
+/* === Small Caps (real OpenType, not text-transform fake) === */
+.nui-small-caps {
+  font-variant-caps: small-caps;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
+  letter-spacing: 0.06em;
+  font-family: var(--font-family-meta);
+}
+
+/* === Paragraph Flow: 首段不缩进，后续段落首行缩进 1em，无段间空行 === */
+.nui-paragraph-flow > p {
+  margin: 0;
+  orphans: 3;
+  widows: 3;
+  hyphens: auto;
+  break-inside: avoid-column;
+}
+.nui-paragraph-flow > p + p { text-indent: 1em; }
+.nui-paragraph-flow > p.nui-no-indent + p { text-indent: 0; }
+
+/* === Old-style Figures === */
+.nui-osf {
+  font-feature-settings: "onum" 1, "kern" 1, "liga" 1;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* === Tabular / Lining Figures (for headlines, tables) === */
+.nui-tnum {
+  font-feature-settings: "lnum" 1, "tnum" 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* === Hanging Punctuation === */
+.nui-hanging-punctuation { hanging-punctuation: first allow-end last; }
+
+/* === Column Rule (for multi-column body text) === */
+.nui-column-rule {
+  column-rule: 1px solid var(--nui-rule-hairline);
+}
+
+/* === Avoid breaking inside (used by PullQuote, Figure, h2/h3 in column flow) === */
+.nui-avoid-break {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* === Headline span all columns (used inside multi-column flow) === */
+.nui-span-all-columns { column-span: all; }
+
+/* === Masthead double-rule === */
+.nui-masthead-rule-top,
+.nui-masthead-rule-bottom {
+  height: 8px;
+  background:
+    linear-gradient(to bottom,
+      var(--nui-rule-decorative) 0,
+      var(--nui-rule-decorative) 1px,
+      transparent 1px,
+      transparent 5px,
+      var(--nui-rule-decorative) 5px,
+      var(--nui-rule-decorative) 8px
+    );
+}
+
+/* === Single hairline rule === */
+.nui-rule-hairline {
+  border: 0;
+  border-top: 1px solid var(--nui-rule-hairline);
+  margin: 0;
+}

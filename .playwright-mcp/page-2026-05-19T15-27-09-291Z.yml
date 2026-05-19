@@ -1,0 +1,39 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - heading "Die Frankfurter Zeitung" [level=1] [ref=e5]
+      - generic [ref=e6]:
+        - generic [ref=e7]: Nr. 117 · 142. Jahrgang
+        - generic [ref=e8]: Dienstag, 19. Mai 2026
+        - generic [ref=e9]: € 3,80
+    - generic [ref=e11]:
+      - article [ref=e12]:
+        - generic [ref=e13]: Im Blatt
+        - heading "Bundestag billigt Klimapaket nach langer Debatte" [level=3] [ref=e14]
+        - paragraph [ref=e16]: Die einstimmige Abstimmung beendet eine umstrittene Sitzungsperiode. Politik, Seite 4.
+        - separator [ref=e17]
+        - heading "Industrie sieht in Reform Chance und Risiko" [level=3] [ref=e18]
+        - paragraph [ref=e20]: Verbände begrüßen die Pläne, mahnen aber Übergangsfristen für kleinere Betriebe an. Wirtschaft, Seite 9.
+      - article [ref=e21]:
+        - generic [ref=e22]: Politik · Eilmeldung
+        - heading "Historischer Pakt nach langem Verhandlungsmarathon beschlossen" [level=1] [ref=e23]
+        - paragraph [ref=e24]: Delegierte aus dreiundzwanzig Nationen einigen sich auf einen Rahmen für Zölle, Arbeit und Emissionen
+        - generic [ref=e25]: Von Eleonore Witkomm und Markus Reyes
+        - 'figure "Die Delegationen applaudieren nach der Verabschiedung des Schlussdokuments am Montagabend. Foto: Jane Doe / Pool" [ref=e26]':
+          - img "Verhandlungsführer am Konferenztisch" [ref=e27]
+          - generic [ref=e28]:
+            - text: Die Delegationen applaudieren nach der Verabschiedung des Schlussdokuments am Montagabend.
+            - generic [ref=e29]: "Foto: Jane Doe / Pool"
+        - generic [ref=e30]:
+          - paragraph [ref=e31]: Brüssel — Nach elf aufeinanderfolgenden Verhandlungstagen, die mehrere Teilnehmer als die anstrengendsten einer Generation bezeichneten, haben Delegierte aus dreiundzwanzig Nationen am Montag einen umfassenden Rahmen vorgelegt, der den Handel auf dem gesamten Kontinent neu ordnen soll.
+          - paragraph [ref=e32]: Das Abkommen, das noch von den nationalen Parlamenten ratifiziert werden muss, würde Zollordnungen harmonisieren, gemeinsame Arbeitsstandards setzen und die Unterzeichner auf einen geteilten Emissionspfad bis 2040 verpflichten. Beamte, die in die Gespräche eingeweiht waren, sagten, der Durchbruch sei kurz vor Mitternacht gekommen.
+          - paragraph [ref=e33]: Die Märkte reagierten mit verhaltenem Optimismus. Der kontinentale Composite-Index schloss mit einem Plus von 1,2 Prozent. Die Währung legte gegenüber dem Dollar um 0,7 Prozent zu. Anleiherenditen, die während der Verhandlungen wegen fiskalischer Sorgen gestiegen waren, kehrten auf das Niveau vor Beginn der Gespräche zurück.
+        - complementary [ref=e34]:
+          - paragraph [ref=e35]: Ein langer Streit, der schließlich zum Gespräch wurde.
+          - generic [ref=e36]: — Margarethe Lindqvist, Chefverhandlerin
+        - generic [ref=e37]:
+          - paragraph [ref=e38]: Das Rahmenabkommen sieht eine schrittweise CO₂-Abgabe für Schwerindustrie ab 2028 vor. Einnahmen sollen in einen Investitionsfonds für klimafreundliche Fertigung fließen.
+          - paragraph [ref=e39]: Parlamentarische Führer in drei Hauptstädten signalisierten, dass die Ratifizierung noch vor der Sommerpause erfolgen könnte. Zwei Regierungen kündigten an, vorher Volksabstimmungen abhalten zu wollen.
+  - button "Open Next.js Dev Tools" [ref=e45] [cursor=pointer]:
+    - img [ref=e46]
+  - alert [ref=e49]

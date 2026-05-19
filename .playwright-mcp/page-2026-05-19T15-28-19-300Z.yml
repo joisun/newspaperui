@@ -1,0 +1,309 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - link "NewspaperUI" [ref=e4] [cursor=pointer]:
+      - /url: /
+    - generic [ref=e5]: Production Newspaper Components
+    - navigation [ref=e6]:
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "概览 / 头版" [ref=e9] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e10]:
+          - link "栅格系统" [ref=e11] [cursor=pointer]:
+            - /url: /grid-system
+        - listitem [ref=e12]:
+          - link "布局组件" [ref=e13] [cursor=pointer]:
+            - /url: /components/article
+          - list [ref=e14]:
+            - listitem [ref=e15]:
+              - link "Masthead" [ref=e16] [cursor=pointer]:
+                - /url: /components/masthead
+            - listitem [ref=e17]:
+              - link "Article + Layer" [ref=e18] [cursor=pointer]:
+                - /url: /components/article
+            - listitem [ref=e19]:
+              - link "Rule 分隔线" [ref=e20] [cursor=pointer]:
+                - /url: /components/rule
+        - listitem [ref=e21]:
+          - link "文本组件" [ref=e22] [cursor=pointer]:
+            - /url: /text
+        - listitem [ref=e23]:
+          - link "媒体组件" [ref=e24] [cursor=pointer]:
+            - /url: /components/media
+        - listitem [ref=e25]:
+          - link "主题与颜色" [ref=e26] [cursor=pointer]:
+            - /url: /theme
+        - listitem [ref=e27]:
+          - link "示例" [ref=e28] [cursor=pointer]:
+            - /url: /examples/spanning
+          - list [ref=e29]:
+            - listitem [ref=e30]:
+              - link "跨栏布局" [ref=e31] [cursor=pointer]:
+                - /url: /examples/spanning
+            - listitem [ref=e32]:
+              - link "响应式" [ref=e33] [cursor=pointer]:
+                - /url: /examples/responsive
+            - listitem [ref=e34]:
+              - link "Blackletter 头版" [ref=e35] [cursor=pointer]:
+                - /url: /examples/blackletter-frontpage
+  - main [ref=e36]:
+    - article [ref=e39]:
+      - heading "文本组件" [level=1] [ref=e40]
+      - paragraph [ref=e41]: 从 Headline 到 Caption 的完整文本谱系。每个组件按视觉权重映射到字体、字号、字重、 行高与颜色 token，避免硬编码样式。
+      - heading "Headline 三档" [level=2] [ref=e42]
+      - generic [ref=e43]:
+        - heading "High / Medium / Low" [level=3] [ref=e45]
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: weight="High"
+            - heading "A Quiet Revolution in the Treasury Forecast" [level=3] [ref=e50]
+          - generic [ref=e51]:
+            - generic [ref=e52]: weight="Medium"
+            - heading "Whitehall Confirms Infrastructure Review" [level=3] [ref=e53]
+          - generic [ref=e54]:
+            - generic [ref=e55]: weight="Low"
+            - 'heading "Briefing: regional rail commitments" [level=3] [ref=e56]'
+      - heading "Subhead 两档" [level=2] [ref=e57]
+      - generic [ref=e58]:
+        - heading "High / Medium" [level=3] [ref=e60]
+        - generic [ref=e62]:
+          - paragraph [ref=e63]: A measured recalibration of regional priorities is expected to define the chancellor’s autumn agenda.
+          - paragraph [ref=e64]: Officials emphasized that the headline figures should be read as a planning envelope rather than a binding allocation.
+      - heading "Kicker" [level=2] [ref=e65]
+      - generic [ref=e66]:
+        - heading "朱红 small-caps，挂在 Headline 上方" [level=3] [ref=e68]
+        - generic [ref=e70]:
+          - generic [ref=e71]: POLITICS · WHITEHALL
+          - heading "A Standing Technical Commission, Quietly Proposed" [level=3] [ref=e72]
+      - heading "BodyText 多栏文字流" [level=2] [ref=e73]
+      - generic [ref=e74]:
+        - generic [ref=e75]:
+          - heading "单栏" [level=3] [ref=e76]
+          - paragraph [ref=e77]: 默认形态，适合中等宽度的文章正文。
+        - generic [ref=e79]:
+          - paragraph [ref=e80]: Whitehall officials confirmed late Tuesday that the long-anticipated review of national infrastructure funding will be tabled before the recess. The 248-page document, drafted across three departments, recommends a recalibration of regional priorities and a measured shift toward rail electrification. Critics inside the cabinet caution that the timing risks overshadowing the chancellor's autumn statement, while supporters describe the proposals as the most coherent strategic blueprint in a generation.
+          - paragraph [ref=e81]: Markets responded cautiously through the morning session. The pound traded sideways against the dollar, gilts firmed by three basis points, and the FTSE 100 closed marginally lower as defensive sectors absorbed the day's modest outflows. Analysts at three of the City's largest houses framed the move as a holding pattern, awaiting further detail on the spending envelope rather than a verdict on its substance.
+      - generic [ref=e82]:
+        - generic [ref=e83]:
+          - heading "三栏 + 首字下沉" [level=3] [ref=e84]
+          - paragraph [ref=e85]: "开启 columns={3} 与 dropCap，第一段首字母自动下沉占 2-3 行。"
+        - generic [ref=e87]:
+          - paragraph [ref=e88]: Whitehall officials confirmed late Tuesday that the long-anticipated review of national infrastructure funding will be tabled before the recess. The 248-page document, drafted across three departments, recommends a recalibration of regional priorities and a measured shift toward rail electrification. Critics inside the cabinet caution that the timing risks overshadowing the chancellor's autumn statement, while supporters describe the proposals as the most coherent strategic blueprint in a generation.
+          - paragraph [ref=e89]: Markets responded cautiously through the morning session. The pound traded sideways against the dollar, gilts firmed by three basis points, and the FTSE 100 closed marginally lower as defensive sectors absorbed the day's modest outflows. Analysts at three of the City's largest houses framed the move as a holding pattern, awaiting further detail on the spending envelope rather than a verdict on its substance.
+          - paragraph [ref=e90]: In Manchester, regional officials greeted the announcement with measured optimism. "We have lobbied for this kind of clarity for the better part of a decade," said one senior figure who requested anonymity to discuss internal deliberations. The mayor's office is expected to issue a formal response by week's end, focusing on commitments to the trans-Pennine corridor and the long-deferred upgrade of suburban tram capacity.
+          - paragraph [ref=e91]: "Beyond the immediate fiscal arithmetic, the review's most consequential proposal may be its quietest: a standing technical commission, modeled on Australia's Infrastructure Australia, to depoliticize project sequencing. Whether that body acquires teeth — or settles into the advisory torpor that has consumed earlier attempts — will be determined by the legislation expected in the spring."
+        - button "查看代码" [ref=e93] [cursor=pointer]
+      - generic [ref=e94]:
+        - generic [ref=e95]:
+          - heading "两栏（无 dropCap）" [level=3] [ref=e96]
+          - paragraph [ref=e97]: "columns={2}，栏间细线由 nui-column-rule 提供。"
+        - generic [ref=e99]:
+          - paragraph [ref=e100]: Whitehall officials confirmed late Tuesday that the long-anticipated review of national infrastructure funding will be tabled before the recess. The 248-page document, drafted across three departments, recommends a recalibration of regional priorities and a measured shift toward rail electrification. Critics inside the cabinet caution that the timing risks overshadowing the chancellor's autumn statement, while supporters describe the proposals as the most coherent strategic blueprint in a generation.
+          - paragraph [ref=e101]: Markets responded cautiously through the morning session. The pound traded sideways against the dollar, gilts firmed by three basis points, and the FTSE 100 closed marginally lower as defensive sectors absorbed the day's modest outflows. Analysts at three of the City's largest houses framed the move as a holding pattern, awaiting further detail on the spending envelope rather than a verdict on its substance.
+          - paragraph [ref=e102]: In Manchester, regional officials greeted the announcement with measured optimism. "We have lobbied for this kind of clarity for the better part of a decade," said one senior figure who requested anonymity to discuss internal deliberations. The mayor's office is expected to issue a formal response by week's end, focusing on commitments to the trans-Pennine corridor and the long-deferred upgrade of suburban tram capacity.
+      - heading "Quote 引用" [level=2] [ref=e103]
+      - generic [ref=e104]:
+        - heading "block / inline 对照" [level=3] [ref=e106]
+        - generic [ref=e108]:
+          - blockquote [ref=e109]: We have lobbied for this kind of clarity for the better part of a decade.
+          - paragraph [ref=e111]:
+            - text: 按一位资深内阁人士的说法，这份评估
+            - emphasis [ref=e112]: 是一个时代以来最连贯的战略蓝图
+            - text: ，但能否落地仍取决于春季立法。
+      - heading "Byline / Dateline / Caption" [level=2] [ref=e113]
+      - generic [ref=e114]:
+        - heading "元信息组件" [level=3] [ref=e116]
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - generic [ref=e120]: BY ALICE SMITH
+            - text: LONDON —
+          - figure "A view of the Treasury terrace at dusk; the new commission will report here from May. Photograph by Jane Doe" [ref=e121]:
+            - generic [ref=e123]:
+              - text: A view of the Treasury terrace at dusk; the new commission will report here from May.
+              - generic [ref=e124]: Photograph by Jane Doe
+      - heading "视觉权重映射表" [level=2] [ref=e125]
+      - paragraph [ref=e127]:
+        - text: 下表从
+        - code [ref=e128]: visualWeights
+        - text: 数据动态生成，反映组件实际渲染时所用的 token。修改 theme 后表格自动同步。
+      - table [ref=e130]:
+        - rowgroup [ref=e131]:
+          - row "组件 权重 字体 字号 字重 行高 颜色" [ref=e132]:
+            - columnheader "组件" [ref=e133]
+            - columnheader "权重" [ref=e134]
+            - columnheader "字体" [ref=e135]
+            - columnheader "字号" [ref=e136]
+            - columnheader "字重" [ref=e137]
+            - columnheader "行高" [ref=e138]
+            - columnheader "颜色" [ref=e139]
+        - rowgroup [ref=e140]:
+          - row "Masthead Standard --font-family-masthead 56px 700 1 --nui-text-primary" [ref=e141]:
+            - cell "Masthead" [ref=e142]
+            - cell "Standard" [ref=e143]
+            - cell "--font-family-masthead" [ref=e144]:
+              - code [ref=e145]: "--font-family-masthead"
+            - cell "56px" [ref=e146]
+            - cell "700" [ref=e147]
+            - cell "1" [ref=e148]
+            - cell "--nui-text-primary" [ref=e149]:
+              - code [ref=e150]: "--nui-text-primary"
+          - row "Headline High --font-family-display 48px 600 1.05 --nui-text-primary" [ref=e151]:
+            - cell "Headline" [ref=e152]
+            - cell "High" [ref=e153]
+            - cell "--font-family-display" [ref=e154]:
+              - code [ref=e155]: "--font-family-display"
+            - cell "48px" [ref=e156]
+            - cell "600" [ref=e157]
+            - cell "1.05" [ref=e158]
+            - cell "--nui-text-primary" [ref=e159]:
+              - code [ref=e160]: "--nui-text-primary"
+          - row "Headline Medium --font-family-headline 32px 600 1.1 --nui-text-primary" [ref=e161]:
+            - cell "Headline" [ref=e162]
+            - cell "Medium" [ref=e163]
+            - cell "--font-family-headline" [ref=e164]:
+              - code [ref=e165]: "--font-family-headline"
+            - cell "32px" [ref=e166]
+            - cell "600" [ref=e167]
+            - cell "1.1" [ref=e168]
+            - cell "--nui-text-primary" [ref=e169]:
+              - code [ref=e170]: "--nui-text-primary"
+          - row "Headline Low --font-family-headline 22px 500 1.2 --nui-text-body" [ref=e171]:
+            - cell "Headline" [ref=e172]
+            - cell "Low" [ref=e173]
+            - cell "--font-family-headline" [ref=e174]:
+              - code [ref=e175]: "--font-family-headline"
+            - cell "22px" [ref=e176]
+            - cell "500" [ref=e177]
+            - cell "1.2" [ref=e178]
+            - cell "--nui-text-body" [ref=e179]:
+              - code [ref=e180]: "--nui-text-body"
+          - row "Subhead High --font-family-headline 18px 500 1.3 --nui-text-secondary" [ref=e181]:
+            - cell "Subhead" [ref=e182]
+            - cell "High" [ref=e183]
+            - cell "--font-family-headline" [ref=e184]:
+              - code [ref=e185]: "--font-family-headline"
+            - cell "18px" [ref=e186]
+            - cell "500" [ref=e187]
+            - cell "1.3" [ref=e188]
+            - cell "--nui-text-secondary" [ref=e189]:
+              - code [ref=e190]: "--nui-text-secondary"
+          - row "Subhead Medium --font-family-headline 16px 400 1.35 --nui-text-secondary" [ref=e191]:
+            - cell "Subhead" [ref=e192]
+            - cell "Medium" [ref=e193]
+            - cell "--font-family-headline" [ref=e194]:
+              - code [ref=e195]: "--font-family-headline"
+            - cell "16px" [ref=e196]
+            - cell "400" [ref=e197]
+            - cell "1.35" [ref=e198]
+            - cell "--nui-text-secondary" [ref=e199]:
+              - code [ref=e200]: "--nui-text-secondary"
+          - row "Kicker Standard --font-family-meta 12px 600 1.2 --nui-accent-primary" [ref=e201]:
+            - cell "Kicker" [ref=e202]
+            - cell "Standard" [ref=e203]
+            - cell "--font-family-meta" [ref=e204]:
+              - code [ref=e205]: "--font-family-meta"
+            - cell "12px" [ref=e206]
+            - cell "600" [ref=e207]
+            - cell "1.2" [ref=e208]
+            - cell "--nui-accent-primary" [ref=e209]:
+              - code [ref=e210]: "--nui-accent-primary"
+          - row "BodyText High --font-family-body 16px 400 1.6 --nui-text-body" [ref=e211]:
+            - cell "BodyText" [ref=e212]
+            - cell "High" [ref=e213]
+            - cell "--font-family-body" [ref=e214]:
+              - code [ref=e215]: "--font-family-body"
+            - cell "16px" [ref=e216]
+            - cell "400" [ref=e217]
+            - cell "1.6" [ref=e218]
+            - cell "--nui-text-body" [ref=e219]:
+              - code [ref=e220]: "--nui-text-body"
+          - row "BodyText Medium --font-family-body 15px 400 1.55 --nui-text-body" [ref=e221]:
+            - cell "BodyText" [ref=e222]
+            - cell "Medium" [ref=e223]
+            - cell "--font-family-body" [ref=e224]:
+              - code [ref=e225]: "--font-family-body"
+            - cell "15px" [ref=e226]
+            - cell "400" [ref=e227]
+            - cell "1.55" [ref=e228]
+            - cell "--nui-text-body" [ref=e229]:
+              - code [ref=e230]: "--nui-text-body"
+          - row "BodyText Low --font-family-body 13px 400 1.5 --nui-text-secondary" [ref=e231]:
+            - cell "BodyText" [ref=e232]
+            - cell "Low" [ref=e233]
+            - cell "--font-family-body" [ref=e234]:
+              - code [ref=e235]: "--font-family-body"
+            - cell "13px" [ref=e236]
+            - cell "400" [ref=e237]
+            - cell "1.5" [ref=e238]
+            - cell "--nui-text-secondary" [ref=e239]:
+              - code [ref=e240]: "--nui-text-secondary"
+          - row "Quote High --font-family-body 17px 400 1.55 --nui-text-quote" [ref=e241]:
+            - cell "Quote" [ref=e242]
+            - cell "High" [ref=e243]
+            - cell "--font-family-body" [ref=e244]:
+              - code [ref=e245]: "--font-family-body"
+            - cell "17px" [ref=e246]
+            - cell "400" [ref=e247]
+            - cell "1.55" [ref=e248]
+            - cell "--nui-text-quote" [ref=e249]:
+              - code [ref=e250]: "--nui-text-quote"
+          - row "Quote Medium --font-family-body 15px 400 1.5 --nui-text-quote" [ref=e251]:
+            - cell "Quote" [ref=e252]
+            - cell "Medium" [ref=e253]
+            - cell "--font-family-body" [ref=e254]:
+              - code [ref=e255]: "--font-family-body"
+            - cell "15px" [ref=e256]
+            - cell "400" [ref=e257]
+            - cell "1.5" [ref=e258]
+            - cell "--nui-text-quote" [ref=e259]:
+              - code [ref=e260]: "--nui-text-quote"
+          - row "PullQuote High --font-family-display 26px 600 1.2 --nui-text-primary" [ref=e261]:
+            - cell "PullQuote" [ref=e262]
+            - cell "High" [ref=e263]
+            - cell "--font-family-display" [ref=e264]:
+              - code [ref=e265]: "--font-family-display"
+            - cell "26px" [ref=e266]
+            - cell "600" [ref=e267]
+            - cell "1.2" [ref=e268]
+            - cell "--nui-text-primary" [ref=e269]:
+              - code [ref=e270]: "--nui-text-primary"
+          - row "PullQuote Medium --font-family-display 20px 500 1.25 --nui-text-body" [ref=e271]:
+            - cell "PullQuote" [ref=e272]
+            - cell "Medium" [ref=e273]
+            - cell "--font-family-display" [ref=e274]:
+              - code [ref=e275]: "--font-family-display"
+            - cell "20px" [ref=e276]
+            - cell "500" [ref=e277]
+            - cell "1.25" [ref=e278]
+            - cell "--nui-text-body" [ref=e279]:
+              - code [ref=e280]: "--nui-text-body"
+          - row "Byline Standard --font-family-meta 12px 500 1.3 --nui-text-secondary" [ref=e281]:
+            - cell "Byline" [ref=e282]
+            - cell "Standard" [ref=e283]
+            - cell "--font-family-meta" [ref=e284]:
+              - code [ref=e285]: "--font-family-meta"
+            - cell "12px" [ref=e286]
+            - cell "500" [ref=e287]
+            - cell "1.3" [ref=e288]
+            - cell "--nui-text-secondary" [ref=e289]:
+              - code [ref=e290]: "--nui-text-secondary"
+          - row "Dateline Standard --font-family-meta 12px 600 1.3 --nui-text-primary" [ref=e291]:
+            - cell "Dateline" [ref=e292]
+            - cell "Standard" [ref=e293]
+            - cell "--font-family-meta" [ref=e294]:
+              - code [ref=e295]: "--font-family-meta"
+            - cell "12px" [ref=e296]
+            - cell "600" [ref=e297]
+            - cell "1.3" [ref=e298]
+            - cell "--nui-text-primary" [ref=e299]:
+              - code [ref=e300]: "--nui-text-primary"
+          - row "Caption Standard --font-family-body 13px 400 1.4 --nui-text-secondary" [ref=e301]:
+            - cell "Caption" [ref=e302]
+            - cell "Standard" [ref=e303]
+            - cell "--font-family-body" [ref=e304]:
+              - code [ref=e305]: "--font-family-body"
+            - cell "13px" [ref=e306]
+            - cell "400" [ref=e307]
+            - cell "1.4" [ref=e308]
+            - cell "--nui-text-secondary" [ref=e309]:
+              - code [ref=e310]: "--nui-text-secondary"
