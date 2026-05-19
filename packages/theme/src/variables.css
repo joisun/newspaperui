@@ -1,0 +1,127 @@
+/**
+ * NewspaperUI Theme Variables
+ * Global CSS variables for newspaper layout system
+ */
+
+:root {
+  /* ========== Color System ========== */
+  /* Primary text colors */
+  --nui-color-text-primary: #111111;
+  --nui-color-text-secondary: #222222;
+  --nui-color-text-tertiary: #333333;
+  --nui-color-text-quaternary: #444444;
+  --nui-color-text-muted: #555555;
+
+  /* Gray scale */
+  --nui-color-gray-50: #fafafa;
+  --nui-color-gray-100: #f5f5f5;
+  --nui-color-gray-200: #e5e5e5;
+  --nui-color-gray-300: #d4d4d4;
+  --nui-color-gray-400: #a3a3a3;
+  --nui-color-gray-500: #737373;
+  --nui-color-gray-600: #525252;
+  --nui-color-gray-700: #404040;
+  --nui-color-gray-800: #262626;
+  --nui-color-gray-900: #171717;
+
+  /* Accent colors */
+  --nui-color-accent-primary: #0066cc;
+  --nui-color-accent-secondary: #cc0000;
+  --nui-color-accent-tertiary: #006600;
+
+  /* ========== Spacing System ========== */
+  /* Gutter (column gap) */
+  --nui-gutter: 1rem;
+  --nui-gutter-sm: 0.75rem;
+  --nui-gutter-lg: 1.5rem;
+
+  /* Margin */
+  --nui-margin-xs: 0.25rem;
+  --nui-margin-sm: 0.5rem;
+  --nui-margin-md: 0.75rem;
+  --nui-margin-lg: 1rem;
+  --nui-margin-xl: 1.5rem;
+
+  /* Padding */
+  --nui-padding-xs: 0.25rem;
+  --nui-padding-sm: 0.5rem;
+  --nui-padding-md: 0.75rem;
+  --nui-padding-lg: 1rem;
+  --nui-padding-xl: 1.5rem;
+
+  /* ========== Font System ========== */
+  /* Serif fonts for headlines and body text */
+  --nui-font-serif: 'Georgia', 'Times New Roman', serif;
+  --nui-font-serif-display: 'Playfair Display', 'Georgia', serif;
+
+  /* Sans-serif fonts for UI elements */
+  --nui-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --nui-font-sans-condensed: 'Arial Narrow', 'Helvetica Condensed', sans-serif;
+
+  /* Monospace for code */
+  --nui-font-mono: 'Courier New', Courier, monospace;
+
+  /* ========== Grid System ========== */
+  /* 24-column grid */
+  --nui-grid-columns: 24;
+  --nui-grid-max-width: 1440px;
+  --nui-grid-container-padding: 2rem;
+
+  /* Responsive breakpoints */
+  --nui-breakpoint-sm: 768px;
+  --nui-breakpoint-md: 1024px;
+  --nui-breakpoint-lg: 1440px;
+
+  /* ========== Typography Scale ========== */
+  /* Font sizes */
+  --nui-font-size-xs: 0.75rem;    /* 12px */
+  --nui-font-size-sm: 0.875rem;   /* 14px */
+  --nui-font-size-base: 1rem;     /* 16px */
+  --nui-font-size-lg: 1.125rem;   /* 18px */
+  --nui-font-size-xl: 1.25rem;    /* 20px */
+  --nui-font-size-2xl: 1.5rem;    /* 24px */
+  --nui-font-size-3xl: 1.75rem;   /* 28px */
+  --nui-font-size-4xl: 2rem;      /* 32px */
+  --nui-font-size-5xl: 2.25rem;   /* 36px */
+  --nui-font-size-6xl: 3rem;      /* 48px */
+
+  /* Font weights */
+  --nui-font-weight-normal: 400;
+  --nui-font-weight-medium: 500;
+  --nui-font-weight-semibold: 600;
+  --nui-font-weight-bold: 700;
+
+  /* Line heights */
+  --nui-line-height-tight: 1.1;
+  --nui-line-height-snug: 1.2;
+  --nui-line-height-normal: 1.25;
+  --nui-line-height-relaxed: 1.3;
+  --nui-line-height-loose: 1.4;
+  --nui-line-height-body: 1.5;
+}
+
+[data-theme="dark"] {
+  /* Primary text colors */
+  --nui-color-text-primary: #eeeeee;
+  --nui-color-text-secondary: #dddddd;
+  --nui-color-text-tertiary: #cccccc;
+  --nui-color-text-quaternary: #bbbbbb;
+  --nui-color-text-muted: #aaaaaa;
+
+  /* Gray scale */
+  --nui-color-gray-50: #171717;
+  --nui-color-gray-100: #262626;
+  --nui-color-gray-200: #404040;
+  --nui-color-gray-300: #525252;
+  --nui-color-gray-400: #737373;
+  --nui-color-gray-500: #a3a3a3;
+  --nui-color-gray-600: #d4d4d4;
+  --nui-color-gray-700: #e5e5e5;
+  --nui-color-gray-800: #f5f5f5;
+  --nui-color-gray-900: #fafafa;
+
+  /* Accent colors */
+  --nui-color-accent-primary: #4da6ff;
+  --nui-color-accent-secondary: #ff6666;
+  --nui-color-accent-tertiary: #66cc66;
+}
