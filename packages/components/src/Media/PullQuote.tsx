@@ -1,61 +1,70 @@
-import React from 'react';
+'use client';
+import React, { ReactNode, CSSProperties } from 'react';
 import { visualWeights, resolveFontSize } from '@newspaperui/theme';
-import { calculateSpanWidth } from '@newspaperui/utils';
-import { useSection } from '../Section/Section';
+import { clampSpan, cx } from '@newspaperui/utils';
+import { useSection } from '../layout/Section';
 
 export interface PullQuoteProps {
   weight?: 'High' | 'Medium';
   span?: number;
+  spanAllColumns?: boolean;     // 在多栏 BodyText 内跨所有栏
   author?: string;
-  children: React.ReactNode;
+  align?: 'left' | 'center';
+  className?: string;
+  style?: CSSProperties;
+  children: ReactNode;
 }
 
 export const PullQuote: React.FC<PullQuoteProps> = ({
-  weight = 'High',
-  span,
-  author,
-  children,
+  weight = 'High', span, spanAllColumns = false, author, align = 'left',
+  className, style, children,
 }) => {
   const section = useSection();
-  const config = visualWeights.PullQuote[weight];
-
-  if (!config) {
-    throw new Error(`Invalid weight: ${weight} for PullQuote`);
-  }
-
-  const finalSpan = span || (Array.isArray(config.span) ? config.span[0] : config.span);
-  const width = calculateSpanWidth(finalSpan, section.columns);
-
+  const config = visualWeights.PullQuote[weight]!;
+  const cols = span ? clampSpan(span, section.columns) : undefined;
   return (
     <aside
-      className="newspaper-pull-quote"
+      className={cx(
+        'nui-pullquote nui-avoid-break nui-tnum',
+        spanAllColumns && 'nui-span-all-columns',
+        className,
+      )}
       style={{
-        fontSize: resolveFontSize(config.fontSize),
-        fontWeight: config.fontWeight,
-        lineHeight: config.lineHeight,
-        color: config.color,
         margin: config.margin,
-        width,
-        padding: 'var(--nui-padding-lg, 1rem)',
-        borderLeft: '4px solid var(--nui-color-accent-primary, currentColor)',
+        padding: 'var(--nui-space-4) 0',
+        borderTop: '1px solid var(--nui-rule-hairline)',
+        borderBottom: '1px solid var(--nui-rule-hairline)',
+        textAlign: align,
+        gridColumn: cols ? `span ${cols}` : undefined,
+        ...style,
       }}
-      data-weight={weight}
-      data-span={finalSpan}
     >
-      <blockquote style={{ margin: 0 }}>
+      <p
+        style={{
+          fontFamily: `var(${config.fontFamily})`,
+          fontSize: resolveFontSize(config.fontSize),
+          fontWeight: config.fontWeight,
+          lineHeight: config.lineHeight,
+          letterSpacing: config.letterSpacing,
+          color: `var(${config.color})`,
+          margin: 0,
+          textWrap: 'balance' as CSSProperties['textWrap'],
+        }}
+      >
         {children}
-      </blockquote>
+      </p>
       {author && (
-        <cite
+        <footer
+          className="nui-small-caps"
           style={{
-            display: 'block',
-            marginTop: '0.5rem',
-            fontSize: '0.875em',
-            fontStyle: 'normal',
+            marginTop: 'var(--nui-space-2)',
+            fontSize: '11px',
+            color: 'var(--nui-text-muted)',
+            letterSpacing: '0.08em',
           }}
         >
           — {author}
-        </cite>
+        </footer>
       )}
     </aside>
   );

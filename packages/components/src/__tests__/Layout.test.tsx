@@ -1,36 +1,39 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { Layout } from '../Layout/Layout';
-import { Section } from '../Section/Section';
+import { Layout, useLayout } from '../layout/Layout';
 
-describe('Layout Component', () => {
-  it('renders children correctly', () => {
+const ColumnsProbe = () => {
+  const { columns } = useLayout();
+  return <span data-testid="cols">{columns}</span>;
+};
+
+describe('Layout', () => {
+  it('renders children', () => {
     render(
       <Layout>
-        <div>Test Content</div>
-      </Layout>
+        <p>hello</p>
+      </Layout>,
     );
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
+    expect(screen.getByText('hello')).toBeInTheDocument();
   });
 
-  it('applies custom maxWidth and padding', () => {
+  it('provides default columns context of 24', () => {
+    render(
+      <Layout>
+        <ColumnsProbe />
+      </Layout>,
+    );
+    expect(screen.getByTestId('cols').textContent).toBe('24');
+  });
+
+  it('applies maxWidth and padding', () => {
     const { container } = render(
-      <Layout maxWidth="1200px" padding="2rem">
-        <div>Content</div>
-      </Layout>
+      <Layout maxWidth="900px" padding="16px">
+        <p>x</p>
+      </Layout>,
     );
-    const layout = container.querySelector('.newspaper-layout');
-    expect(layout).toHaveStyle({ maxWidth: '1200px', padding: '2rem' });
-  });
-
-  it('provides default columns value of 24', () => {
-    render(
-      <Layout>
-        <Section columns={12}>
-          <div>Test</div>
-        </Section>
-      </Layout>
-    );
-    expect(screen.getByText('Test')).toBeInTheDocument();
+    const root = container.firstChild as HTMLElement;
+    expect(root.style.maxWidth).toBe('900px');
+    expect(root.style.padding).toBe('16px');
   });
 });

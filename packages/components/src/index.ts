@@ -1,51 +1,43 @@
-/**
- * @newspaperui/components
- * React components for newspaperui
- */
+import '@newspaperui/theme';
 
-// Layout components
-export { Layout, useLayout } from './Layout/Layout';
-export type { LayoutProps } from './Layout/Layout';
+// layout
+export { Layout, useLayout } from './layout/Layout';
+export type { LayoutProps } from './layout/Layout';
+export { Section, useSection } from './layout/Section';
+export type { SectionProps } from './layout/Section';
+export { Article } from './layout/Article';
+export type { ArticleProps } from './layout/Article';
+export { Layer } from './layout/Layer';
+export type { LayerProps } from './layout/Layer';
+export { Masthead } from './layout/Masthead';
+export type { MastheadProps } from './layout/Masthead';
+export { Rule } from './layout/Rule';
+export type { RuleProps } from './layout/Rule';
 
-export { Section, useSection } from './Section/Section';
-export type { SectionProps } from './Section/Section';
+// text
+export { Headline } from './text/Headline';
+export type { HeadlineProps } from './text/Headline';
+export { Subhead } from './text/Subhead';
+export type { SubheadProps } from './text/Subhead';
+export { Kicker } from './text/Kicker';
+export type { KickerProps } from './text/Kicker';
+export { BodyText } from './text/BodyText';
+export type { BodyTextProps } from './text/BodyText';
+export { Quote } from './text/Quote';
+export type { QuoteProps } from './text/Quote';
+export { Byline } from './text/Byline';
+export type { BylineProps } from './text/Byline';
+export { Dateline } from './text/Dateline';
+export type { DatelineProps } from './text/Dateline';
+export { Caption } from './text/Caption';
+export type { CaptionProps } from './text/Caption';
 
-export { Article } from './Article/Article';
-export type { ArticleProps } from './Article/Article';
-
-export { Layer } from './Layer/Layer';
-export type { LayerProps } from './Layer/Layer';
-
-// Text components
-export { Headline } from './Text/Headline';
-export type { HeadlineProps } from './Text/Headline';
-
-export { Subhead } from './Text/Subhead';
-export type { SubheadProps } from './Text/Subhead';
-
-export { BodyText } from './Text/BodyText';
-export type { BodyTextProps } from './Text/BodyText';
-
-export { Quote } from './Text/Quote';
-export type { QuoteProps } from './Text/Quote';
-
-export { Byline } from './Text/Byline';
-export type { BylineProps } from './Text/Byline';
-
-export { Caption } from './Text/Caption';
-export type { CaptionProps } from './Text/Caption';
-
-// Media components
-export { Image } from './Media/Image';
-export type { ImageProps } from './Media/Image';
-
-export { Figure } from './Media/Figure';
-export type { FigureProps } from './Media/Figure';
-
-export { Video } from './Media/Video';
-export type { VideoProps } from './Media/Video';
-
-export { PullQuote } from './Media/PullQuote';
-export type { PullQuoteProps } from './Media/PullQuote';
-
-export const version = '0.0.0';
+// media
+export { Image } from './media/Image';
+export type { ImageProps } from './media/Image';
+export { Figure } from './media/Figure';
+export type { FigureProps } from './media/Figure';
+export { Video } from './media/Video';
+export type { VideoProps } from './media/Video';
+export { PullQuote } from './media/PullQuote';
+export type { PullQuoteProps } from './media/PullQuote';

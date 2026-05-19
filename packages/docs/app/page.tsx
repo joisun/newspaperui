@@ -1,102 +1,208 @@
 'use client';
 
-import { Demo } from '@/components/Demo';
-import { Layout, Section, Article } from '@newspaperui/components';
-import { Headline, BodyText } from '@newspaperui/components';
+import {
+  Layout, Section, Article, Masthead, Rule,
+  Headline, Subhead, Kicker, BodyText, Byline, Dateline,
+  Figure, PullQuote,
+} from '@newspaperui/components';
 
-export default function HomePage() {
+export default function FrontPage() {
   return (
-    <div className="prose prose-lg max-w-none">
-      <h1>NewspaperUI</h1>
-      <p className="text-xl text-gray-600">
-        生产级报纸布局组件库，参考 InDesign 设计理念，支持 24 列栅格、跨栏、视觉权重和主题系统。
-      </p>
+    <Layout columns={24} maxWidth="1200px" padding="2rem 1.5rem">
+      <Masthead
+        variant="classic"
+        kicker="Late City Edition"
+        title="The Daily Chronicle"
+        edition="Vol. CXLIX · No. 51,895"
+        date="Tuesday, May 19, 2026"
+        price="$4.00"
+      />
 
-      <h2>设计理念</h2>
-      <p>
-        NewspaperUI 借鉴专业排版软件 InDesign 的设计思想，为 Web 应用提供报纸风格的布局能力。
-        组件设计遵循少而精、职责明确、无冗余、无歧义的原则。
-      </p>
+      <Section columns={24} divider="bottom" gap="2rem" style={{ marginTop: '2rem' }}>
+        <Article span={5} style={{ borderRight: '1px solid var(--nui-rule-hairline)', paddingRight: '1.5rem' }}>
+          <Kicker>Inside Today</Kicker>
+          <Headline weight="Low" as="h3" style={{ marginTop: 0 }}>
+            Senate Approves Climate Resolution After Months of Debate
+          </Headline>
+          <BodyText weight="Low">
+            <p>The unanimous vote concludes a contentious legislative session marked by partisan disputes
+            and last-minute amendments. Page A6.</p>
+          </BodyText>
 
-      <h2>核心特性</h2>
-      <ul>
-        <li><strong>24 列栅格系统</strong> - 灵活的栅格布局，支持精确的列控制</li>
-        <li><strong>跨栏布局</strong> - 内容可以跨越多列，实现复杂的报纸排版</li>
-        <li><strong>视觉权重系统</strong> - High/Medium/Low 三级权重，自动映射字体大小和样式</li>
-        <li><strong>主题系统</strong> - 基于 CSS Variables，支持主题切换和自定义</li>
-        <li><strong>响应式设计</strong> - 小屏自动调整为 12-16 列，保持良好的阅读体验</li>
-        <li><strong>浮动 Layer</strong> - 支持绝对定位的浮动元素，如广告、拉引等</li>
-      </ul>
+          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
 
-      <h2>快速开始</h2>
+          <Headline weight="Low" as="h3">Tech Sector Gains as Inflation Eases</Headline>
+          <BodyText weight="Low">
+            <p>Major indices climbed for a fifth consecutive session as new data showed price growth
+            slowing across consumer goods. Business B1.</p>
+          </BodyText>
 
-      <h3>安装</h3>
-      <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-        <code>pnpm add @newspaperui/components @newspaperui/theme</code>
-      </pre>
+          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
 
-      <h3>基础使用</h3>
-      <Demo
-        title="简单的报纸布局"
-        description="使用 Layout 和 Section 创建基础的栅格布局"
-        code={`import { Layout, Section, Article, Headline, BodyText } from '@newspaperui/components';
+          <Headline weight="Low" as="h3">Drought Conditions Worsen Across the Plains</Headline>
+          <BodyText weight="Low">
+            <p>Officials in seven states have requested federal disaster relief as reservoir levels reach
+            historic lows. National A12.</p>
+          </BodyText>
 
-function MyPage() {
-  return (
-    <Layout columns={24}>
-      <Section columns={8}>
-        <Article span={8}>
-          <Headline weight="High">主要新闻标题</Headline>
-          <BodyText>这是一篇重要的新闻内容...</BodyText>
+          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
+
+          <Headline weight="Low" as="h3">New Exhibit Opens at the Metropolitan</Headline>
+          <BodyText weight="Low">
+            <p>A retrospective of mid-century textile design draws record opening crowds. Arts C3.</p>
+          </BodyText>
+        </Article>
+
+        <Article span={14}>
+          <div style={{ textAlign: 'center' }}><Kicker>Capitol · Breaking</Kicker></div>
+          <Headline weight="High" align="center">
+            Historic Accord Reshapes Continental Trade After Marathon Session
+          </Headline>
+          <Subhead weight="High" style={{ textAlign: 'center', marginTop: 0 }}>
+            Negotiators emerge with sweeping framework on tariffs, labor, and emissions; ratification expected within weeks
+          </Subhead>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', margin: '0.5rem 0 1rem', alignItems: 'baseline' }}>
+            <Byline>By Eleanor Whitcombe and Marcus Reyes</Byline>
+            <span style={{ color: 'var(--nui-text-muted)' }}>·</span>
+            <span style={{ fontFamily: 'var(--font-family-meta)', fontSize: '12px', color: 'var(--nui-text-muted)' }}>5 min read</span>
+          </div>
+
+          <Figure
+            src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?auto=format&fit=crop&w=1200&q=80"
+            alt="Diplomats applaud after the final draft was approved"
+            caption="Negotiators applaud after the final draft was approved Monday evening at the Continental Conference Center."
+            credit="Photograph by Jane Doe / Pool"
+          />
+
+          <BodyText weight="High" columns={3} dropCap style={{ marginTop: '1.5rem' }}>
+            <p><Dateline>Brussels —</Dateline> After eleven consecutive days of negotiation that several
+            participants described as the most demanding in a generation, delegates from twenty-three nations
+            announced on Monday a sweeping framework to reorganize commerce across the continent. The accord,
+            which still requires ratification by member parliaments, would harmonize tariff schedules, set
+            common labor standards, and bind signatories to a shared emissions pathway through 2040.</p>
+
+            <p>Officials briefed on the talks said the breakthrough came shortly before midnight, when a
+            dispute over agricultural subsidies was resolved with a side letter granting transitional relief
+            to producers in five smaller economies. The chief negotiator, Margarethe Lindqvist, called the
+            outcome &ldquo;a long argument that finally became a conversation.&rdquo;</p>
+
+            <p>The framework&rsquo;s most consequential provisions target heavy industry. Cement, steel, and
+            chemical producers would face a graduated carbon levy beginning in 2028, with revenues recycled
+            into a continental investment fund for low-carbon manufacturing. Industry associations expressed
+            cautious support, while environmental groups praised the levy&rsquo;s binding architecture but warned
+            that the timeline gives polluters too much room to delay.</p>
+
+            <p>Markets reacted with measured optimism. The continental composite index closed up 1.2 percent,
+            led by capital-goods makers expected to benefit from infrastructure investment. The currency
+            strengthened against the dollar by 0.7 percent. Bond yields, which had climbed throughout the
+            negotiations on fiscal-stability concerns, retreated to levels seen before the talks began.</p>
+
+            <p>Domestic political reaction was mixed. The accord&rsquo;s labor provisions, which establish minimum
+            standards for paid leave and collective bargaining, drew immediate praise from union federations
+            and equally immediate concern from chambers of commerce. The chairman of the Federation of
+            Industries warned that small firms would struggle with compliance costs absent transitional support.</p>
+
+            <p>Parliamentary leaders in three capitals signaled that ratification could occur before the
+            summer recess. Two governments, however, indicated that they would seek public referenda before
+            committing, a process likely to extend into the autumn. Analysts at the Centre for Trade Studies
+            estimated that full implementation, even on the most expedited timeline, would require at least
+            eighteen months.</p>
+
+            <p>For ordinary travelers and consumers, the immediate effects will be modest. Border procedures
+            and product standards remain governed by existing arrangements pending ratification. The longer
+            arc is what matters: a continent of historically fractious neighbors agreeing on a single set of
+            rules for the most consequential decade in living memory.</p>
+          </BodyText>
+
+          <PullQuote weight="High" author="Margarethe Lindqvist, Chief Negotiator" align="center" style={{ margin: '2rem 0' }}>
+            A long argument that finally became a conversation.
+          </PullQuote>
+
+          <BodyText weight="High" columns={2} style={{ marginTop: '1rem' }}>
+            <p>The accord&rsquo;s signing ceremony, originally scheduled for last Friday, was delayed three times
+            as drafters reconciled competing texts on dispute resolution. The final compromise establishes
+            an arbitration panel of nine jurists, three appointed by each of the bloc&rsquo;s three regional
+            groupings, with binding authority over commercial disputes exceeding twenty million units.</p>
+
+            <p>Critics on the populist right denounced the framework as an erosion of national sovereignty,
+            while critics on the left argued that the labor floor was set too low to meaningfully protect
+            workers in tighter regulatory regimes. Both camps signaled that ratification battles would be
+            fierce, particularly in legislatures with narrow majorities.</p>
+          </BodyText>
+        </Article>
+
+        <Article span={5} style={{ borderLeft: '1px solid var(--nui-rule-hairline)', paddingLeft: '1.5rem' }}>
+          <Kicker>Foreign Desk</Kicker>
+          <Headline weight="Medium" as="h2">
+            Coastal Nations Pledge Joint Action on Maritime Pollution
+          </Headline>
+          <Subhead weight="Medium">
+            Pact follows years of stalled regional talks and a cascade of recent shipping accidents.
+          </Subhead>
+          <Byline>By Tomás Almeida</Byline>
+
+          <BodyText weight="Medium" style={{ marginTop: '0.75rem' }}>
+            <p><Dateline>Lisbon —</Dateline> Eleven coastal nations announced a binding compact to coordinate
+            cleanup operations and harmonize liability rules for vessels exceeding fifty thousand tons. The
+            agreement establishes a shared rapid-response fund and creates a regional inspectorate empowered
+            to detain non-compliant ships in any signatory port.</p>
+
+            <p>Maritime industry groups received the news with caution. A spokesperson for the Continental
+            Shipping Council acknowledged that &ldquo;stronger common rules are overdue&rdquo; but warned that
+            implementation costs could fall disproportionately on smaller operators.</p>
+
+            <p>The compact takes effect on January 1, pending technical annexes. Environmental observers
+            described the pact as the most consequential maritime accord in a decade.</p>
+          </BodyText>
         </Article>
       </Section>
 
-      <Section columns={16}>
-        <Article span={8}>
-          <Headline weight="Medium">次要新闻</Headline>
-          <BodyText>这是另一篇新闻...</BodyText>
-        </Article>
-        <Article span={8}>
-          <Headline weight="Medium">更多新闻</Headline>
-          <BodyText>更多内容...</BodyText>
+      <Section columns={24} divider="top" gap="2rem" style={{ marginTop: '2rem', paddingTop: '2rem' }}>
+        <Article span={24}>
+          <Kicker>National · Investigation</Kicker>
+          <Headline weight="Medium" as="h2">
+            Records Reveal Years of Overlooked Warnings at Aging Reservoirs
+          </Headline>
+          <Subhead weight="Medium">
+            Internal inspection memoranda, obtained through public records requests, suggest that
+            structural concerns flagged repeatedly by field engineers were not escalated to senior staff.
+          </Subhead>
+          <Byline style={{ marginBottom: '1rem' }}>By Ravi Nair, Anita Kowalski, and Charles Weston</Byline>
+
+          <BodyText weight="High" columns={4}>
+            <p><Dateline>Sacramento —</Dateline> A six-month review of more than four thousand pages of
+            inspection records, interviews with twenty-three current and former engineers, and reconstructions
+            of three near-failure incidents reveals a pattern of unheeded warnings about the structural
+            integrity of mid-twentieth-century earthen dams across the western states.</p>
+
+            <p>The records show that field engineers documented concerns about seepage, erosion, and spillway
+            capacity in repeated annual assessments dating back at least fifteen years. In several instances,
+            those concerns were rated &ldquo;moderate&rdquo; in the field reports but downgraded to &ldquo;low&rdquo; by the time they
+            reached senior officials. The pattern was particularly pronounced at three facilities serving
+            regions of more than two million residents.</p>
+
+            <p>Officials at the Department of Water Resources, asked to review excerpts of the records, said
+            in a written statement that &ldquo;every reservoir under our oversight has been deemed safe for current
+            operations&rdquo; but did not specifically address the discrepancies between field and final ratings.
+            The agency declined to make senior staff available for interviews.</p>
+
+            <p>The findings come amid renewed scrutiny of aging infrastructure following the partial collapse
+            of an earthen embankment in March that displaced more than fifteen hundred residents. Federal
+            inspectors who responded to that incident found the proximate cause to be precisely the type of
+            seepage concern that field engineers had flagged in three of the past four annual assessments.</p>
+
+            <p>The investigative review found that of forty-seven reservoirs surveyed, sixteen had at least
+            one instance in which a &ldquo;moderate&rdquo; or &ldquo;high&rdquo; field rating was downgraded before reaching senior
+            management. In nine cases, the downgrades persisted for three or more consecutive years. None of
+            the affected facilities have publicly disclosed the discrepancies.</p>
+
+            <p>Engineering professional associations have, in recent years, called for an independent review
+            of inspection workflows in the western states. A spokesperson for the Society of Hydraulic
+            Engineers said the Society was &ldquo;deeply concerned&rdquo; by the patterns described and would convene a
+            working group to examine reform options.</p>
+          </BodyText>
         </Article>
       </Section>
     </Layout>
-  );
-}`}
-      >
-        <Layout columns={24}>
-          <Section columns={8}>
-            <Article span={8}>
-              <Headline weight="High">主要新闻标题</Headline>
-              <BodyText>这是一篇重要的新闻内容，使用 High 权重的标题和正文文本。</BodyText>
-            </Article>
-          </Section>
-
-          <Section columns={16}>
-            <Article span={8}>
-              <Headline weight="Medium">次要新闻</Headline>
-              <BodyText>这是另一篇新闻，使用 Medium 权重。</BodyText>
-            </Article>
-            <Article span={8}>
-              <Headline weight="Medium">更多新闻</Headline>
-              <BodyText>更多内容在这里展示。</BodyText>
-            </Article>
-          </Section>
-        </Layout>
-      </Demo>
-
-      <h2>下一步</h2>
-      <p>
-        探索文档了解更多功能：
-      </p>
-      <ul>
-        <li><a href="/grid-system">栅格系统</a> - 了解 24 列栅格的工作原理</li>
-        <li><a href="/components/article">核心组件</a> - 学习 Article、Layer 等核心组件</li>
-        <li><a href="/text">文本组件</a> - 掌握视觉权重系统</li>
-        <li><a href="/theme">主题系统</a> - 自定义主题和样式</li>
-        <li><a href="/examples/spanning">示例</a> - 查看完整的布局示例</li>
-      </ul>
-    </div>
   );
 }

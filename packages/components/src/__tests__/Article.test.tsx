@@ -1,51 +1,46 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
-import { Layout } from '../Layout/Layout';
-import { Section } from '../Section/Section';
-import { Article } from '../Article/Article';
+import { Layout } from '../layout/Layout';
+import { Section } from '../layout/Section';
+import { Article } from '../layout/Article';
 
-describe('Article Component', () => {
-  it('renders children correctly', () => {
+describe('Article', () => {
+  it('applies grid-column span N when span is provided', () => {
     const { container } = render(
       <Layout>
         <Section columns={12}>
-          <Article span={6}>
-            <div>Article Content</div>
-          </Article>
+          <Article span={6}>x</Article>
         </Section>
-      </Layout>
+      </Layout>,
     );
-    expect(container.textContent).toContain('Article Content');
+    const article = container.querySelector('article') as HTMLElement;
+    expect(article.style.gridColumn).toBe('span 6');
+    expect(article.getAttribute('data-span')).toBe('6');
   });
 
-  it('clamps span exceeding section columns and warns', () => {
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    render(
-      <Layout>
-        <Section columns={12}>
-          <Article span={15}>
-            <div>Clamped</div>
-          </Article>
-        </Section>
-      </Layout>
-    );
-    expect(warnSpy).toHaveBeenCalledWith(
-      '[Article] span=15 exceeds section.columns=12, clamped to 12'
-    );
-    warnSpy.mockRestore();
-  });
-
-  it('applies correct grid-column span based on span', () => {
+  it('defaults to filling section.columns when span is omitted', () => {
     const { container } = render(
       <Layout>
-        <Section columns={12}>
-          <Article span={6}>
-            <div>Half Width</div>
-          </Article>
+        <Section columns={8}>
+          <Article>x</Article>
         </Section>
-      </Layout>
+      </Layout>,
     );
-    const article = container.querySelector('.newspaper-article');
-    expect(article).toHaveStyle({ gridColumn: 'span 6' });
+    const article = container.querySelector('article') as HTMLElement;
+    expect(article.style.gridColumn).toBe('span 8');
+    expect(article.getAttribute('data-span')).toBe('8');
+  });
+
+  it('clamps span when exceeding section.columns', () => {
+    const { container } = render(
+      <Layout>
+        <Section columns={6}>
+          <Article span={20}>x</Article>
+        </Section>
+      </Layout>,
+    );
+    const article = container.querySelector('article') as HTMLElement;
+    expect(article.style.gridColumn).toBe('span 6');
+    expect(article.getAttribute('data-span')).toBe('6');
   });
 });

@@ -12,6 +12,7 @@
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
+    "./dist/style.css": "./dist/style.css",
     "./variables.css": "./src/variables.css",
     "./tailwind.config": "./src/tailwind.config.js"
   },

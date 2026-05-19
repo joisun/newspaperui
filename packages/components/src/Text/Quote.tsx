@@ -1,42 +1,50 @@
-import React from 'react';
+'use client';
+import React, { ReactNode, CSSProperties } from 'react';
 import { visualWeights, resolveFontSize } from '@newspaperui/theme';
-import { calculateSpanWidth } from '@newspaperui/utils';
-import { useSection } from '../Section/Section';
+import { clampSpan, cx } from '@newspaperui/utils';
+import { useSection } from '../layout/Section';
 
 export interface QuoteProps {
+  variant?: 'block' | 'inline';
   weight?: 'High' | 'Medium';
   span?: number;
-  children: React.ReactNode;
+  cite?: string;
+  className?: string;
+  style?: CSSProperties;
+  children: ReactNode;
 }
 
 export const Quote: React.FC<QuoteProps> = ({
-  weight = 'Medium',
-  span,
-  children,
+  variant = 'block', weight = 'Medium', span, cite, className, style, children,
 }) => {
   const section = useSection();
-  const config = visualWeights.Quote[weight];
+  const config = visualWeights.Quote[weight]!;
+  const cols = span ? clampSpan(span, section.columns) : undefined;
 
-  if (!config) {
-    throw new Error(`Invalid weight: ${weight} for Quote`);
+  if (variant === 'inline') {
+    return (
+      <em className={cx('nui-quote nui-quote--inline', className)} style={style}>
+        {children}
+      </em>
+    );
   }
-
-  const finalSpan = span || (Array.isArray(config.span) ? config.span[0] : config.span);
-  const width = calculateSpanWidth(finalSpan, section.columns);
 
   return (
     <blockquote
-      className="newspaper-quote"
+      cite={cite}
+      className={cx('nui-quote nui-quote--block nui-osf', className)}
       style={{
+        fontFamily: `var(${config.fontFamily})`,
         fontSize: resolveFontSize(config.fontSize),
         fontWeight: config.fontWeight,
         lineHeight: config.lineHeight,
-        color: config.color,
+        color: `var(${config.color})`,
         margin: config.margin,
-        width,
+        gridColumn: cols ? `span ${cols}` : undefined,
+        borderLeft: 'none',
+        ...style,
       }}
       data-weight={weight}
-      data-span={finalSpan}
     >
       {children}
     </blockquote>

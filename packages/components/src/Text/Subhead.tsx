@@ -1,44 +1,42 @@
-import React from 'react';
+'use client';
+import React, { ReactNode, CSSProperties } from 'react';
 import { visualWeights, resolveFontSize } from '@newspaperui/theme';
-import { calculateSpanWidth } from '@newspaperui/utils';
-import { useSection } from '../Section/Section';
+import { clampSpan, cx } from '@newspaperui/utils';
+import { useSection } from '../layout/Section';
 
 export interface SubheadProps {
   weight?: 'High' | 'Medium';
   span?: number;
-  children: React.ReactNode;
+  as?: 'h2' | 'h3' | 'h4' | 'p';
+  className?: string;
+  style?: CSSProperties;
+  children: ReactNode;
 }
 
 export const Subhead: React.FC<SubheadProps> = ({
-  weight = 'Medium',
-  span,
-  children,
+  weight = 'Medium', span, as = 'p', className, style, children,
 }) => {
   const section = useSection();
-  const config = visualWeights.Subhead[weight];
-
-  if (!config) {
-    throw new Error(`Invalid weight: ${weight} for Subhead`);
-  }
-
-  const finalSpan = span || (Array.isArray(config.span) ? config.span[0] : config.span);
-  const width = calculateSpanWidth(finalSpan, section.columns);
-
+  const config = visualWeights.Subhead[weight]!;
+  const Tag = as as keyof JSX.IntrinsicElements;
+  const cols = span ? clampSpan(span, section.columns) : undefined;
   return (
-    <h2
-      className="newspaper-subhead"
+    <Tag
+      className={cx('nui-subhead nui-osf', className)}
       style={{
+        fontFamily: `var(${config.fontFamily})`,
         fontSize: resolveFontSize(config.fontSize),
         fontWeight: config.fontWeight,
+        fontStyle: config.fontStyle,
         lineHeight: config.lineHeight,
-        color: config.color,
+        color: `var(${config.color})`,
         margin: config.margin,
-        width,
+        gridColumn: cols ? `span ${cols}` : undefined,
+        ...style,
       }}
       data-weight={weight}
-      data-span={finalSpan}
     >
       {children}
-    </h2>
+    </Tag>
   );
 };

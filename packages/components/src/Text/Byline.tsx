@@ -1,26 +1,28 @@
-import React from 'react';
+'use client';
+import React, { ReactNode, CSSProperties } from 'react';
 import { visualWeights, resolveFontSize } from '@newspaperui/theme';
+import { cx } from '@newspaperui/utils';
 
 export interface BylineProps {
-  children: React.ReactNode;
+  className?: string;
+  style?: CSSProperties;
+  children: ReactNode;          // e.g. "BY ALICE SMITH"
 }
 
-export const Byline: React.FC<BylineProps> = ({ children }) => {
-  const config = visualWeights.Byline.Standard;
-
-  if (!config) {
-    throw new Error('Byline configuration not found');
-  }
-
+export const Byline: React.FC<BylineProps> = ({ className, style, children }) => {
+  const config = visualWeights.Byline.Standard!;
   return (
     <div
-      className="newspaper-byline"
+      className={cx('nui-byline nui-small-caps', className)}
       style={{
+        fontFamily: `var(${config.fontFamily})`,
         fontSize: resolveFontSize(config.fontSize),
         fontWeight: config.fontWeight,
         lineHeight: config.lineHeight,
-        color: config.color,
+        letterSpacing: config.letterSpacing,
+        color: `var(${config.color})`,
         margin: config.margin,
+        ...style,
       }}
     >
       {children}

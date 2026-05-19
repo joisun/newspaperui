@@ -1,46 +1,49 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render } from '@testing-library/react';
-import { Layout } from '../Layout/Layout';
-import { Section } from '../Section/Section';
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { Layout } from '../layout/Layout';
+import { Section, useSection } from '../layout/Section';
 
-describe('Section Component', () => {
-  it('renders children correctly', () => {
-    const { container } = render(
-      <Layout>
-        <Section columns={12}>
-          <div>Section Content</div>
-        </Section>
-      </Layout>
-    );
-    expect(container.textContent).toContain('Section Content');
-  });
+const ColsProbe = () => {
+  const { columns } = useSection();
+  return <span data-testid="section-cols">{columns}</span>;
+};
 
-  it('clamps columns exceeding layout columns and warns', () => {
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+describe('Section', () => {
+  it('applies grid-template-columns repeat', () => {
     const { container } = render(
       <Layout columns={24}>
-        <Section columns={30}>
-          <div>Clamped</div>
+        <Section columns={12}>
+          <p>x</p>
         </Section>
-      </Layout>
+      </Layout>,
     );
-    expect(warnSpy).toHaveBeenCalledWith(
-      '[Section] columns=30 exceeds layout.columns=24, clamped to 24'
-    );
-    const section = container.querySelector('.newspaper-section');
-    expect(section).toHaveStyle({ gridTemplateColumns: 'repeat(24, 1fr)' });
-    warnSpy.mockRestore();
+    const section = container.querySelector('section') as HTMLElement;
+    expect(section.style.display).toBe('grid');
+    expect(section.style.gridTemplateColumns).toBe('repeat(12, 1fr)');
+    expect(section.getAttribute('data-columns')).toBe('12');
   });
 
-  it('applies custom padding and margin', () => {
+  it('clamps columns when exceeding layout.columns', () => {
+    render(
+      <Layout columns={12}>
+        <Section columns={24}>
+          <ColsProbe />
+        </Section>
+      </Layout>,
+    );
+    expect(screen.getByTestId('section-cols').textContent).toBe('12');
+  });
+
+  it('applies top and bottom borders when divider="both"', () => {
     const { container } = render(
       <Layout>
-        <Section columns={12} padding="1rem" margin="2rem">
-          <div>Content</div>
+        <Section columns={12} divider="both">
+          <p>x</p>
         </Section>
-      </Layout>
+      </Layout>,
     );
-    const section = container.querySelector('.newspaper-section');
-    expect(section).toHaveStyle({ padding: '1rem', margin: '2rem' });
+    const section = container.querySelector('section') as HTMLElement;
+    expect(section.style.borderTop).toContain('1px');
+    expect(section.style.borderBottom).toContain('1px');
   });
 });
