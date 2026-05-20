@@ -7,6 +7,7 @@ const navItems = [
   { label: 'Components', href: '/components/article' },
   { label: 'Themes', href: '/theme' },
   { label: 'Blocks', href: '/blocks' },
+  { label: 'Create', href: '/create' },
 ];
 
 export function Header() {
