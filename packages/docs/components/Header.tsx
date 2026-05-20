@@ -70,7 +70,7 @@ export function Header() {
             );
           })}
           <a
-            href="https://github.com"
+            href="https://github.com/joisun/newspaperui"
             target="_blank"
             rel="noreferrer"
             style={{
