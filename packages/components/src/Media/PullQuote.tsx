@@ -15,6 +15,18 @@ export interface PullQuoteProps {
   children: ReactNode;
 }
 
+/**
+ * PullQuote — 拉引（上下双 hairline + Display 字体）
+ *
+ * - 上下 hairline 边框包裹，Display 字体突出引文
+ * - 支持 spanAllColumns 跨越多栏 BodyText 的所有列
+ * - 可附带 author 署名（small-caps 样式）
+ *
+ * @example
+ * <PullQuote weight="High" author="Jane Doe" align="center">
+ *   "Design is not just what it looks like — design is how it works."
+ * </PullQuote>
+ */
 export const PullQuote: React.FC<PullQuoteProps> = ({
   weight = 'High', span, spanAllColumns = false, author, align = 'left',
   className, style, children,

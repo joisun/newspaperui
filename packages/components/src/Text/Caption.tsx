@@ -10,6 +10,18 @@ export interface CaptionProps {
   children: ReactNode;
 }
 
+/**
+ * Caption — 图片说明（italic + credit small-caps）
+ *
+ * - 主体文字为 italic 衬线，描述图片内容
+ * - credit 部分以 small-caps 显示摄影师/来源信息
+ * - 渲染为 figcaption，语义化配合 Figure 使用
+ *
+ * @example
+ * <Caption credit="Photograph by Jane Doe">
+ *   A view of the city skyline at sunset.
+ * </Caption>
+ */
 export const Caption: React.FC<CaptionProps> = ({ credit, className, style, children }) => {
   const config = visualWeights.Caption.Standard!;
   return (

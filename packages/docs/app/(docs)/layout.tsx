@@ -2,7 +2,7 @@ import { Sidebar } from '../../components/Sidebar';
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', minHeight: 'calc(100vh - 65px)' }}>
       <Sidebar />
       <main
         style={{

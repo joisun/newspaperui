@@ -18,6 +18,18 @@ export interface HeadlineProps {
   children: ReactNode;
 }
 
+/**
+ * Headline — 标题（High/Medium/Low 三档，自动映射 h1/h2/h3）
+ *
+ * - 根据 weight 自动选择语义标签（h1/h2/h3），也可通过 as 覆盖
+ * - 字号、行高、字重由 visualWeights 数据驱动
+ * - 支持 text-wrap: balance 自动平衡换行
+ *
+ * @example
+ * <Headline weight="High" span={14}>
+ *   Breaking: Major Event Unfolds
+ * </Headline>
+ */
 export const Headline: React.FC<HeadlineProps> = ({
   weight = 'High', span, as, align, className, style, children,
 }) => {

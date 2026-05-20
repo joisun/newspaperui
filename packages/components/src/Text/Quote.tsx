@@ -14,6 +14,18 @@ export interface QuoteProps {
   children: ReactNode;
 }
 
+/**
+ * Quote — 引用（block 左缩进 / inline italic）
+ *
+ * - block 模式：渲染为 blockquote，支持 cite 属性和 span 跨栏
+ * - inline 模式：渲染为 em 标签，适合行内引用
+ * - 字号和样式由 visualWeights 数据驱动
+ *
+ * @example
+ * <Quote variant="block" weight="High" cite="https://source.com">
+ *   "The truth is rarely pure and never simple."
+ * </Quote>
+ */
 export const Quote: React.FC<QuoteProps> = ({
   variant = 'block', weight = 'Medium', span, cite, className, style, children,
 }) => {

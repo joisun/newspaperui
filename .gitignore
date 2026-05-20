@@ -43,3 +43,7 @@ coverage
 # Misc
 .cache
 .temp
+
+# IDE / tools
+.playwright-mcp/
+screenshots/

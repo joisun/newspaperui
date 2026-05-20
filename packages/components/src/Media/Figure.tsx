@@ -14,6 +14,22 @@ export interface FigureProps {
   style?: CSSProperties;
 }
 
+/**
+ * Figure — 图文组合（img + Caption）
+ *
+ * - 将图片与 Caption 组合为语义化 figure 元素
+ * - 支持 caption 文字说明和 credit 来源标注
+ * - 自动避免 print 分页断开（break-inside: avoid）
+ *
+ * @example
+ * <Figure
+ *   src="/photo.jpg"
+ *   alt="City skyline"
+ *   caption="Downtown at dusk"
+ *   credit="Photo by John"
+ *   span={10}
+ * />
+ */
 export const Figure: React.FC<FigureProps> = ({
   src, alt, caption, credit, span, className, style,
 }) => {

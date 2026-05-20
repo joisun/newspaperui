@@ -7,6 +7,13 @@
   --font-family-body: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-family-meta: "Inter", system-ui, sans-serif;
 
+  /* CJK font families */
+  --font-family-cjk-serif: "Noto Serif SC", "Noto Serif JP", "Source Serif 4", serif;
+  --font-family-cjk-jp: "Noto Serif JP", "Source Serif 4", serif;
+
+  /* CJK accent (Chinese newspaper red, restrained) */
+  --nui-accent-cjk-red: #CC2929;
+
   /* page background */
   --nui-bg-page: #F7F4ED;
   --nui-bg-surface: #FBF9F4;

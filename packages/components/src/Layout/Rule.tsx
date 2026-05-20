@@ -10,6 +10,16 @@ export interface RuleProps {
   style?: CSSProperties;
 }
 
+/**
+ * Rule — 分隔线（hairline/double/thick）
+ *
+ * - 支持水平和垂直方向
+ * - hairline: 1px 细线；double: 双线装饰；thick: 3px 粗线
+ * - 水平模式下可通过 span 控制跨栏宽度
+ *
+ * @example
+ * <Rule variant="double" orientation="horizontal" />
+ */
 export const Rule: React.FC<RuleProps> = ({
   variant = 'hairline', orientation = 'horizontal', span, className, style,
 }) => {

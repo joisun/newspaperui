@@ -11,6 +11,19 @@ export interface ArticleProps {
   children: ReactNode;
 }
 
+/**
+ * Article — 文章块，grid-column span 跨栏
+ *
+ * - 通过 span 属性控制在 Section 栅格中占据的列数
+ * - 自动 clamp 到父 Section 的最大列数
+ * - 支持 print 分页控制（breakable）
+ *
+ * @example
+ * <Article span={14} breakable={false}>
+ *   <Headline weight="High">Breaking News</Headline>
+ *   <BodyText columns={2}>...</BodyText>
+ * </Article>
+ */
 export const Article: React.FC<ArticleProps> = ({
   span, breakable = true, className, style, children,
 }) => {

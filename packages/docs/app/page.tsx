@@ -1,205 +1,276 @@
 'use client';
 
 import {
-  Layout, Section, Article, Masthead, Rule,
-  Headline, Subhead, Kicker, BodyText, Byline, Dateline,
-  Figure, PullQuote,
+  Layout,
+  Section,
+  Article,
+  Masthead,
+  Headline,
+  Subhead,
+  Kicker,
+  BodyText,
 } from '@newspaperui/components';
+import Link from 'next/link';
 
-export default function FrontPage() {
+const demos = [
+  {
+    href: '/blocks/zh-frontpage',
+    lang: '中文 · Chinese',
+    title: '人民周报 · 头版',
+    description: '思源宋体 + 克制朱红 + 紧凑排版。中文报纸传统视觉语言。',
+    color: '#CC2929',
+  },
+  {
+    href: '/blocks/zh-feature',
+    lang: '中文 · Chinese',
+    title: '人民周报 · 副刊专题',
+    description: '深度专题排版：访谈、人物、文化评论。',
+    color: '#CC2929',
+  },
+  {
+    href: '/examples/nyt-frontpage',
+    lang: 'English',
+    title: 'The Daily Chronicle · NYT Style',
+    description:
+      'Classic American serious newspaper. Cormorant Garamond masthead, multi-column flow with drop cap.',
+    color: '#1A1A1A',
+  },
+  {
+    href: '/blocks/en-feature',
+    lang: 'English',
+    title: 'The Daily Chronicle · Long-form Feature',
+    description: 'Editorial long-form piece with pull quotes and editorial design.',
+    color: '#1A1A1A',
+  },
+  {
+    href: '/blocks/jp-horizontal',
+    lang: '日本語 · Japanese',
+    title: '朝日新聞 · 横組み',
+    description: 'Modern horizontal Japanese newspaper layout. Noto Serif JP.',
+    color: '#1B2A4A',
+  },
+  {
+    href: '/blocks/jp-vertical',
+    lang: '日本語 · Japanese',
+    title: '朝日新聞 · 縦組み',
+    description: 'Traditional vertical writing-mode Japanese layout.',
+    color: '#1B2A4A',
+  },
+  {
+    href: '/examples/blackletter-frontpage',
+    lang: 'Deutsch',
+    title: 'Die Frankfurter Zeitung',
+    description: 'Blackletter masthead with UnifrakturMaguntia. German broadsheet tradition.',
+    color: '#1A1A1A',
+  },
+];
+
+export default function LandingPage() {
   return (
-    <Layout columns={24} maxWidth="1200px" padding="2rem 1.5rem">
+    <Layout columns={24} maxWidth="1400px" padding="3rem 2rem 4rem">
       <Masthead
         variant="classic"
-        kicker="Late City Edition"
-        title="The Daily Chronicle"
-        edition="Vol. CXLIX · No. 51,895"
-        date="Tuesday, May 19, 2026"
-        price="$4.00"
+        kicker="Production Newspaper Components"
+        title="NewspaperUI"
+        edition="Vol. 01 · No. 1"
+        date="May 2026"
+        price="MIT License"
       />
 
-      <Section columns={24} divider="bottom" gap="2rem" style={{ marginTop: '2rem' }}>
-        <Article span={5} style={{ borderRight: '1px solid var(--nui-rule-hairline)', paddingRight: '1.5rem' }}>
-          <Kicker>Inside Today</Kicker>
-          <Headline weight="Low" as="h3" style={{ marginTop: 0 }}>
-            Senate Approves Climate Resolution After Months of Debate
+      <Section columns={24} gap="2rem" style={{ marginTop: '3rem' }}>
+        <Article span={6}>
+          <Kicker>About</Kicker>
+          <Headline weight="Low" as="h2" style={{ marginTop: 0 }}>
+            生产级报纸布局组件库
           </Headline>
-          <BodyText weight="Low">
-            <p>The unanimous vote concludes a contentious legislative session marked by partisan disputes
-            and last-minute amendments. Page A6.</p>
-          </BodyText>
-
-          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
-
-          <Headline weight="Low" as="h3">Tech Sector Gains as Inflation Eases</Headline>
-          <BodyText weight="Low">
-            <p>Major indices climbed for a fifth consecutive session as new data showed price growth
-            slowing across consumer goods. Business B1.</p>
-          </BodyText>
-
-          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
-
-          <Headline weight="Low" as="h3">Drought Conditions Worsen Across the Plains</Headline>
-          <BodyText weight="Low">
-            <p>Officials in seven states have requested federal disaster relief as reservoir levels reach
-            historic lows. National A12.</p>
-          </BodyText>
-
-          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
-
-          <Headline weight="Low" as="h3">New Exhibit Opens at the Metropolitan</Headline>
-          <BodyText weight="Low">
-            <p>A retrospective of mid-century textile design draws record opening crowds. Arts C3.</p>
+          <BodyText weight="Medium">
+            <p>
+              参考 InDesign 与经典严肃风排版传统（NYT / The Times / FAZ），基于 24 列栅格、CSS Grid +
+              Multi-column 双层机制构建。
+            </p>
           </BodyText>
         </Article>
-
-        <Article span={14}>
-          <div style={{ textAlign: 'center' }}><Kicker>Capitol · Breaking</Kicker></div>
-          <Headline weight="High" align="center">
-            Historic Accord Reshapes Continental Trade After Marathon Session
+        <Article span={12}>
+          <Headline weight="Medium" align="center">
+            Print-grade typography, on the modern web.
           </Headline>
-          <Subhead weight="High" style={{ textAlign: 'center', marginTop: 0 }}>
-            Negotiators emerge with sweeping framework on tariffs, labor, and emissions; ratification expected within weeks
+          <Subhead
+            weight="High"
+            style={{ textAlign: 'center', marginTop: '0.5rem' }}
+          >
+            18 components, 24-column grid, classic serif typography, real multi-column flow.
           </Subhead>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', margin: '0.5rem 0 1rem', alignItems: 'baseline' }}>
-            <Byline>By Eleanor Whitcombe and Marcus Reyes</Byline>
-            <span style={{ color: 'var(--nui-text-muted)' }}>·</span>
-            <span style={{ fontFamily: 'var(--font-family-meta)', fontSize: '12px', color: 'var(--nui-text-muted)' }}>5 min read</span>
+        </Article>
+        <Article span={6}>
+          <Kicker>Quick Start</Kicker>
+          <Headline weight="Low" as="h2" style={{ marginTop: 0 }}>
+            Install
+          </Headline>
+          <BodyText weight="Medium">
+            <p style={{ fontFamily: 'var(--font-family-meta)', fontSize: '13px' }}>
+              <code>pnpm add @newspaperui/components @newspaperui/theme</code>
+            </p>
+          </BodyText>
+          <div style={{ marginTop: '1rem' }}>
+            <Link
+              href="/grid-system"
+              style={{
+                fontFamily: 'var(--font-family-meta)',
+                fontSize: '13px',
+                color: 'var(--nui-accent-primary)',
+                textDecoration: 'none',
+                fontWeight: 600,
+              }}
+            >
+              Documentation →
+            </Link>
           </div>
-
-          <Figure
-            src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?auto=format&fit=crop&w=1200&q=80"
-            alt="Diplomats applaud after the final draft was approved"
-            caption="Negotiators applaud after the final draft was approved Monday evening at the Continental Conference Center."
-            credit="Photograph by Jane Doe / Pool"
-          />
-
-          <BodyText weight="High" columns={3} dropCap style={{ marginTop: '1.5rem' }}>
-            <p><Dateline>Brussels —</Dateline> After eleven consecutive days of negotiation that several
-            participants described as the most demanding in a generation, delegates from twenty-three nations
-            announced on Monday a sweeping framework to reorganize commerce across the continent. The accord,
-            which still requires ratification by member parliaments, would harmonize tariff schedules, set
-            common labor standards, and bind signatories to a shared emissions pathway through 2040.</p>
-
-            <p>Officials briefed on the talks said the breakthrough came shortly before midnight, when a
-            dispute over agricultural subsidies was resolved with a side letter granting transitional relief
-            to producers in five smaller economies. The chief negotiator, Margarethe Lindqvist, called the
-            outcome &ldquo;a long argument that finally became a conversation.&rdquo;</p>
-
-            <p>The framework&rsquo;s most consequential provisions target heavy industry. Cement, steel, and
-            chemical producers would face a graduated carbon levy beginning in 2028, with revenues recycled
-            into a continental investment fund for low-carbon manufacturing. Industry associations expressed
-            cautious support, while environmental groups praised the levy&rsquo;s binding architecture but warned
-            that the timeline gives polluters too much room to delay.</p>
-
-            <p>Markets reacted with measured optimism. The continental composite index closed up 1.2 percent,
-            led by capital-goods makers expected to benefit from infrastructure investment. The currency
-            strengthened against the dollar by 0.7 percent. Bond yields, which had climbed throughout the
-            negotiations on fiscal-stability concerns, retreated to levels seen before the talks began.</p>
-
-            <p>Domestic political reaction was mixed. The accord&rsquo;s labor provisions, which establish minimum
-            standards for paid leave and collective bargaining, drew immediate praise from union federations
-            and equally immediate concern from chambers of commerce. The chairman of the Federation of
-            Industries warned that small firms would struggle with compliance costs absent transitional support.</p>
-
-            <p>Parliamentary leaders in three capitals signaled that ratification could occur before the
-            summer recess. Two governments, however, indicated that they would seek public referenda before
-            committing, a process likely to extend into the autumn. Analysts at the Centre for Trade Studies
-            estimated that full implementation, even on the most expedited timeline, would require at least
-            eighteen months.</p>
-
-            <p>For ordinary travelers and consumers, the immediate effects will be modest. Border procedures
-            and product standards remain governed by existing arrangements pending ratification. The longer
-            arc is what matters: a continent of historically fractious neighbors agreeing on a single set of
-            rules for the most consequential decade in living memory.</p>
-          </BodyText>
-
-          <PullQuote weight="High" author="Margarethe Lindqvist, Chief Negotiator" align="center" style={{ margin: '2rem 0' }}>
-            A long argument that finally became a conversation.
-          </PullQuote>
-
-          <BodyText weight="High" columns={2} style={{ marginTop: '1rem' }}>
-            <p>The accord&rsquo;s signing ceremony, originally scheduled for last Friday, was delayed three times
-            as drafters reconciled competing texts on dispute resolution. The final compromise establishes
-            an arbitration panel of nine jurists, three appointed by each of the bloc&rsquo;s three regional
-            groupings, with binding authority over commercial disputes exceeding twenty million units.</p>
-
-            <p>Critics on the populist right denounced the framework as an erosion of national sovereignty,
-            while critics on the left argued that the labor floor was set too low to meaningfully protect
-            workers in tighter regulatory regimes. Both camps signaled that ratification battles would be
-            fierce, particularly in legislatures with narrow majorities.</p>
-          </BodyText>
-        </Article>
-
-        <Article span={5} style={{ borderLeft: '1px solid var(--nui-rule-hairline)', paddingLeft: '1.5rem' }}>
-          <Kicker>Foreign Desk</Kicker>
-          <Headline weight="Medium" as="h2">
-            Coastal Nations Pledge Joint Action on Maritime Pollution
-          </Headline>
-          <Subhead weight="Medium">
-            Pact follows years of stalled regional talks and a cascade of recent shipping accidents.
-          </Subhead>
-          <Byline>By Tomás Almeida</Byline>
-
-          <BodyText weight="Medium" style={{ marginTop: '0.75rem' }}>
-            <p><Dateline>Lisbon —</Dateline> Eleven coastal nations announced a binding compact to coordinate
-            cleanup operations and harmonize liability rules for vessels exceeding fifty thousand tons. The
-            agreement establishes a shared rapid-response fund and creates a regional inspectorate empowered
-            to detain non-compliant ships in any signatory port.</p>
-
-            <p>Maritime industry groups received the news with caution. A spokesperson for the Continental
-            Shipping Council acknowledged that &ldquo;stronger common rules are overdue&rdquo; but warned that
-            implementation costs could fall disproportionately on smaller operators.</p>
-
-            <p>The compact takes effect on January 1, pending technical annexes. Environmental observers
-            described the pact as the most consequential maritime accord in a decade.</p>
-          </BodyText>
         </Article>
       </Section>
 
-      <Section columns={24} divider="top" gap="2rem" style={{ marginTop: '2rem', paddingTop: '2rem' }}>
+      <Section
+        columns={24}
+        divider="top"
+        gap="2rem"
+        style={{ marginTop: '4rem', paddingTop: '3rem' }}
+      >
         <Article span={24}>
-          <Kicker>National · Investigation</Kicker>
-          <Headline weight="Medium" as="h2">
-            Records Reveal Years of Overlooked Warnings at Aging Reservoirs
+          <div style={{ textAlign: 'center' }}>
+            <Kicker>Live Demos · Production-grade Examples</Kicker>
+          </div>
+          <Headline weight="High" align="center">
+            Multi-language Newspaper Showcase
           </Headline>
-          <Subhead weight="Medium">
-            Internal inspection memoranda, obtained through public records requests, suggest that
-            structural concerns flagged repeatedly by field engineers were not escalated to senior staff.
+          <Subhead weight="Medium" style={{ textAlign: 'center' }}>
+            7 complete newspaper layouts in Chinese, English, German, and Japanese
           </Subhead>
-          <Byline style={{ marginBottom: '1rem' }}>By Ravi Nair, Anita Kowalski, and Charles Weston</Byline>
+        </Article>
+      </Section>
 
-          <BodyText weight="High" columns={4}>
-            <p><Dateline>Sacramento —</Dateline> A six-month review of more than four thousand pages of
-            inspection records, interviews with twenty-three current and former engineers, and reconstructions
-            of three near-failure incidents reveals a pattern of unheeded warnings about the structural
-            integrity of mid-twentieth-century earthen dams across the western states.</p>
+      <Section columns={24} gap="2rem" style={{ marginTop: '2rem' }}>
+        {demos.map((demo, idx) => (
+          <Article key={demo.href} span={24} style={{ marginBottom: '2rem' }}>
+            <Link
+              href={demo.href}
+              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+            >
+              <div
+                style={{
+                  border: '1px solid var(--nui-rule-hairline)',
+                  background: 'var(--nui-bg-surface)',
+                  padding: '2rem',
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 3fr',
+                  gap: '2rem',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    borderRight: '1px solid var(--nui-rule-hairline)',
+                    paddingRight: '2rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-family-meta)',
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      fontVariantCaps: 'small-caps',
+                      letterSpacing: '0.08em',
+                      color: demo.color,
+                      marginBottom: '0.5rem',
+                    }}
+                  >
+                    {demo.lang}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-family-meta)',
+                      fontSize: '11px',
+                      color: 'var(--nui-text-muted)',
+                    }}
+                  >
+                    Demo #{String(idx + 1).padStart(2, '0')}
+                  </div>
+                </div>
+                <div>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-family-display)',
+                      fontSize: '28px',
+                      fontWeight: 600,
+                      lineHeight: 1.15,
+                      color: 'var(--nui-text-primary)',
+                      margin: '0 0 0.5rem 0',
+                    }}
+                  >
+                    {demo.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-family-body)',
+                      fontSize: '15px',
+                      lineHeight: 1.5,
+                      color: 'var(--nui-text-body)',
+                      margin: 0,
+                    }}
+                  >
+                    {demo.description}
+                  </p>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-family-meta)',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      color: 'var(--nui-accent-primary)',
+                      marginTop: '0.75rem',
+                      fontVariantCaps: 'small-caps',
+                      letterSpacing: '0.06em',
+                    }}
+                  >
+                    View demo →
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </Article>
+        ))}
+      </Section>
 
-            <p>The records show that field engineers documented concerns about seepage, erosion, and spillway
-            capacity in repeated annual assessments dating back at least fifteen years. In several instances,
-            those concerns were rated &ldquo;moderate&rdquo; in the field reports but downgraded to &ldquo;low&rdquo; by the time they
-            reached senior officials. The pattern was particularly pronounced at three facilities serving
-            regions of more than two million residents.</p>
-
-            <p>Officials at the Department of Water Resources, asked to review excerpts of the records, said
-            in a written statement that &ldquo;every reservoir under our oversight has been deemed safe for current
-            operations&rdquo; but did not specifically address the discrepancies between field and final ratings.
-            The agency declined to make senior staff available for interviews.</p>
-
-            <p>The findings come amid renewed scrutiny of aging infrastructure following the partial collapse
-            of an earthen embankment in March that displaced more than fifteen hundred residents. Federal
-            inspectors who responded to that incident found the proximate cause to be precisely the type of
-            seepage concern that field engineers had flagged in three of the past four annual assessments.</p>
-
-            <p>The investigative review found that of forty-seven reservoirs surveyed, sixteen had at least
-            one instance in which a &ldquo;moderate&rdquo; or &ldquo;high&rdquo; field rating was downgraded before reaching senior
-            management. In nine cases, the downgrades persisted for three or more consecutive years. None of
-            the affected facilities have publicly disclosed the discrepancies.</p>
-
-            <p>Engineering professional associations have, in recent years, called for an independent review
-            of inspection workflows in the western states. A spokesperson for the Society of Hydraulic
-            Engineers said the Society was &ldquo;deeply concerned&rdquo; by the patterns described and would convene a
-            working group to examine reform options.</p>
+      <Section
+        columns={24}
+        divider="top"
+        gap="2rem"
+        style={{ marginTop: '4rem', paddingTop: '2rem' }}
+      >
+        <Article span={12}>
+          <Kicker>Design Philosophy</Kicker>
+          <Headline weight="Low" as="h3" style={{ marginTop: 0 }}>
+            Print Tradition, Web Implementation
+          </Headline>
+          <BodyText weight="Low">
+            <p>
+              NewspaperUI 借鉴 InDesign
+              段落样式系统的设计 token 思想，把字体、字号、字重、行高、颜色、间距统一收敛到视觉权重映射表（visualWeights）。组件从单一数据源读取样式，修改一处即全局生效。
+            </p>
+            <p>
+              排版机制采用 Hybrid 双层：CSS Grid 负责大块布局，CSS Multi-column 负责正文流。这是报纸排版传统在 Web
+              上的最佳还原。
+            </p>
+          </BodyText>
+        </Article>
+        <Article span={12}>
+          <Kicker>Tech Stack</Kicker>
+          <Headline weight="Low" as="h3" style={{ marginTop: 0 }}>
+            React 18 · TypeScript 5 · CSS Grid + Multi-column
+          </Headline>
+          <BodyText weight="Low">
+            <p>
+              4 packages：<code>@newspaperui/theme</code>、<code>@newspaperui/utils</code>、
+              <code>@newspaperui/components</code>（18 components）、<code>@newspaperui/docs</code>。
+            </p>
+            <p>Built with pnpm workspaces + Turborepo. Vite for libraries, Next.js 15 for docs.</p>
           </BodyText>
         </Article>
       </Section>

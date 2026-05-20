@@ -180,17 +180,19 @@ Dark（暖深棕黑，非冷黑）：
 - 技术栈：Next.js + Tailwind + MDX
 - 页面：所有 demo 用真实组件渲染，非 mockup
 - 路由结构：
-  1. `/` 首页 = NYT 派完整报纸头版（Masthead + Briefs + Lead Story 含 hero image + 3 栏 BodyText + drop cap + PullQuote + Secondary + Third Story 4 栏）
-  2. `/grid-system` 栅格系统与 Layout/Section/Article/Layer 说明
-  3. `/components/masthead` Masthead 三种 variant 对照
-  4. `/components/article` Article + Layer 跨栏与浮动 demo
-  5. `/components/rule` Rule 三种 variant 对照
-  6. `/components/media` Image / Figure / Video / PullQuote
-  7. `/text` 文本组件全集 + 视觉权重映射表（实时渲染）+ 多栏文字流 demo + drop cap demo
-  8. `/theme` CSS variables 列表 + color swatch + 暗色主题切换按钮
-  9. `/examples/spanning` 跨栏布局示例
-  10. `/examples/responsive` 响应式布局展示
-  11. `/examples/blackletter-frontpage` The Times / FAZ 派哥特体头版 preset
+  1. `/` 首页 = 报纸风格 Landing Page（Masthead + 介绍 + 多语言 demo 列表 + 设计哲学/技术栈）
+  2. `/examples/nyt-frontpage` NYT 派完整报纸头版（Masthead + Briefs + Lead Story 含 hero image + 3 栏 BodyText + drop cap + PullQuote + Secondary + Third Story 4 栏）
+  3. `/grid-system` 栅格系统与 Layout/Section/Article/Layer 说明
+  4. `/components/masthead` Masthead 三种 variant 对照
+  5. `/components/article` Article + Layer 跨栏与浮动 demo
+  6. `/components/rule` Rule 三种 variant 对照
+  7. `/components/media` Image / Figure / Video / PullQuote
+  8. `/text` 文本组件全集 + 视觉权重映射表（实时渲染）+ 多栏文字流 demo + drop cap demo
+  9. `/theme` CSS variables 列表 + color swatch + 暗色主题切换按钮
+  10. `/examples/spanning` 跨栏布局示例
+  11. `/examples/responsive` 响应式布局展示
+  12. `/examples/blackletter-frontpage` The Times / FAZ 派哥特体头版 preset
+- 全局导航：顶部 Header（Docs / Components / Themes / Blocks / GitHub），文档区域内嵌 Sidebar 二级导航
 
 ---
 
@@ -201,14 +203,14 @@ Dark（暖深棕黑，非冷黑）：
 3. 实现 utils（`validateSpan` / `clampSpan` / `cx`）
 4. 实现 components 三层（layout / text / media）；统一 grid-column span 跨栏机制；BodyText 接入 CSS multi-column
 5. 测试生产级头版：跨栏、多栏文字流、首字下沉、栏间 hairline、真小帽、Pull Quote 跨栏、breakable、响应式
-6. 构建文档网站，首页直接展示 NYT 派头版作为生产级标杆，章节页用真实组件 demo
+6. 构建文档网站，首页为报纸风格 Landing Page 汇聚多语言 demo，`/examples/nyt-frontpage` 作为 NYT 派生产级标杆，章节页用真实组件 demo
 7. 验收：视觉与传统报纸排版（NYT / The Times / FAZ）一致；自动化构建/测试通过；Design Agent 复评 ≥ 9/10
 
 ---
 
 ## 10. 验收标准
 
-打开首页应满足：
+打开 `/examples/nyt-frontpage` 应满足：
 - Masthead 是 Cormorant Garamond 衬线 + 双线分隔
 - 头条字号 ≥ 48px、line-height ≤ 1.15、字重 600
 - 头条下方 BodyText 真分 3 栏，栏间有 1px 暖灰 hairline

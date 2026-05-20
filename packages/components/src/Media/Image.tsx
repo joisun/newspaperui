@@ -11,6 +11,16 @@ export interface ImageProps {
   style?: CSSProperties;
 }
 
+/**
+ * Image — 图片
+ *
+ * - 响应式全宽图片，自动适配栅格列宽
+ * - 通过 span 控制在 Section 中占据的列数
+ * - 必须提供 alt 属性以确保无障碍访问
+ *
+ * @example
+ * <Image src="/photo.jpg" alt="City skyline" span={12} />
+ */
 export const Image: React.FC<ImageProps> = ({ src, alt, span, className, style }) => {
   const section = useSection();
   const cols = span ? clampSpan(span, section.columns) : undefined;

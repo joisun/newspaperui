@@ -12,6 +12,21 @@ export interface MastheadProps {
   className?: string;
 }
 
+/**
+ * Masthead — 报头（classic/blackletter/modern 三种 variant）
+ *
+ * - classic: Cormorant Garamond 居中衬线风格
+ * - blackletter: UnifrakturMaguntia 德式哥特体
+ * - modern: 左对齐现代大标题风格
+ *
+ * @example
+ * <Masthead
+ *   variant="classic"
+ *   title="The Daily Chronicle"
+ *   date="May 19, 2026"
+ *   edition="Vol. CLII No. 42"
+ * />
+ */
 export const Masthead: React.FC<MastheadProps> = ({
   title, kicker, edition, date, price, variant = 'classic', className,
 }) => {

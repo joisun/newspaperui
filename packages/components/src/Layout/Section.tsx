@@ -17,6 +17,19 @@ interface SectionContextValue { columns: number; }
 const SectionContext = createContext<SectionContextValue>({ columns: 24 });
 export const useSection = () => useContext(SectionContext);
 
+/**
+ * Section — CSS Grid 栅格区域
+ *
+ * - 内部创建独立的 grid 容器，列数受父 Layout 约束
+ * - 支持 hairline divider 分隔线（top/bottom/both）
+ * - 通过 SectionContext 向子 Article 广播当前列数
+ *
+ * @example
+ * <Section columns={24} gap="var(--nui-gutter)" divider="bottom">
+ *   <Article span={14}>...</Article>
+ *   <Article span={10}>...</Article>
+ * </Section>
+ */
 export const Section: React.FC<SectionProps> = ({
   columns, gap = 'var(--nui-gutter)', breakable = true, divider = 'none',
   className, style, children,

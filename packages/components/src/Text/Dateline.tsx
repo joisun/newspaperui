@@ -9,6 +9,18 @@ export interface DatelineProps {
   children: ReactNode;          // e.g. "LONDON —"
 }
 
+/**
+ * Dateline — 发稿地（Inter small-caps）
+ *
+ * - Inter 字体 + OpenType small-caps，标注新闻发稿地
+ * - 通常置于正文首段开头，如 "LONDON —"
+ * - 渲染为 inline span，可嵌入 BodyText 内
+ *
+ * @example
+ * <BodyText>
+ *   <Dateline>WASHINGTON —</Dateline> The president announced...
+ * </BodyText>
+ */
 export const Dateline: React.FC<DatelineProps> = ({ className, style, children }) => {
   const config = visualWeights.Dateline.Standard!;
   return (

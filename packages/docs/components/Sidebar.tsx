@@ -48,9 +48,9 @@ export function Sidebar() {
         fontFamily: 'var(--font-family-meta)',
         fontSize: '14px',
         position: 'sticky',
-        top: 0,
+        top: 65,
         alignSelf: 'flex-start',
-        maxHeight: '100vh',
+        maxHeight: 'calc(100vh - 65px)',
         overflowY: 'auto',
       }}
     >
