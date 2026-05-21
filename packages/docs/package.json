@@ -20,9 +20,8 @@
     "react-dom": "^18.3.1",
     "rehype-pretty-code": "^0.14.3",
     "shiki": "^4.1.0",
-    "newspaperui-components": "workspace:*",
-    "newspaperui-theme": "workspace:*",
-    "newspaperui-utils": "workspace:*"
+    "newspaperui": "workspace:*",
+    "newspaperui-theme": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

@@ -1,7 +1,10 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cx } from 'newspaperui-utils';
+
+function cx(...args: (string | false | null | undefined)[]): string {
+  return args.filter(Boolean).join(' ');
+}
 
 interface NavItem {
   label: string;

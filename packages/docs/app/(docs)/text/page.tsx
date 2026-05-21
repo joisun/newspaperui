@@ -11,7 +11,7 @@ import {
   Byline,
   Dateline,
   Caption,
-} from 'newspaperui-components';
+} from 'newspaperui';
 import { visualWeights, resolveFontSize } from 'newspaperui-theme';
 import { Demo } from '@/components/Demo';
 

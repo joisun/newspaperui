@@ -8,7 +8,7 @@ import {
   BodyText,
   Figure,
   PullQuote,
-} from 'newspaperui-components';
+} from 'newspaperui';
 import { Demo } from '@/components/Demo';
 import { PropsTable } from '@/components/PropsTable';
 

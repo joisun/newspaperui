@@ -3,7 +3,7 @@ import {
   Layout, Section, Article, Masthead, Rule, Folio, IndexBox, Factbox,
   Headline, Subhead, Kicker, BodyText, Byline, Dateline,
   Figure, PullQuote, Footer, BreakingNewsBanner,
-} from 'newspaperui-components';
+} from 'newspaperui';
 import Link from 'next/link';
 
 export default function LandingPage() {

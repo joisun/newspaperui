@@ -4,7 +4,7 @@ import {
   Layout, Section, Article, Masthead, Rule,
   Headline, Subhead, Kicker, BodyText, Byline, Dateline,
   Figure, PullQuote,
-} from 'newspaperui-components';
+} from 'newspaperui';
 
 export default function FrontPage() {
   return (

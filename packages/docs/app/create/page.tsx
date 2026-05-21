@@ -4,7 +4,7 @@ import {
   Layout, Section, Article, Masthead, Rule,
   Headline, Subhead, Kicker, BodyText, Byline, Dateline, Caption,
   PullQuote, Footer,
-} from 'newspaperui-components';
+} from 'newspaperui';
 
 // ─── Presets ────────────────────────────────────────────────────────────────
 

@@ -96,15 +96,12 @@ importers:
       '@types/mdx':
         specifier: ^2.0.13
         version: 2.0.13
-      newspaperui-components:
+      newspaperui:
         specifier: workspace:*
         version: link:../components
       newspaperui-theme:
         specifier: workspace:*
         version: link:../theme
-      newspaperui-utils:
-        specifier: workspace:*
-        version: link:../utils
       next:
         specifier: ^15.1.6
         version: 15.5.18(@babel/core@7.29.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

@@ -1,5 +1,5 @@
 'use client';
-import { Layout, Section, Article, Rule, BodyText, Figure } from 'newspaperui-components';
+import { Layout, Section, Article, Rule, BodyText, Figure } from 'newspaperui';
 
 const jp = { fontFamily: 'var(--font-family-cjk-jp)' };
 const jpAccent = { color: 'var(--nui-accent-ink-blue)' };

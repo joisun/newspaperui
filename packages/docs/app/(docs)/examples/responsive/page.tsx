@@ -7,7 +7,7 @@ import {
   Subhead,
   BodyText,
   Rule,
-} from 'newspaperui-components';
+} from 'newspaperui';
 import { CodeBlock } from '@/components/CodeBlock';
 
 export default function ResponsivePage() {

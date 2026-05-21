@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Layout, Section, Article, Headline, Subhead, Kicker } from 'newspaperui-components';
+import { Layout, Section, Article, Headline, Subhead, Kicker } from 'newspaperui';
 
 const blocks = [
   {

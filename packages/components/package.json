@@ -1,7 +1,7 @@
 {
-  "name": "newspaperui-components",
+  "name": "newspaperui",
   "version": "0.1.0",
-  "description": "Production-grade newspaper layout React components",
+  "description": "Production-grade newspaper layout React components with built-in theme and utilities",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -11,7 +11,8 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist"
@@ -22,15 +23,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
-  },
-  "dependencies": {
-    "newspaperui-theme": "workspace:*",
-    "newspaperui-utils": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/react": "^16.1.0",
@@ -59,9 +57,16 @@
     "layout",
     "typography",
     "css-grid",
-    "multi-column"
+    "multi-column",
+    "indesign",
+    "editorial"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "dependencies": {}
+  },
+  "dependencies": {
+    "newspaperui-theme": "workspace:*",
+    "newspaperui-utils": "workspace:*"
   }
 }
