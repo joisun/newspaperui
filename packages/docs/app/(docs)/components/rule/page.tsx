@@ -7,7 +7,7 @@ import {
   Subhead,
   BodyText,
   Rule,
-} from '@newspaperui/components';
+} from 'newspaperui-components';
 import { Demo } from '@/components/Demo';
 import { PropsTable } from '@/components/PropsTable';
 

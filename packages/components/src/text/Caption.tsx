@@ -1,7 +1,7 @@
 'use client';
 import React, { ReactNode, CSSProperties } from 'react';
-import { visualWeights, resolveFontSize } from '@newspaperui/theme';
-import { cx } from '@newspaperui/utils';
+import { visualWeights, resolveFontSize } from 'newspaperui-theme';
+import { cx } from 'newspaperui-utils';
 
 export interface CaptionProps {
   credit?: string;              // e.g. "Photograph by Jane Doe"

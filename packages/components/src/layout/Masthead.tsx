@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { cx } from '@newspaperui/utils';
+import { cx } from 'newspaperui-utils';
 
 export interface MastheadProps {
   title: string;

@@ -236,9 +236,17 @@ export const visualWeights: Record<ComponentType, Partial<Record<VisualWeight, V
   },
 };
 
-/** Resolve fontSize: tuple → first value (lower bound used by default). */
+/** Resolve fontSize: tuple → clamp(min, preferred, max) for responsive sizing. */
 export function resolveFontSize(value: string | [string, string]): string {
-  return Array.isArray(value) ? value[0] : value;
+  if (Array.isArray(value)) {
+    const min = value[0];
+    const max = value[1];
+    const minNum = parseFloat(min);
+    const maxNum = parseFloat(max);
+    const vw = ((minNum + maxNum) / 2 / 16 * 1.5).toFixed(2);
+    return `clamp(${min}, ${vw}vw, ${max})`;
+  }
+  return value;
 }
 
 /** Resolve span: tuple → first value (lower bound). */

@@ -1,6 +1,6 @@
 'use client';
 import React, { CSSProperties } from 'react';
-import { cx } from '@newspaperui/utils';
+import { cx } from 'newspaperui-utils';
 
 export interface RuleProps {
   variant?: 'hairline' | 'double' | 'thick';

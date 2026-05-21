@@ -1,7 +1,7 @@
 {
-  "name": "@newspaperui/utils",
-  "version": "0.0.0",
-  "description": "Utility functions for newspaperui",
+  "name": "newspaperui-utils",
+  "version": "0.1.0",
+  "description": "Grid validation and utility functions for NewspaperUI",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -29,5 +29,19 @@
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.3.0",
     "vitest": "^2.1.8"
+  },
+  "license": "MIT",
+  "author": "sunzhongyi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joisun/newspaperui.git"
+  },
+  "keywords": [
+    "newspaper",
+    "grid",
+    "utilities"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

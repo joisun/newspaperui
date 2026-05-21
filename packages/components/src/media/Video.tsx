@@ -1,6 +1,6 @@
 'use client';
 import React, { CSSProperties } from 'react';
-import { clampSpan, cx } from '@newspaperui/utils';
+import { clampSpan, cx } from 'newspaperui-utils';
 import { useSection } from '../layout/Section';
 import { Caption } from '../text/Caption';
 

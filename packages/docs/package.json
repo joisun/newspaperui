@@ -13,16 +13,16 @@
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
-    "@newspaperui/components": "workspace:*",
-    "@newspaperui/theme": "workspace:*",
-    "@newspaperui/utils": "workspace:*",
     "@next/mdx": "^16.2.6",
     "@types/mdx": "^2.0.13",
     "next": "^15.1.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rehype-pretty-code": "^0.14.3",
-    "shiki": "^4.1.0"
+    "shiki": "^4.1.0",
+    "newspaperui-components": "workspace:*",
+    "newspaperui-theme": "workspace:*",
+    "newspaperui-utils": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

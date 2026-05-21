@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cx } from '@newspaperui/utils';
+import { cx } from 'newspaperui-utils';
 
 interface NavItem {
   label: string;

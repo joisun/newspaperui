@@ -1,7 +1,7 @@
 {
-  "name": "@newspaperui/components",
-  "version": "0.0.0",
-  "description": "React components for newspaperui",
+  "name": "newspaperui-components",
+  "version": "0.1.0",
+  "description": "Production-grade newspaper layout React components",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -29,8 +29,8 @@
     "react-dom": "^18.3.1"
   },
   "dependencies": {
-    "@newspaperui/theme": "workspace:*",
-    "@newspaperui/utils": "workspace:*"
+    "newspaperui-theme": "workspace:*",
+    "newspaperui-utils": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/react": "^16.1.0",
@@ -45,5 +45,23 @@
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.3.0",
     "vitest": "^2.1.8"
+  },
+  "license": "MIT",
+  "author": "sunzhongyi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joisun/newspaperui.git"
+  },
+  "keywords": [
+    "newspaper",
+    "react",
+    "components",
+    "layout",
+    "typography",
+    "css-grid",
+    "multi-column"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -42,6 +42,26 @@
   --nui-space-4: 1rem;
   --nui-space-6: 1.5rem;
   --nui-space-8: 2rem;
+
+  /* border-radius */
+  --nui-radius-none: 0;
+  --nui-radius-sm: 2px;
+  --nui-radius-md: 4px;
+
+  /* shadow */
+  --nui-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --nui-shadow-md: 0 2px 8px rgba(0,0,0,0.08);
+
+  /* transition */
+  --nui-transition-fast: 150ms ease;
+  --nui-transition-normal: 250ms ease;
+
+  /* z-index layers */
+  --nui-z-base: 0;
+  --nui-z-sticky: 10;
+  --nui-z-header: 50;
+  --nui-z-modal: 100;
+  --nui-z-tooltip: 150;
 }
 
 [data-theme="dark"] {
@@ -57,6 +77,8 @@
   --nui-accent-primary: #C97A6E;
   --nui-accent-ink-blue: #7E94C2;
   --nui-highlight: #3A2F18;
+  --nui-shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --nui-shadow-md: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 html, body { background: var(--nui-bg-page); color: var(--nui-text-body); }

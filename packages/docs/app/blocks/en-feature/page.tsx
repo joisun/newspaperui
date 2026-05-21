@@ -1,5 +1,5 @@
 'use client';
-import { Layout, Section, Article, Rule, Headline, Subhead, Kicker, BodyText, Byline, Dateline, Figure, PullQuote } from '@newspaperui/components';
+import { Layout, Section, Article, Rule, Headline, Subhead, Kicker, BodyText, Byline, Dateline, Figure, PullQuote } from 'newspaperui-components';
 
 export default function EnFeature() {
   return (

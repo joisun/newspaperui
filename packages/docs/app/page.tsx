@@ -9,7 +9,7 @@ import {
   Subhead,
   Kicker,
   BodyText,
-} from '@newspaperui/components';
+} from 'newspaperui-components';
 import Link from 'next/link';
 
 const demos = [
@@ -108,7 +108,7 @@ export default function LandingPage() {
           </Headline>
           <BodyText weight="Medium">
             <p style={{ fontFamily: 'var(--font-family-meta)', fontSize: '13px' }}>
-              <code>pnpm add @newspaperui/components @newspaperui/theme</code>
+              <code>pnpm add newspaperui-components newspaperui-theme</code>
             </p>
           </BodyText>
           <div style={{ marginTop: '1rem' }}>
@@ -267,8 +267,8 @@ export default function LandingPage() {
           </Headline>
           <BodyText weight="Low">
             <p>
-              4 packages：<code>@newspaperui/theme</code>、<code>@newspaperui/utils</code>、
-              <code>@newspaperui/components</code>（18 components）、<code>@newspaperui/docs</code>。
+              4 packages：<code>newspaperui-theme</code>、<code>newspaperui-utils</code>、
+              <code>newspaperui-components</code>（18 components）、<code>@newspaperui/docs</code>。
             </p>
             <p>Built with pnpm workspaces + Turborepo. Vite for libraries, Next.js 15 for docs.</p>
           </BodyText>

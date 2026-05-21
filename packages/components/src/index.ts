@@ -1,4 +1,4 @@
-import '@newspaperui/theme';
+import 'newspaperui-theme';
 
 // layout
 export { Layout, useLayout } from './layout/Layout';
@@ -13,6 +13,12 @@ export { Masthead } from './layout/Masthead';
 export type { MastheadProps } from './layout/Masthead';
 export { Rule } from './layout/Rule';
 export type { RuleProps } from './layout/Rule';
+export { Footer } from './layout/Footer';
+export type { FooterProps } from './layout/Footer';
+export { Sidebar as NewsSidebar } from './layout/Sidebar';
+export type { SidebarProps as NewsSidebarProps } from './layout/Sidebar';
+export { BreakingNewsBanner } from './layout/BreakingNewsBanner';
+export type { BreakingNewsBannerProps } from './layout/BreakingNewsBanner';
 
 // text
 export { Headline } from './text/Headline';

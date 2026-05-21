@@ -6,7 +6,7 @@ import {
   Headline,
   Subhead,
   BodyText,
-} from '@newspaperui/components';
+} from 'newspaperui-components';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface Swatch {

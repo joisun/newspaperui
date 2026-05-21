@@ -1,7 +1,7 @@
 'use client';
 import React, { ReactNode, CSSProperties } from 'react';
-import { visualWeights, resolveFontSize } from '@newspaperui/theme';
-import { clampSpan, cx } from '@newspaperui/utils';
+import { visualWeights, resolveFontSize } from 'newspaperui-theme';
+import { clampSpan, cx } from 'newspaperui-utils';
 import { useSection } from '../layout/Section';
 
 export interface PullQuoteProps {

@@ -1,5 +1,5 @@
 'use client';
-import { Layout, Section, Article, Rule, BodyText, Quote } from '@newspaperui/components';
+import { Layout, Section, Article, Rule, BodyText, Quote } from 'newspaperui-components';
 
 const cn = { fontFamily: 'var(--font-family-cjk-serif)' };
 const cnRed = { color: 'var(--nui-accent-cjk-red)' };

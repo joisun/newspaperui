@@ -1,6 +1,6 @@
 'use client';
-import React, { createContext, useContext, ReactNode, CSSProperties } from 'react';
-import { clampSpan, cx } from '@newspaperui/utils';
+import React, { createContext, useContext, useId, ReactNode, CSSProperties } from 'react';
+import { clampSpan, cx } from 'newspaperui-utils';
 import { useLayout } from './Layout';
 
 export interface SectionProps {
@@ -8,6 +8,7 @@ export interface SectionProps {
   gap?: string;             // 默认 'var(--nui-gutter)'
   breakable?: boolean;      // 是否允许 print 分页断开，默认 true
   divider?: 'none' | 'top' | 'bottom' | 'both'; // hairline 分隔
+  responsive?: { sm?: number; md?: number; lg?: number }; // 响应式列数覆盖
   className?: string;
   style?: CSSProperties;
   children: ReactNode;
@@ -32,10 +33,17 @@ export const useSection = () => useContext(SectionContext);
  */
 export const Section: React.FC<SectionProps> = ({
   columns, gap = 'var(--nui-gutter)', breakable = true, divider = 'none',
-  className, style, children,
+  responsive, className, style, children,
 }) => {
   const layout = useLayout();
   const cols = clampSpan(columns, layout.columns);
+  const id = useId().replace(/:/g, '');
+  const sectionId = `nui-s-${id}`;
+
+  const responsiveCSS = responsive ? `
+@media (max-width: 768px) { .${sectionId} { grid-template-columns: repeat(${responsive.sm ?? 12}, 1fr) !important; } }
+@media (min-width: 769px) and (max-width: 1024px) { .${sectionId} { grid-template-columns: repeat(${responsive.md ?? 16}, 1fr) !important; } }
+` : '';
 
   const dividerStyle: CSSProperties = {};
   if (divider === 'top' || divider === 'both')
@@ -45,8 +53,9 @@ export const Section: React.FC<SectionProps> = ({
 
   return (
     <SectionContext.Provider value={{ columns: cols }}>
+      {responsiveCSS && <style dangerouslySetInnerHTML={{ __html: responsiveCSS }} />}
       <section
-        className={cx('nui-section', className)}
+        className={cx('nui-section', sectionId, className)}
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${cols}, 1fr)`,

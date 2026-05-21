@@ -7,7 +7,7 @@ const nextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   images: { unoptimized: true },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-  transpilePackages: ['@newspaperui/components', '@newspaperui/theme', '@newspaperui/utils'],
+  transpilePackages: ['newspaperui-components', 'newspaperui-theme', 'newspaperui-utils'],
 };
 
 const withMDX = createMDX({

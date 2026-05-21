@@ -11,8 +11,8 @@ import {
   Byline,
   Dateline,
   Caption,
-} from '@newspaperui/components';
-import { visualWeights, resolveFontSize } from '@newspaperui/theme';
+} from 'newspaperui-components';
+import { visualWeights, resolveFontSize } from 'newspaperui-theme';
 import { Demo } from '@/components/Demo';
 
 const longText = `Whitehall officials confirmed late Tuesday that the long-anticipated review of national infrastructure funding will be tabled before the recess. The 248-page document, drafted across three departments, recommends a recalibration of regional priorities and a measured shift toward rail electrification. Critics inside the cabinet caution that the timing risks overshadowing the chancellor's autumn statement, while supporters describe the proposals as the most coherent strategic blueprint in a generation.`;
