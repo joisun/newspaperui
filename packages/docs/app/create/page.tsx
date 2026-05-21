@@ -1,5 +1,10 @@
 'use client';
 import { useState, useCallback } from 'react';
+import {
+  Layout, Section, Article, Masthead, Rule,
+  Headline, Subhead, Kicker, BodyText, Byline, Dateline, Caption,
+  PullQuote, Footer,
+} from 'newspaperui-components';
 
 // ─── Presets ────────────────────────────────────────────────────────────────
 
@@ -110,179 +115,50 @@ function generateCSS(vars: ThemeVars): string {
 // ─── Component Preview ──────────────────────────────────────────────────────
 
 function ComponentPreview({ vars }: { vars: ThemeVars }) {
-  const style = Object.fromEntries(
+  const cssVars = Object.fromEntries(
     Object.entries(vars).map(([k, v]) => [k, v])
   ) as React.CSSProperties;
 
   return (
     <div style={{
-      ...style,
+      ...cssVars,
       background: vars['--nui-bg-page'],
-      color: vars['--nui-text-body'],
-      fontFamily: vars['--font-family-body'],
-      padding: '2rem',
       minHeight: '100%',
       transition: 'all 0.2s ease',
     }}>
-      {/* Masthead */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <div style={{
-          height: '8px',
-          background: `linear-gradient(to bottom, ${vars['--nui-rule-decorative']} 0, ${vars['--nui-rule-decorative']} 1px, transparent 1px, transparent 5px, ${vars['--nui-rule-decorative']} 5px, ${vars['--nui-rule-decorative']} 8px)`,
-          marginBottom: '0.75rem',
-        }} />
-        <div style={{
-          fontFamily: vars['--font-family-meta'],
-          fontSize: '11px',
-          color: vars['--nui-text-muted'],
-          letterSpacing: '0.15em',
-          textAlign: 'center',
-          marginBottom: '0.25rem',
-          fontVariantCaps: 'small-caps',
-        }}>Late City Edition</div>
-        <h1 style={{
-          fontFamily: vars['--font-family-masthead'],
-          fontSize: 'clamp(32px, 5vw, 56px)',
-          fontWeight: 700,
-          lineHeight: 1,
-          letterSpacing: '0.02em',
-          color: vars['--nui-text-primary'],
-          textAlign: 'center',
-          margin: '0 0 0.5rem 0',
-        }}>The Daily Chronicle</h1>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          fontSize: '11px',
-          color: vars['--nui-text-muted'],
-          borderTop: `1px solid ${vars['--nui-rule-hairline']}`,
-          paddingTop: '0.4rem',
-          fontFamily: vars['--font-family-meta'],
-        }}>
-          <span>Vol. CXLIX · No. 51,895</span>
-          <span>Tuesday, May 20, 2026</span>
-          <span>$4.00</span>
-        </div>
-        <div style={{
-          height: '8px',
-          background: `linear-gradient(to bottom, ${vars['--nui-rule-decorative']} 0, ${vars['--nui-rule-decorative']} 1px, transparent 1px, transparent 5px, ${vars['--nui-rule-decorative']} 5px, ${vars['--nui-rule-decorative']} 8px)`,
-          marginTop: '0.75rem',
-        }} />
-      </div>
-
-      {/* Kicker + Headline + Subhead */}
-      <div style={{ marginBottom: '1.5rem', borderBottom: `1px solid ${vars['--nui-rule-hairline']}`, paddingBottom: '1.5rem' }}>
-        <div style={{
-          fontFamily: vars['--font-family-meta'],
-          fontSize: '11px',
-          fontWeight: 600,
-          color: vars['--nui-accent-primary'],
-          letterSpacing: '0.08em',
-          fontVariantCaps: 'small-caps',
-          marginBottom: '0.4rem',
-        }}>Capitol · Breaking</div>
-        <h2 style={{
-          fontFamily: vars['--font-family-masthead'],
-          fontSize: 'clamp(24px, 3.5vw, 40px)',
-          fontWeight: 600,
-          lineHeight: 1.1,
-          color: vars['--nui-text-primary'],
-          margin: '0 0 0.5rem 0',
-          letterSpacing: '-0.01em',
-        }}>Historic Accord Reshapes Continental Trade</h2>
-        <p style={{
-          fontFamily: vars['--font-family-body'],
-          fontSize: '15px',
-          fontStyle: 'italic',
-          lineHeight: 1.4,
-          color: vars['--nui-text-secondary'],
-          margin: '0 0 0.75rem 0',
-        }}>Negotiators emerge with sweeping framework on tariffs, labor, and emissions</p>
-        <div style={{
-          fontFamily: vars['--font-family-meta'],
-          fontSize: '11px',
-          fontVariantCaps: 'small-caps',
-          letterSpacing: '0.06em',
-          color: vars['--nui-text-secondary'],
-        }}>By Eleanor Whitcombe · <span style={{ color: vars['--nui-text-muted'] }}>Brussels</span></div>
-      </div>
-
-      {/* BodyText multi-column */}
-      <div style={{
-        columnCount: 2,
-        columnGap: vars['--nui-gutter'],
-        columnRule: `1px solid ${vars['--nui-rule-hairline']}`,
-        columnFill: 'balance',
-        fontFamily: vars['--font-family-body'],
-        fontSize: '14px',
-        lineHeight: 1.6,
-        color: vars['--nui-text-body'],
-        marginBottom: '1.5rem',
-      }}>
-        <p style={{ margin: 0 }}>After eleven consecutive days of negotiation, delegates from twenty-three nations announced a sweeping framework to reorganize commerce across the continent. The accord would harmonize tariff schedules, set common labor standards, and bind signatories to a shared emissions pathway through 2040.</p>
-        <p style={{ margin: '0', textIndent: '1em' }}>Officials briefed on the talks said the breakthrough came shortly before midnight, when a dispute over agricultural subsidies was resolved with a side letter granting transitional relief to producers in five smaller economies.</p>
-        <p style={{ margin: '0', textIndent: '1em' }}>Markets reacted with measured optimism. The continental composite index closed up 1.2 percent, led by capital-goods makers expected to benefit from infrastructure investment.</p>
-      </div>
-
-      {/* PullQuote */}
-      <div style={{
-        borderTop: `1px solid ${vars['--nui-rule-hairline']}`,
-        borderBottom: `1px solid ${vars['--nui-rule-hairline']}`,
-        padding: '1rem 0',
-        margin: '0 0 1.5rem 0',
-        textAlign: 'center',
-      }}>
-        <p style={{
-          fontFamily: vars['--font-family-masthead'],
-          fontSize: 'clamp(18px, 2.5vw, 24px)',
-          fontWeight: 600,
-          lineHeight: 1.2,
-          color: vars['--nui-text-primary'],
-          margin: '0 0 0.5rem 0',
-        }}>"A long argument that finally became a conversation."</p>
-        <div style={{
-          fontFamily: vars['--font-family-meta'],
-          fontSize: '11px',
-          fontVariantCaps: 'small-caps',
-          letterSpacing: '0.08em',
-          color: vars['--nui-text-muted'],
-        }}>— Margarethe Lindqvist, Chief Negotiator</div>
-      </div>
-
-      {/* Rule variants */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <div style={{ fontFamily: vars['--font-family-meta'], fontSize: '11px', color: vars['--nui-text-muted'], marginBottom: '0.5rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>Rule · hairline</div>
-        <hr style={{ border: 0, borderTop: `1px solid ${vars['--nui-rule-hairline']}`, margin: '0 0 0.75rem 0' }} />
-        <div style={{ fontFamily: vars['--font-family-meta'], fontSize: '11px', color: vars['--nui-text-muted'], marginBottom: '0.5rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>Rule · double</div>
-        <div style={{
-          height: '6px',
-          background: `linear-gradient(to bottom, ${vars['--nui-rule-decorative']} 0 1px, transparent 1px 4px, ${vars['--nui-rule-decorative']} 4px 6px)`,
-          marginBottom: '0.75rem',
-        }} />
-        <div style={{ fontFamily: vars['--font-family-meta'], fontSize: '11px', color: vars['--nui-text-muted'], marginBottom: '0.5rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>Rule · thick</div>
-        <hr style={{ border: 0, borderTop: `3px solid ${vars['--nui-rule-decorative']}`, margin: 0 }} />
-      </div>
-
-      {/* Caption */}
-      <div style={{ borderTop: `1px solid ${vars['--nui-rule-hairline']}`, paddingTop: '0.75rem' }}>
-        <p style={{
-          fontFamily: vars['--font-family-body'],
-          fontSize: '12px',
-          fontStyle: 'italic',
-          lineHeight: 1.4,
-          color: vars['--nui-text-secondary'],
-          margin: 0,
-        }}>
-          Negotiators applaud after the final draft was approved Monday evening.{' '}
-          <span style={{
-            fontStyle: 'normal',
-            fontVariantCaps: 'small-caps',
-            letterSpacing: '0.05em',
-            color: vars['--nui-text-muted'],
-            fontSize: '11px',
-          }}>Photograph by Jane Doe / Pool</span>
-        </p>
-      </div>
+      <Layout columns={24} maxWidth="100%" padding="2rem">
+        <Masthead
+          variant="classic"
+          title="The Daily Chronicle"
+          edition="Vol. CXLIX · No. 51,895"
+          date="Tuesday, May 20, 2026"
+          price="$4.00"
+        />
+        <Section columns={24}>
+          <Article span={24}>
+            <Kicker>Capitol · Breaking</Kicker>
+            <Headline weight="High">Historic Accord Reshapes Continental Trade</Headline>
+            <Subhead weight="High">Negotiators emerge with sweeping framework on tariffs, labor, and emissions</Subhead>
+            <Byline>By Eleanor Whitcombe</Byline>
+            <Dateline>Brussels</Dateline>
+            <BodyText weight="High" columns={2}>
+              <p>After eleven consecutive days of negotiation, delegates from twenty-three nations announced a sweeping framework to reorganize commerce across the continent. The accord would harmonize tariff schedules, set common labor standards, and bind signatories to a shared emissions pathway through 2040.</p>
+              <p>Officials briefed on the talks said the breakthrough came shortly before midnight, when a dispute over agricultural subsidies was resolved with a side letter granting transitional relief to producers in five smaller economies.</p>
+              <p>Markets reacted with measured optimism. The continental composite index closed up 1.2 percent, led by capital-goods makers expected to benefit from infrastructure investment.</p>
+            </BodyText>
+            <PullQuote weight="High" author="Margarethe Lindqvist, Chief Negotiator" align="center">
+              "A long argument that finally became a conversation."
+            </PullQuote>
+            <Rule variant="hairline" />
+            <Rule variant="double" />
+            <Rule variant="thick" />
+            <Caption credit="Photograph by Jane Doe / Pool">
+              Negotiators applaud after the final draft was approved Monday evening.
+            </Caption>
+          </Article>
+        </Section>
+        <Footer copyright="© 2026 The Daily Chronicle" edition="Late City Edition" />
+      </Layout>
     </div>
   );
 }

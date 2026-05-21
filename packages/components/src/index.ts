@@ -47,3 +47,11 @@ export { Video } from './media/Video';
 export type { VideoProps } from './media/Video';
 export { PullQuote } from './media/PullQuote';
 export type { PullQuoteProps } from './media/PullQuote';
+
+// additional layout
+export { RelatedArticles } from './layout/RelatedArticles';
+export type { RelatedArticlesProps, RelatedArticle } from './layout/RelatedArticles';
+
+// additional text
+export { AuthorCard } from './text/AuthorCard';
+export type { AuthorCardProps } from './text/AuthorCard';

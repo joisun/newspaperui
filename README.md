@@ -32,16 +32,16 @@ import { Layout, Section, Article, Masthead, BodyText } from '@newspaperui/compo
 |---------|-------------|
 | `@newspaperui/theme` | CSS variables, visual weights, typography utilities, Google Fonts |
 | `@newspaperui/utils` | Grid validation (`validateSpan`, `clampSpan`, `cx`) |
-| `@newspaperui/components` | 18 React components |
+| `@newspaperui/components` | 20 React components |
 | `@newspaperui/docs` | Next.js documentation site with live demos |
 
-## Components (18)
+## Components (20)
 
 ### Layout
-`Layout` · `Section` · `Article` · `Layer` · `Masthead` · `Rule`
+`Layout` · `Section` · `Article` · `Layer` · `Masthead` · `Rule` · `RelatedArticles`
 
 ### Text
-`Headline` · `Subhead` · `Kicker` · `BodyText` · `Quote` · `Byline` · `Dateline` · `Caption`
+`Headline` · `Subhead` · `Kicker` · `BodyText` · `Quote` · `Byline` · `Dateline` · `Caption` · `AuthorCard`
 
 ### Media
 `Image` · `Figure` · `Video` · `PullQuote`
@@ -103,7 +103,7 @@ pnpm --filter @newspaperui/docs dev
 ```bash
 pnpm install
 pnpm build           # Build all 4 packages
-pnpm test            # 29 tests (utils 11 + components 18)
+pnpm test            # 51 tests (utils 11 + components 40)
 pnpm --filter @newspaperui/docs dev  # Dev server
 ```
 

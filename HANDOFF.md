@@ -5,10 +5,10 @@
 ### ✅ 已完成
 
 1. **Stage 1**：theme + utils 基础设施重写
-2. **Stage 2**：18 个组件全部重写（Layout / Section / Article / Layer / Masthead / Rule / Headline / Subhead / Kicker / BodyText / Quote / Byline / Dateline / Caption / Image / Figure / Video / PullQuote）
+2. **Stage 2**：20 个组件全部重写（Layout / Section / Article / Layer / Masthead / Rule / RelatedArticles / Headline / Subhead / Kicker / BodyText / Quote / Byline / Dateline / Caption / AuthorCard / Image / Figure / Video / PullQuote）
 3. **Stage 3**：生产级头版 demo（NYT + Blackletter）
 4. **Stage 4**：9 个文档章节
-5. **Stage 5**：验证（29/29 测试通过，Design Agent 复评 9/10）
+5. **Stage 5**：验证（51/51 测试通过，Design Agent 复评 9/10）
 6. **同步 design.md**
 7. **#17**：修复首页 + Blackletter 头版的空白问题（Briefs 增加新闻条目，BodyText 增加段落）
 8. **#18**：修复 TypeScript lint warnings（重新 build 生成 .d.ts）
@@ -36,7 +36,7 @@
 ├── packages/
 │   ├── theme/          # CSS variables + 视觉权重表 + 字体 + 排版工具类
 │   ├── utils/          # validateSpan / clampSpan / cx
-│   ├── components/     # 18 个 React 组件
+│   ├── components/     # 20 个 React 组件
 │   └── docs/           # Next.js 15 文档站
 ├── design.md           # 设计规范（已同步修订版）
 ├── HANDOFF.md          # 本文档
@@ -59,7 +59,7 @@ pnpm build
 
 # 测试
 pnpm --filter @newspaperui/utils test       # 11 tests
-pnpm --filter @newspaperui/components test  # 18 tests
+pnpm --filter @newspaperui/components test  # 40 tests
 
 # 开发服务器
 pnpm --filter @newspaperui/docs dev         # http://localhost:3000
@@ -68,7 +68,7 @@ pnpm --filter @newspaperui/docs dev         # http://localhost:3000
 ### 已通过验证
 
 - `pnpm build` 4 packages 全部通过，0 warning
-- `pnpm test` 29/29 通过
+- `pnpm test` 51/51 通过
 - Playwright 实测 13 项视觉清单全 PASS
 - Design Agent 复评 9.0/10
 
@@ -551,7 +551,7 @@ pnpm build
 
 # 2. 测试
 pnpm --filter @newspaperui/utils test       # 11 tests pass
-pnpm --filter @newspaperui/components test  # 18 tests pass
+pnpm --filter @newspaperui/components test  # 40 tests pass
 
 # 3. 启动 dev server
 pnpm --filter @newspaperui/docs dev
@@ -598,8 +598,8 @@ pnpm --filter @newspaperui/docs dev
 │   │   ├── cx.ts                                类名合并
 │   │   └── index.ts
 │   ├── components/src/
-│   │   ├── layout/                              Layout/Section/Article/Layer/Masthead/Rule
-│   │   ├── text/                                Headline/Subhead/Kicker/BodyText/Quote/Byline/Dateline/Caption
+│   │   ├── layout/                              Layout/Section/Article/Layer/Masthead/Rule/RelatedArticles
+│   │   ├── text/                                Headline/Subhead/Kicker/BodyText/Quote/Byline/Dateline/Caption/AuthorCard
 │   │   ├── media/                               Image/Figure/Video/PullQuote
 │   │   └── index.ts
 │   └── docs/
