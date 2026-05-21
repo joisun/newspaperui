@@ -1,0 +1,31 @@
+---
+title: BodyText
+description: 正文组件，支持多栏文字流和首字下沉
+---
+
+## API
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| weight | "High" \| "Medium" \| "Low" | "Medium" | 视觉权重 |
+| columns | 1 \| 2 \| 3 \| 4 | 1 | 多栏文字流 |
+| columnWidth | string | — | 栏目标宽度 |
+| columnFill | "auto" \| "balance" | "balance" | 栏填充模式 |
+| dropCap | boolean | false | 首字下沉 |
+| span | number | — | 跨栏数 |
+
+## 多栏文字流
+
+设置 `columns={3}` 启用 CSS Multi-column，文字自动 reflow 到 3 栏，栏间有 1px hairline 分隔。
+
+## 首字下沉
+
+设置 `dropCap` 启用 `::first-letter` 首字下沉效果（4.2em Display 字体）。
+
+## 排版细节
+
+默认启用：
+- 段间无空行 + 第二段起首行缩进 1em
+- Old-style figures（3/5/7 有下伸笔）
+- Hanging punctuation（引号悬挂）
+- Column rule（栏间 hairline）

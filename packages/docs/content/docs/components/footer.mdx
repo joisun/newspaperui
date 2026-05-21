@@ -1,0 +1,33 @@
+---
+title: Footer · Sidebar · Banner
+description: 页脚、侧边栏、突发新闻横幅
+---
+
+## Footer
+
+报纸页脚/版权信息区。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| copyright | string | — | 版权文字 |
+| edition | string | — | 版次 |
+| links | `Array<{ label, href }>` | — | 底部链接 |
+
+## NewsSidebar
+
+侧边栏内容区（天气、股票、快讯摘要等）。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| span | number | 6 | 占用列数 |
+| position | "left" \| "right" | "right" | 位置 |
+| divider | boolean | false | 是否显示分隔线 |
+
+## BreakingNewsBanner
+
+突发新闻横幅，全宽显示。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| label | string | "BREAKING" | 标签文字 |
+| children | ReactNode | — | 新闻内容 |

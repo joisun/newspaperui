@@ -1,4 +1,4 @@
 {
   "title": "Text",
-  "pages": ["index"]
+  "pages": ["index", "headline", "bodytext", "kicker", "quote", "byline"]
 }

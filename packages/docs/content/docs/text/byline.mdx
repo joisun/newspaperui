@@ -1,0 +1,50 @@
+---
+title: Byline · Dateline · Caption
+description: 署名、发稿地、图片说明
+---
+
+## Byline
+
+署名，Inter small-caps 格式。
+
+| 属性 | 类型 | 说明 |
+|---|---|---|
+| children | ReactNode | 如 "By Alice Smith" |
+
+## Dateline
+
+发稿地，Inter small-caps + 粗体。
+
+| 属性 | 类型 | 说明 |
+|---|---|---|
+| children | ReactNode | 如 "LONDON —" |
+
+## Caption
+
+图片说明，italic 衬线 13px。
+
+| 属性 | 类型 | 说明 |
+|---|---|---|
+| credit | string | 摄影师署名（small-caps 渲染） |
+| children | ReactNode | 说明文字 |
+
+## AuthorCard
+
+作者简介卡片。
+
+| 属性 | 类型 | 说明 |
+|---|---|---|
+| name | string | 姓名 |
+| role | string | 职位 |
+| bio | string | 简介 |
+| avatar | string | 头像 URL |
+| email | string | 邮箱 |
+
+## JumpLine
+
+跨版续转标注。
+
+| 属性 | 类型 | 说明 |
+|---|---|---|
+| direction | "to" \| "from" | 方向 |
+| page | string | 目标版面，如 "A6" |
