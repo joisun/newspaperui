@@ -19,6 +19,8 @@
    - 调整 `packages/docs/components/Sidebar.tsx` sticky `top: 65px`
    - **NYT 头版迁移到 `/examples/nyt-frontpage`**
    - 新建 `packages/docs/app/page.tsx` 作为报纸风格 Landing Page，使用 Masthead + 7 个 demo 卡片垂直分布
+10. **P0 组件扩展**：新增 4 个组件（Folio / IndexBox / Factbox / JumpLine），总计 24 个
+11. **Landing Page 重做**：首页改为完整 demo 报纸风格，直接展示组件能力
 
 ### ⏳ 未完成
 
@@ -36,7 +38,7 @@
 ├── packages/
 │   ├── theme/          # CSS variables + 视觉权重表 + 字体 + 排版工具类
 │   ├── utils/          # validateSpan / clampSpan / cx
-│   ├── components/     # 20 个 React 组件
+│   ├── components/     # 24 个 React 组件
 │   └── docs/           # Next.js 15 文档站
 ├── design.md           # 设计规范（已同步修订版）
 ├── HANDOFF.md          # 本文档
@@ -598,8 +600,8 @@ pnpm --filter @newspaperui/docs dev
 │   │   ├── cx.ts                                类名合并
 │   │   └── index.ts
 │   ├── components/src/
-│   │   ├── layout/                              Layout/Section/Article/Layer/Masthead/Rule/RelatedArticles
-│   │   ├── text/                                Headline/Subhead/Kicker/BodyText/Quote/Byline/Dateline/Caption/AuthorCard
+│   │   ├── layout/                              Layout/Section/Article/Layer/Masthead/Rule/RelatedArticles/Footer/Sidebar/BreakingNewsBanner/Folio/IndexBox/Factbox
+│   │   ├── text/                                Headline/Subhead/Kicker/BodyText/Quote/Byline/Dateline/Caption/AuthorCard/JumpLine
 │   │   ├── media/                               Image/Figure/Video/PullQuote
 │   │   └── index.ts
 │   └── docs/

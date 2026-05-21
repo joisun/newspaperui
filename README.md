@@ -32,16 +32,16 @@ import { Layout, Section, Article, Masthead, BodyText } from '@newspaperui/compo
 |---------|-------------|
 | `@newspaperui/theme` | CSS variables, visual weights, typography utilities, Google Fonts |
 | `@newspaperui/utils` | Grid validation (`validateSpan`, `clampSpan`, `cx`) |
-| `@newspaperui/components` | 20 React components |
+| `@newspaperui/components` | 24 React components |
 | `@newspaperui/docs` | Next.js documentation site with live demos |
 
-## Components (20)
+## Components (24)
 
 ### Layout
-`Layout` · `Section` · `Article` · `Layer` · `Masthead` · `Rule` · `RelatedArticles`
+`Layout` · `Section` · `Article` · `Layer` · `Masthead` · `Rule` · `Footer` · `Sidebar` · `BreakingNewsBanner` · `Folio` · `IndexBox` · `Factbox` · `RelatedArticles`
 
 ### Text
-`Headline` · `Subhead` · `Kicker` · `BodyText` · `Quote` · `Byline` · `Dateline` · `Caption` · `AuthorCard`
+`Headline` · `Subhead` · `Kicker` · `BodyText` · `Quote` · `Byline` · `Dateline` · `Caption` · `AuthorCard` · `JumpLine`
 
 ### Media
 `Image` · `Figure` · `Video` · `PullQuote`

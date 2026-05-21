@@ -1,279 +1,219 @@
 'use client';
-
 import {
-  Layout,
-  Section,
-  Article,
-  Masthead,
-  Headline,
-  Subhead,
-  Kicker,
-  BodyText,
+  Layout, Section, Article, Masthead, Rule, Folio, IndexBox, Factbox,
+  Headline, Subhead, Kicker, BodyText, Byline, Dateline,
+  Figure, PullQuote, Footer, BreakingNewsBanner,
 } from 'newspaperui-components';
 import Link from 'next/link';
 
-const demos = [
-  {
-    href: '/blocks/zh-frontpage',
-    lang: '中文 · Chinese',
-    title: '人民周报 · 头版',
-    description: '思源宋体 + 克制朱红 + 紧凑排版。中文报纸传统视觉语言。',
-    color: '#CC2929',
-  },
-  {
-    href: '/blocks/zh-feature',
-    lang: '中文 · Chinese',
-    title: '人民周报 · 副刊专题',
-    description: '深度专题排版：访谈、人物、文化评论。',
-    color: '#CC2929',
-  },
-  {
-    href: '/examples/nyt-frontpage',
-    lang: 'English',
-    title: 'The Daily Chronicle · NYT Style',
-    description:
-      'Classic American serious newspaper. Cormorant Garamond masthead, multi-column flow with drop cap.',
-    color: '#1A1A1A',
-  },
-  {
-    href: '/blocks/en-feature',
-    lang: 'English',
-    title: 'The Daily Chronicle · Long-form Feature',
-    description: 'Editorial long-form piece with pull quotes and editorial design.',
-    color: '#1A1A1A',
-  },
-  {
-    href: '/blocks/jp-horizontal',
-    lang: '日本語 · Japanese',
-    title: '朝日新聞 · 横組み',
-    description: 'Modern horizontal Japanese newspaper layout. Noto Serif JP.',
-    color: '#1B2A4A',
-  },
-  {
-    href: '/blocks/jp-vertical',
-    lang: '日本語 · Japanese',
-    title: '朝日新聞 · 縦組み',
-    description: 'Traditional vertical writing-mode Japanese layout.',
-    color: '#1B2A4A',
-  },
-  {
-    href: '/examples/blackletter-frontpage',
-    lang: 'Deutsch',
-    title: 'Die Frankfurter Zeitung',
-    description: 'Blackletter masthead with UnifrakturMaguntia. German broadsheet tradition.',
-    color: '#1A1A1A',
-  },
-];
-
 export default function LandingPage() {
   return (
-    <Layout columns={24} maxWidth="1400px" padding="3rem 2rem 4rem">
+    <Layout columns={24} maxWidth="1400px" padding="1.5rem">
+      {/* Breaking News Banner */}
+      <BreakingNewsBanner label="NEW">
+        v0.1.0 released — 24 components, multi-language blocks, responsive grid, theme customization
+      </BreakingNewsBanner>
+
+      {/* Masthead */}
       <Masthead
         variant="classic"
-        kicker="Production Newspaper Components"
+        kicker="Production Newspaper Components for the Modern Web"
         title="NewspaperUI"
         edition="Vol. 01 · No. 1"
         date="May 2026"
-        price="MIT License"
+        price="MIT License · Open Source"
       />
 
-      <Section columns={24} gap="2rem" style={{ marginTop: '3rem' }}>
-        <Article span={6}>
-          <Kicker>About</Kicker>
-          <Headline weight="Low" as="h2" style={{ marginTop: 0 }}>
-            生产级报纸布局组件库
-          </Headline>
-          <BodyText weight="Medium">
-            <p>
-              参考 InDesign 与经典严肃风排版传统（NYT / The Times / FAZ），基于 24 列栅格、CSS Grid +
-              Multi-column 双层机制构建。
-            </p>
-          </BodyText>
-        </Article>
-        <Article span={12}>
-          <Headline weight="Medium" align="center">
-            Print-grade typography, on the modern web.
-          </Headline>
-          <Subhead
-            weight="High"
-            style={{ textAlign: 'center', marginTop: '0.5rem' }}
-          >
-            18 components, 24-column grid, classic serif typography, real multi-column flow.
-          </Subhead>
-        </Article>
-        <Article span={6}>
-          <Kicker>Quick Start</Kicker>
-          <Headline weight="Low" as="h2" style={{ marginTop: 0 }}>
-            Install
-          </Headline>
-          <BodyText weight="Medium">
-            <p style={{ fontFamily: 'var(--font-family-meta)', fontSize: '13px' }}>
-              <code>pnpm add newspaperui-components newspaperui-theme</code>
-            </p>
-          </BodyText>
-          <div style={{ marginTop: '1rem' }}>
-            <Link
-              href="/grid-system"
-              style={{
-                fontFamily: 'var(--font-family-meta)',
-                fontSize: '13px',
-                color: 'var(--nui-accent-primary)',
-                textDecoration: 'none',
-                fontWeight: 600,
-              }}
-            >
-              Documentation →
-            </Link>
-          </div>
-        </Article>
-      </Section>
+      {/* Main Content: 5 + 14 + 5 layout */}
+      <Section columns={24} gap="1.5rem" style={{ marginTop: '1.5rem' }}>
 
-      <Section
-        columns={24}
-        divider="top"
-        gap="2rem"
-        style={{ marginTop: '4rem', paddingTop: '3rem' }}
-      >
-        <Article span={24}>
-          <div style={{ textAlign: 'center' }}>
-            <Kicker>Live Demos · Production-grade Examples</Kicker>
+        {/* Left sidebar: Index + Quick links */}
+        <Article span={5} style={{ borderRight: '1px solid var(--nui-rule-hairline)', paddingRight: '1rem' }}>
+          <IndexBox title="Navigate" items={[
+            { page: '→', title: 'Docs', headline: 'Grid system & API reference' },
+            { page: '→', title: 'Blocks', headline: '6 multi-language demos' },
+            { page: '→', title: 'Create', headline: 'Theme customizer' },
+            { page: '→', title: 'GitHub', headline: 'Source code & issues' },
+          ]} />
+
+          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
+
+          <Kicker>Install</Kicker>
+          <div style={{ fontFamily: 'var(--font-family-meta)', fontSize: '12px', background: 'var(--nui-bg-surface)', padding: '0.75rem', border: '1px solid var(--nui-rule-hairline)', marginTop: '0.5rem' }}>
+            <code>pnpm add newspaperui-components newspaperui-theme</code>
           </div>
+
+          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
+
+          <Factbox title="At a Glance" variant="highlight">
+            <ul style={{ padding: '0 0 0 1em', margin: 0, fontSize: '12px', lineHeight: 1.7 }}>
+              <li>24 React components</li>
+              <li>CSS Grid + Multi-column</li>
+              <li>4 font families</li>
+              <li>Warm off-white palette</li>
+              <li>Dark mode support</li>
+              <li>CJK ready (中/日)</li>
+              <li>51 tests passing</li>
+            </ul>
+          </Factbox>
+        </Article>
+
+        {/* Center: Lead story */}
+        <Article span={14}>
+          <Kicker style={{ textAlign: 'center' }}>Design System · Open Source</Kicker>
           <Headline weight="High" align="center">
-            Multi-language Newspaper Showcase
+            Print-Grade Typography Meets the Modern Web
           </Headline>
-          <Subhead weight="Medium" style={{ textAlign: 'center' }}>
-            7 complete newspaper layouts in Chinese, English, German, and Japanese
+          <Subhead weight="High" style={{ textAlign: 'center', marginTop: 0 }}>
+            24 components inspired by InDesign, built for React. Real multi-column flow, drop caps, small caps, old-style figures — the full newspaper toolkit.
           </Subhead>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', margin: '0.5rem 0 1.5rem', alignItems: 'baseline' }}>
+            <Byline>By the NewspaperUI Team</Byline>
+          </div>
+
+          <Figure
+            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80"
+            alt="Newspaper printing press"
+            caption="From Gutenberg to Grid: newspaper typography traditions, now available as React components."
+            credit="Unsplash"
+          />
+
+          <BodyText weight="High" columns={3} dropCap style={{ marginTop: '1.5rem' }}>
+            <p><Dateline>Open Source —</Dateline> NewspaperUI brings the precision of professional newspaper typesetting to web development. Built on a 24-column CSS Grid foundation with CSS Multi-column text flow, it reproduces the dense, information-rich layouts that have defined print journalism for centuries.</p>
+            <p>The library&#39;s visual weight system — borrowed from InDesign&#39;s paragraph styles — drives all typography from a single data source. Change one value in the visual-weights mapping, and every Headline, Subhead, and BodyText component updates globally. This is design-token architecture taken to its logical conclusion.</p>
+            <p>Typography details that most web frameworks ignore are first-class citizens here: true OpenType small caps (not faked with text-transform), old-style figures that blend with body text, hanging punctuation, proper paragraph indentation (no space between paragraphs, first-line indent from paragraph two), and drop caps that actually work with CSS ::first-letter.</p>
+            <p>The multi-column flow is real CSS columns — text reflows naturally across 2, 3, or 4 columns with hairline rules between them. Pull quotes span all columns. Figures break cleanly. Orphans and widows are controlled. This is how InDesign works, translated to the browser.</p>
+            <p>Four preset themes ship out of the box: Classic NYT (warm off-white, Cormorant Garamond masthead), The Times (ink-blue accent), Modern Dark (warm brown-black), and Swiss Modern (Helvetica-clean). The Create page lets you customize every token and export a CSS file for your project.</p>
+          </BodyText>
+
+          <PullQuote weight="High" author="Design Philosophy" align="center" style={{ margin: '2rem 0' }}>
+            Components should be few, precise, and unambiguous. Every prop maps to a real newspaper concept.
+          </PullQuote>
+
+          <BodyText weight="High" columns={2}>
+            <p>Multi-language support is built in from day one. Chinese layouts use Noto Serif SC with restrained red accents (masthead and kickers only). Japanese layouts support both horizontal (yokogumi) and traditional vertical (tategumi) writing modes. German blackletter mastheads use UnifrakturMaguntia.</p>
+            <p>The responsive system uses CSS media queries injected per-Section, so column counts adapt to viewport width without JavaScript. Font sizes use clamp() for fluid scaling between mobile and desktop. No runtime overhead, no layout shift.</p>
+          </BodyText>
+        </Article>
+
+        {/* Right sidebar: Demo previews */}
+        <Article span={5} style={{ borderLeft: '1px solid var(--nui-rule-hairline)', paddingLeft: '1rem' }}>
+          <Kicker>Live Blocks</Kicker>
+          <Headline weight="Low" as="h3" style={{ marginTop: '0.25rem' }}>Multi-language Demos</Headline>
+
+          {/* Mini Chinese preview */}
+          <Link href="/blocks/zh-frontpage" style={{ textDecoration: 'none', color: 'inherit', display: 'block', marginTop: '1rem' }}>
+            <div style={{ border: '1px solid var(--nui-rule-hairline)', padding: '0.75rem', background: 'var(--nui-bg-surface)', marginBottom: '0.75rem' }}>
+              <div style={{ fontFamily: 'var(--font-family-cjk-serif)', fontSize: '18px', fontWeight: 900, color: '#CC2929', lineHeight: 1.2, marginBottom: '0.25rem' }}>人民周报</div>
+              <div style={{ fontFamily: 'var(--font-family-cjk-serif)', fontSize: '11px', color: 'var(--nui-text-body)', lineHeight: 1.5 }}>历史性贸易协定昨日签署…</div>
+              <div style={{ fontFamily: 'var(--font-family-meta)', fontSize: '9px', color: 'var(--nui-accent-primary)', marginTop: '0.5rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>View Chinese Block →</div>
+            </div>
+          </Link>
+
+          {/* Mini English preview */}
+          <Link href="/blocks/en-feature" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+            <div style={{ border: '1px solid var(--nui-rule-hairline)', padding: '0.75rem', background: 'var(--nui-bg-surface)', marginBottom: '0.75rem' }}>
+              <div style={{ fontFamily: 'var(--font-family-display)', fontSize: '14px', fontWeight: 600, lineHeight: 1.2, marginBottom: '0.25rem' }}>The Quiet Collapse of the Middle Shelf</div>
+              <div style={{ fontFamily: 'var(--font-family-body)', fontSize: '11px', color: 'var(--nui-text-body)', lineHeight: 1.5 }}>How a generation of mid-list authors lost their publishers…</div>
+              <div style={{ fontFamily: 'var(--font-family-meta)', fontSize: '9px', color: 'var(--nui-accent-primary)', marginTop: '0.5rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>View English Block →</div>
+            </div>
+          </Link>
+
+          {/* Mini Japanese preview */}
+          <Link href="/blocks/jp-vertical" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+            <div style={{ border: '1px solid var(--nui-rule-hairline)', padding: '0.75rem', background: 'var(--nui-bg-surface)', marginBottom: '0.75rem' }}>
+              <div style={{ fontFamily: 'var(--font-family-cjk-jp)', fontSize: '16px', fontWeight: 900, lineHeight: 1.2, marginBottom: '0.25rem' }}>朝日新聞</div>
+              <div style={{ fontFamily: 'var(--font-family-cjk-jp)', fontSize: '11px', color: 'var(--nui-text-body)', lineHeight: 1.5 }}>歴史的通商協定が成立…</div>
+              <div style={{ fontFamily: 'var(--font-family-meta)', fontSize: '9px', color: 'var(--nui-accent-primary)', marginTop: '0.5rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>View Japanese Block →</div>
+            </div>
+          </Link>
+
+          <Rule variant="hairline" style={{ margin: '1rem 0' }} />
+
+          {/* Quick links */}
+          <Kicker>More</Kicker>
+          <ul style={{ listStyle: 'none', padding: 0, margin: '0.5rem 0 0', fontFamily: 'var(--font-family-meta)', fontSize: '12px', lineHeight: 2 }}>
+            <li><Link href="/blocks" style={{ color: 'var(--nui-text-body)', textDecoration: 'none' }}>All 6 Blocks →</Link></li>
+            <li><Link href="/examples/nyt-frontpage" style={{ color: 'var(--nui-text-body)', textDecoration: 'none' }}>NYT Front Page →</Link></li>
+            <li><Link href="/examples/blackletter-frontpage" style={{ color: 'var(--nui-text-body)', textDecoration: 'none' }}>Blackletter →</Link></li>
+            <li><Link href="/create" style={{ color: 'var(--nui-text-body)', textDecoration: 'none' }}>Theme Creator →</Link></li>
+            <li><Link href="/grid-system" style={{ color: 'var(--nui-text-body)', textDecoration: 'none' }}>Documentation →</Link></li>
+          </ul>
         </Article>
       </Section>
 
-      <Section columns={24} gap="2rem" style={{ marginTop: '2rem' }}>
-        {demos.map((demo, idx) => (
-          <Article key={demo.href} span={24} style={{ marginBottom: '2rem' }}>
-            <Link
-              href={demo.href}
-              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
-            >
-              <div
-                style={{
-                  border: '1px solid var(--nui-rule-hairline)',
-                  background: 'var(--nui-bg-surface)',
-                  padding: '2rem',
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 3fr',
-                  gap: '2rem',
-                  alignItems: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    borderRight: '1px solid var(--nui-rule-hairline)',
-                    paddingRight: '2rem',
-                  }}
-                >
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-family-meta)',
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      fontVariantCaps: 'small-caps',
-                      letterSpacing: '0.08em',
-                      color: demo.color,
-                      marginBottom: '0.5rem',
-                    }}
-                  >
-                    {demo.lang}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-family-meta)',
-                      fontSize: '11px',
-                      color: 'var(--nui-text-muted)',
-                    }}
-                  >
-                    Demo #{String(idx + 1).padStart(2, '0')}
-                  </div>
-                </div>
-                <div>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-family-display)',
-                      fontSize: '28px',
-                      fontWeight: 600,
-                      lineHeight: 1.15,
-                      color: 'var(--nui-text-primary)',
-                      margin: '0 0 0.5rem 0',
-                    }}
-                  >
-                    {demo.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-family-body)',
-                      fontSize: '15px',
-                      lineHeight: 1.5,
-                      color: 'var(--nui-text-body)',
-                      margin: 0,
-                    }}
-                  >
-                    {demo.description}
-                  </p>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-family-meta)',
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      color: 'var(--nui-accent-primary)',
-                      marginTop: '0.75rem',
-                      fontVariantCaps: 'small-caps',
-                      letterSpacing: '0.06em',
-                    }}
-                  >
-                    View demo →
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </Article>
-        ))}
+      {/* Bottom section: Component showcase strip */}
+      <Section columns={24} divider="top" gap="1rem" style={{ marginTop: '2rem', paddingTop: '1.5rem' }}>
+        <Article span={24}>
+          <Folio page="B1" section="Components" date="24 total" publication="NewspaperUI" />
+        </Article>
+
+        <Article span={6}>
+          <Factbox title="Layout (9)">
+            <ul style={{ padding: '0 0 0 1em', margin: 0, fontSize: '12px', lineHeight: 1.8 }}>
+              <li>Layout</li>
+              <li>Section</li>
+              <li>Article</li>
+              <li>Layer</li>
+              <li>Masthead</li>
+              <li>Rule</li>
+              <li>Footer</li>
+              <li>Sidebar</li>
+              <li>BreakingNewsBanner</li>
+            </ul>
+          </Factbox>
+        </Article>
+
+        <Article span={6}>
+          <Factbox title="Text (10)">
+            <ul style={{ padding: '0 0 0 1em', margin: 0, fontSize: '12px', lineHeight: 1.8 }}>
+              <li>Headline</li>
+              <li>Subhead</li>
+              <li>Kicker</li>
+              <li>BodyText</li>
+              <li>Quote</li>
+              <li>Byline</li>
+              <li>Dateline</li>
+              <li>Caption</li>
+              <li>AuthorCard</li>
+              <li>JumpLine</li>
+            </ul>
+          </Factbox>
+        </Article>
+
+        <Article span={6}>
+          <Factbox title="Media (4)">
+            <ul style={{ padding: '0 0 0 1em', margin: 0, fontSize: '12px', lineHeight: 1.8 }}>
+              <li>Image</li>
+              <li>Figure</li>
+              <li>Video</li>
+              <li>PullQuote</li>
+            </ul>
+          </Factbox>
+        </Article>
+
+        <Article span={6}>
+          <Factbox title="Data (3)">
+            <ul style={{ padding: '0 0 0 1em', margin: 0, fontSize: '12px', lineHeight: 1.8 }}>
+              <li>IndexBox</li>
+              <li>Factbox</li>
+              <li>RelatedArticles</li>
+            </ul>
+          </Factbox>
+        </Article>
       </Section>
 
-      <Section
-        columns={24}
-        divider="top"
-        gap="2rem"
-        style={{ marginTop: '4rem', paddingTop: '2rem' }}
-      >
-        <Article span={12}>
-          <Kicker>Design Philosophy</Kicker>
-          <Headline weight="Low" as="h3" style={{ marginTop: 0 }}>
-            Print Tradition, Web Implementation
-          </Headline>
-          <BodyText weight="Low">
-            <p>
-              NewspaperUI 借鉴 InDesign
-              段落样式系统的设计 token 思想，把字体、字号、字重、行高、颜色、间距统一收敛到视觉权重映射表（visualWeights）。组件从单一数据源读取样式，修改一处即全局生效。
-            </p>
-            <p>
-              排版机制采用 Hybrid 双层：CSS Grid 负责大块布局，CSS Multi-column 负责正文流。这是报纸排版传统在 Web
-              上的最佳还原。
-            </p>
-          </BodyText>
-        </Article>
-        <Article span={12}>
-          <Kicker>Tech Stack</Kicker>
-          <Headline weight="Low" as="h3" style={{ marginTop: 0 }}>
-            React 18 · TypeScript 5 · CSS Grid + Multi-column
-          </Headline>
-          <BodyText weight="Low">
-            <p>
-              4 packages：<code>newspaperui-theme</code>、<code>newspaperui-utils</code>、
-              <code>newspaperui-components</code>（18 components）、<code>@newspaperui/docs</code>。
-            </p>
-            <p>Built with pnpm workspaces + Turborepo. Vite for libraries, Next.js 15 for docs.</p>
-          </BodyText>
-        </Article>
-      </Section>
+      {/* Footer */}
+      <Footer
+        copyright="© 2026 NewspaperUI"
+        edition="MIT License"
+        links={[
+          { label: 'GitHub', href: 'https://github.com/joisun/newspaperui' },
+          { label: 'Documentation', href: '/grid-system' },
+          { label: 'Blocks', href: '/blocks' },
+          { label: 'Create Theme', href: '/create' },
+        ]}
+      />
     </Layout>
   );
 }

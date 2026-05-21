@@ -52,6 +52,16 @@ export type { PullQuoteProps } from './media/PullQuote';
 export { RelatedArticles } from './layout/RelatedArticles';
 export type { RelatedArticlesProps, RelatedArticle } from './layout/RelatedArticles';
 
+// additional layout
+export { Folio } from './layout/Folio';
+export type { FolioProps } from './layout/Folio';
+export { IndexBox } from './layout/IndexBox';
+export type { IndexBoxProps, IndexItem } from './layout/IndexBox';
+export { Factbox } from './layout/Factbox';
+export type { FactboxProps } from './layout/Factbox';
+
 // additional text
 export { AuthorCard } from './text/AuthorCard';
 export type { AuthorCardProps } from './text/AuthorCard';
+export { JumpLine } from './text/JumpLine';
+export type { JumpLineProps } from './text/JumpLine';
