@@ -1,0 +1,51 @@
+---
+title: 主题与颜色
+description: 暖灰系 + warm off-white 设计系统
+---
+
+设计哲学：暖灰系 + warm off-white。不使用纯黑（#000）也不使用纯白（#FFF），把屏幕配色带回纸面的温度。
+
+## 主题切换
+
+深色基调采用暖深棕黑（#14110D）而非冷蓝黑，保持报纸的纸性触感。通过 `document.documentElement.dataset.theme = 'dark'` 切换。
+
+## 文字色 Token
+
+| Token | 色值 | 用途 |
+|---|---|---|
+| `--nui-text-primary` | #1A1A1A | 标题、主文本 |
+| `--nui-text-body` | #22201C | 正文 |
+| `--nui-text-secondary` | #4A4742 | Subhead、次级 |
+| `--nui-text-muted` | #6E6A63 | Caption、注释 |
+| `--nui-text-quote` | #2E2A24 | Quote 主体 |
+
+## 背景与分隔线 Token
+
+| Token | 色值 | 用途 |
+|---|---|---|
+| `--nui-bg-page` | #F7F4ED | Warm off-white 页面底 |
+| `--nui-bg-surface` | #FBF9F4 | 次级面板背景 |
+| `--nui-rule-hairline` | #C9C2B2 | 细线分隔 |
+| `--nui-rule-decorative` | #1A1A1A | 强调线 |
+| `--nui-highlight` | #F2E9C8 | 旧报纸黄 |
+
+## 强调色 Token
+
+| Token | 色值 | 用途 |
+|---|---|---|
+| `--nui-accent-primary` | #7A1F1F | Brick red, Kicker / Masthead 强调 |
+| `--nui-accent-ink-blue` | #1B2A4A | The Times 蓝 |
+| `--nui-highlight` | #F2E9C8 | 高亮底色 |
+
+## 字体家族
+
+全部经典严肃风字体：Cormorant Garamond 承担报头与展示，Source Serif 4 贯穿正文与标题，Inter 处理 small-caps 元信息。Blackletter preset 通过 UnifrakturMaguntia 切入哥特报头。
+
+| Token | 字体 | 用途 |
+|---|---|---|
+| `--font-family-masthead` | Cormorant Garamond | 报头 |
+| `--font-family-blackletter` | UnifrakturMaguntia | Blackletter preset |
+| `--font-family-display` | Source Serif 4 | Display 大字头条 |
+| `--font-family-headline` | Source Serif 4 | Headline / Subhead |
+| `--font-family-body` | Source Serif 4 | 正文 |
+| `--font-family-meta` | Inter | small-caps 元信息 |

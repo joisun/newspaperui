@@ -1,0 +1,78 @@
+---
+title: 媒体组件
+description: Image、Figure、Video、PullQuote — 报纸版面中的视觉元素
+---
+
+## Image
+
+基础图片组件。`display: block; width: 100%`，在 Section 栅格内通过 span 跨栏。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `src` | `string` | **必填** | 图片 URL。 |
+| `alt` | `string` | **必填** | 替代文本。 |
+| `span` | `number` | - | 跨栏数。 |
+
+## Figure
+
+组合 Image + Caption + Credit 的语义容器。自动渲染 figcaption。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `src` | `string` | **必填** | 图片 URL。 |
+| `alt` | `string` | **必填** | 替代文本。 |
+| `caption` | `string` | - | 图片说明。 |
+| `credit` | `string` | - | 摄影师/来源（small-caps 渲染）。 |
+| `span` | `number` | - | 跨栏数。 |
+
+```tsx
+<Figure
+  src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&h=400&fit=crop"
+  alt="Newspapers on a wooden table"
+  caption="A view of the morning editions, arranged on the newsroom table."
+  credit="Photograph by Roman Kraft / Unsplash"
+/>
+```
+
+## Video
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `src` | `string` | **必填** | 视频 URL。 |
+| `poster` | `string` | - | 封面图 URL。 |
+| `caption` | `string` | - | 视频说明。 |
+| `credit` | `string` | - | 来源。 |
+| `controls` | `boolean` | `true` | 显示播放控件。 |
+| `span` | `number` | - | 跨栏数。 |
+
+Video 组件与 Figure 结构类似，包裹 `<video>` 标签并附带 caption/credit。
+
+## PullQuote
+
+上下双 hairline + Display 字体的拉引组件。在多栏 BodyText 内设置 `spanAllColumns` 可跨所有栏（通过 `column-span: all`）。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `weight` | `'High' \| 'Medium'` | `'High'` | 视觉权重。 |
+| `span` | `number` | - | 在 Section 栅格内跨栏。 |
+| `spanAllColumns` | `boolean` | `false` | 在多栏 BodyText 内跨所有栏。 |
+| `author` | `string` | - | 引用来源。 |
+| `align` | `'left' \| 'center'` | `'left'` | 文本对齐。 |
+
+### 独立使用
+
+```tsx
+<PullQuote author="Senior Cabinet Official">
+  We have lobbied for this kind of clarity for the better part of a decade.
+</PullQuote>
+```
+
+### 在多栏 BodyText 内跨栏
+
+```tsx
+<BodyText columns={3}>
+  <p>...</p>
+  <PullQuote spanAllColumns author="...">...</PullQuote>
+  <p>...</p>
+</BodyText>
+```

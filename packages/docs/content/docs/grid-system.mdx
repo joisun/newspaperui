@@ -1,0 +1,89 @@
+---
+title: 栅格系统
+description: 24 列响应式栅格，CSS Grid 实现
+---
+
+## 概念
+
+NewspaperUI 使用 24 列栅格系统。24 列由 `Layout` 提供上下文，`Section` 在栅格内分配 `grid-template-columns`，`Article` 用 `grid-column span` 跨栏。所有跨栏统一通过 CSS Grid 完成。
+
+报纸排版偏好 24 列是因为它能整除 2 / 3 / 4 / 6 / 8 / 12，足够灵活地实现 1/3、2/3、1/4、3/4 这类常见栏宽组合。
+
+## Layout API
+
+`Layout` 是顶层容器，提供 LayoutContext。Section 通过 useLayout 读取列数上限并自动 clamp。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `columns` | `number` | `24` | 栅格总列数。决定子 Section 的最大 columns。 |
+| `maxWidth` | `string` | `'1280px'` | 页面最大宽度。 |
+| `padding` | `string` | `'var(--nui-space-6)'` | 页面内边距。 |
+| `theme` | `'light' \| 'dark'` | - | 强制主题；省略时跟随 documentElement.dataset.theme。 |
+| `children` | `ReactNode` | **必填** | 子内容（通常是若干 Section）。 |
+
+## Section API
+
+`Section` 是栅格容器，`display: grid; grid-template-columns: repeat(N, 1fr)`。子 Article 通过 grid-column span 占位。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `columns` | `number` | **必填** | Section 内部栅格列数（≤ Layout.columns）。 |
+| `gap` | `string` | `'var(--nui-gutter)'` | 栏间间距。 |
+| `breakable` | `boolean` | `true` | 允许打印时跨页断开。 |
+| `divider` | `'none' \| 'top' \| 'bottom' \| 'both'` | `'none'` | 上下方向的 hairline 分隔线。 |
+
+## Article API
+
+`Article` 在 Section 栅格内用 `grid-column span N` 占位。span 缺省时占满 Section 全宽。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `span` | `number` | - | 跨多少列（0 &lt; span ≤ Section.columns）。 |
+| `breakable` | `boolean` | `true` | 允许打印时跨页断开。 |
+| `children` | `ReactNode` | **必填** | 文章内容。 |
+
+## 用法示例
+
+### 8 + 16 跨栏
+
+左侧短讯 8 列 + 右侧主稿 16 列：
+
+```tsx
+<Layout columns={24}>
+  <Section columns={24}>
+    <Article span={8}>
+      <Headline weight="Low">短讯</Headline>
+      <BodyText>...</BodyText>
+    </Article>
+    <Article span={16}>
+      <Headline weight="Medium">主稿</Headline>
+      <BodyText>...</BodyText>
+    </Article>
+  </Section>
+</Layout>
+```
+
+### 6 + 12 + 6 三栏对称
+
+```tsx
+<Layout columns={24}>
+  <Section columns={24}>
+    <Article span={6}>侧栏</Article>
+    <Article span={12}>主体</Article>
+    <Article span={6}>侧栏</Article>
+  </Section>
+</Layout>
+```
+
+### 24 全宽
+
+```tsx
+<Layout columns={24}>
+  <Section columns={24}>
+    <Article span={24}>
+      <Headline weight="High">全宽文章</Headline>
+      <BodyText columns={4} dropCap>...</BodyText>
+    </Article>
+  </Section>
+</Layout>
+```

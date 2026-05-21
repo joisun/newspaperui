@@ -1,28 +1,13 @@
-import createMDX from '@next/mdx';
-import rehypePrettyCode from 'rehype-pretty-code';
+import { createMDX } from 'fumadocs-mdx/next';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   images: { unoptimized: true },
-  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   transpilePackages: ['newspaperui'],
 };
 
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-  options: {
-    rehypePlugins: [
-      [
-        rehypePrettyCode,
-        {
-          theme: 'github-dark',
-          keepBackground: false,
-        },
-      ],
-    ],
-  },
-});
+const withMDX = createMDX();
 
 export default withMDX(nextConfig);

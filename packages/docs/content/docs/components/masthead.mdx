@@ -1,0 +1,65 @@
+---
+title: Masthead 报头
+description: 报纸门面组件，三种视觉风格
+---
+
+## 概述
+
+报头是报纸的门面。三个 variant 覆盖经典双线居中、哥特体、现代左对齐三种风格。
+
+## API
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `title` | `string` | **必填** | 报名文字。 |
+| `variant` | `'classic' \| 'blackletter' \| 'modern'` | `'classic'` | 视觉风格。 |
+| `kicker` | `string` | - | 报名上方的小标（如 "All the News That's Fit to Print"）。 |
+| `edition` | `string` | - | 版次（如 "Vol. CLXXII No. 59,678"）。 |
+| `date` | `string` | - | 日期（如 "Monday, May 19, 2026"）。 |
+| `price` | `string` | - | 售价（如 "$3.00"）。 |
+
+## Classic
+
+双线居中，Cormorant Garamond 衬线。
+
+```tsx
+<Masthead
+  variant="classic"
+  title="The Daily Chronicle"
+  kicker="All the News That's Fit to Print"
+  edition="Vol. CLXXII No. 59,678"
+  date="Monday, May 19, 2026"
+  price="$3.00"
+/>
+```
+
+## Blackletter
+
+UnifrakturMaguntia 哥特体，The Times 风格。
+
+```tsx
+<Masthead
+  variant="blackletter"
+  title="The Evening Standard"
+  edition="Late Final Edition"
+  date="Monday, May 19, 2026"
+  price="£2.50"
+/>
+```
+
+## Modern
+
+左对齐 + accent 强调色，适合数字优先的出版物。
+
+```tsx
+<Masthead
+  variant="modern"
+  title="The Observer"
+  kicker="Sunday Edition"
+  date="May 19, 2026"
+/>
+```
+
+## 使用建议
+
+Masthead 默认 `gridColumn: 1 / -1`，在 Section 内自动全宽。通常放在 Layout 的第一个 Section 中，后接 Rule 分隔线。

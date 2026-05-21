@@ -1,0 +1,83 @@
+---
+title: 跨栏布局示例
+description: 五种常见栏宽组合，演示 24 列栅格的灵活性
+---
+
+五种常见栏宽组合，演示 24 列栅格的灵活性。
+
+## 8 + 16
+
+短讯 + 主稿：
+
+```tsx
+<Layout columns={24}>
+  <Section columns={24}>
+    <Article span={8}>
+      <Headline weight="Low">Briefing</Headline>
+      <BodyText weight="Low"><p>Short news items.</p></BodyText>
+    </Article>
+    <Article span={16}>
+      <Headline weight="Medium">Infrastructure Review Tabled</Headline>
+      <BodyText><p>Main article content...</p></BodyText>
+    </Article>
+  </Section>
+</Layout>
+```
+
+## 6 + 12 + 6
+
+三栏对称布局，中间主体 + 两侧辅助：
+
+```tsx
+<Layout columns={24}>
+  <Section columns={24}>
+    <Article span={6}>Weather</Article>
+    <Article span={12}>Chancellor Outlines Spending Envelope</Article>
+    <Article span={6}>Markets</Article>
+  </Section>
+</Layout>
+```
+
+## 12 + 12
+
+对称双栏，适合对比报道或并列文章：
+
+```tsx
+<Layout columns={24}>
+  <Section columns={24}>
+    <Article span={12}>View from Westminster</Article>
+    <Article span={12}>View from the Regions</Article>
+  </Section>
+</Layout>
+```
+
+## 4 + 16 + 4
+
+窄侧栏 + 宽主体，适合带注释的长文：
+
+```tsx
+<Layout columns={24}>
+  <Section columns={24}>
+    <Article span={4}>Editor's note</Article>
+    <Article span={16}>A Standing Technical Commission</Article>
+    <Article span={4}>Related reading</Article>
+  </Section>
+</Layout>
+```
+
+## 24 全宽
+
+单篇全宽文章，适合社论或特稿：
+
+```tsx
+<Layout columns={24}>
+  <Section columns={24}>
+    <Article span={24}>
+      <Headline weight="High">The Quiet Revolution in Treasury Forecasting</Headline>
+      <BodyText columns={4} dropCap>
+        <p>...</p>
+      </BodyText>
+    </Article>
+  </Section>
+</Layout>
+```

@@ -45,7 +45,7 @@ export default function LandingPage() {
           24 React components · CSS Grid + Multi-column · 中文 / English / 日本語
         </p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', fontFamily: 'var(--font-family-meta)', fontSize: '13px' }}>
-          <Link href="/grid-system" style={{ color: 'var(--nui-accent-primary)', textDecoration: 'none', fontWeight: 600 }}>Documentation →</Link>
+          <Link href="/docs/grid-system" style={{ color: 'var(--nui-accent-primary)', textDecoration: 'none', fontWeight: 600 }}>Documentation →</Link>
           <Link href="/create" style={{ color: 'var(--nui-text-secondary)', textDecoration: 'none' }}>Create Theme</Link>
           <Link href="/blocks" style={{ color: 'var(--nui-text-secondary)', textDecoration: 'none' }}>All Blocks</Link>
           <a href="https://github.com/joisun/newspaperui" style={{ color: 'var(--nui-text-muted)', textDecoration: 'none' }}>GitHub</a>

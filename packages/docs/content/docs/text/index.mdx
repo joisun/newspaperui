@@ -1,0 +1,140 @@
+---
+title: 文本组件
+description: 从 Headline 到 Caption 的完整文本谱系
+---
+
+从 Headline 到 Caption 的完整文本谱系。每个组件按视觉权重映射到字体、字号、字重、行高与颜色 token，避免硬编码样式。
+
+## Headline
+
+三档视觉权重：High / Medium / Low。
+
+```tsx
+<Headline weight="High" as="h1">
+  A Quiet Revolution in the Treasury Forecast
+</Headline>
+
+<Headline weight="Medium" as="h2">
+  Whitehall Confirms Infrastructure Review
+</Headline>
+
+<Headline weight="Low" as="h3">
+  Briefing: regional rail commitments
+</Headline>
+```
+
+## Subhead
+
+两档视觉权重：High / Medium。
+
+```tsx
+<Subhead weight="High">
+  A measured recalibration of regional priorities is expected to define
+  the chancellor's autumn agenda.
+</Subhead>
+
+<Subhead weight="Medium">
+  Officials emphasized that the headline figures should be read as a planning
+  envelope rather than a binding allocation.
+</Subhead>
+```
+
+## Kicker
+
+朱红 small-caps，挂在 Headline 上方。
+
+```tsx
+<Kicker>POLITICS · WHITEHALL</Kicker>
+<Headline weight="Medium" as="h3">
+  A Standing Technical Commission, Quietly Proposed
+</Headline>
+```
+
+## BodyText
+
+多栏文字流组件，支持 `columns` 和 `dropCap`。
+
+### 单栏（默认）
+
+```tsx
+<BodyText>
+  <p>默认形态，适合中等宽度的文章正文。</p>
+</BodyText>
+```
+
+### 三栏 + 首字下沉
+
+开启 `columns={3}` 与 `dropCap`，第一段首字母自动下沉占 2-3 行。
+
+```tsx
+<BodyText columns={3} dropCap>
+  <p>...</p>
+  <p>...</p>
+</BodyText>
+```
+
+### 两栏
+
+`columns={2}`，栏间细线由 `nui-column-rule` 提供。
+
+```tsx
+<BodyText columns={2}>
+  <p>...</p>
+  <p>...</p>
+</BodyText>
+```
+
+## Quote
+
+block / inline 两种变体。
+
+```tsx
+{/* Block quote */}
+<Quote variant="block">
+  We have lobbied for this kind of clarity for the better part of a decade.
+</Quote>
+
+{/* Inline quote */}
+<BodyText>
+  <p>
+    按一位资深内阁人士的说法，这份评估
+    <Quote variant="inline">是一个时代以来最连贯的战略蓝图</Quote>
+    ，但能否落地仍取决于春季立法。
+  </p>
+</BodyText>
+```
+
+## Byline / Dateline / Caption
+
+元信息组件。
+
+```tsx
+<Byline>BY ALICE SMITH</Byline>
+<Dateline>LONDON —</Dateline>
+
+<figure>
+  <img src="..." alt="..." />
+  <Caption credit="Photograph by Jane Doe">
+    A view of the Treasury terrace at dusk; the new commission will report here from May.
+  </Caption>
+</figure>
+```
+
+## 视觉权重映射
+
+所有文本组件的样式由 `visualWeights` 数据驱动，修改 theme 后自动同步。映射关系：
+
+| 组件 | 权重 | 字体 | 字号 | 字重 | 行高 |
+|---|---|---|---|---|---|
+| Headline | High | `--font-family-display` | 48px | 700 | 1.05 |
+| Headline | Medium | `--font-family-headline` | 32px | 700 | 1.15 |
+| Headline | Low | `--font-family-headline` | 22px | 600 | 1.25 |
+| Subhead | High | `--font-family-headline` | 22px | 400 | 1.35 |
+| Subhead | Medium | `--font-family-headline` | 18px | 400 | 1.4 |
+| Kicker | - | `--font-family-meta` | 12px | 700 | 1.2 |
+| BodyText | High | `--font-family-body` | 17px | 400 | 1.65 |
+| BodyText | Medium | `--font-family-body` | 16px | 400 | 1.6 |
+| BodyText | Low | `--font-family-body` | 15px | 400 | 1.55 |
+| Byline | - | `--font-family-meta` | 12px | 600 | 1.2 |
+| Dateline | - | `--font-family-meta` | 13px | 700 | 1.2 |
+| Caption | - | `--font-family-meta` | 12px | 400 | 1.4 |

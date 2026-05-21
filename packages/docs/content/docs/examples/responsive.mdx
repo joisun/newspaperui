@@ -1,0 +1,65 @@
+---
+title: 响应式设计
+description: 基于 CSS media query + container query 的响应式策略
+---
+
+NewspaperUI 的响应式策略完全基于 CSS media query + container query，不依赖 JavaScript 运行时计算。
+
+## 断点说明
+
+三个核心断点覆盖移动、平板、桌面：
+
+| 断点 | 宽度 | 栏数建议 | 说明 |
+|---|---|---|---|
+| Mobile | 小于 768px | 1 栏（全宽） | 单栏堆叠，BodyText columns=1 |
+| Tablet | 768px - 1024px | 12 列 | 两栏布局，BodyText columns=2 |
+| Desktop | 大于 1024px | 24 列 | 完整多栏布局 |
+
+## 实施手法
+
+NewspaperUI 不再使用 JavaScript responsive 函数。所有响应式行为通过 CSS media query 和 container query 实现，零运行时开销。
+
+Section 的 `gridTemplateColumns` 是 inline style，因此需要在消费侧用 CSS 覆盖。推荐做法：
+
+### Media Query 方案
+
+```css
+/* 在你的 globals.css 或组件 CSS 中 */
+@media (max-width: 768px) {
+  .nui-section {
+    grid-template-columns: 1fr !important;
+  }
+  .nui-article {
+    grid-column: span 1 !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nui-section[data-columns="24"] {
+    grid-template-columns: repeat(12, 1fr) !important;
+  }
+}
+```
+
+### Container Query 方案
+
+```css
+/* 给 Section 添加 container-type */
+.nui-section {
+  container-type: inline-size;
+}
+
+@container (max-width: 600px) {
+  .nui-article {
+    grid-column: 1 / -1 !important;
+  }
+}
+```
+
+## 视口效果
+
+- **Desktop (1024px+)**: 24 列完整布局，6 + 12 + 6 三栏
+- **Tablet (768-1024px)**: 12 列简化，两栏并列
+- **Mobile (小于 768px)**: 单栏堆叠，所有 Article 全宽
+
+实际项目中建议使用浏览器 DevTools 的 responsive mode 进行测试。

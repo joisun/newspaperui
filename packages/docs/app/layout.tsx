@@ -1,5 +1,7 @@
 import './globals.css';
+import 'fumadocs-ui/style.css';
 import type { Metadata } from 'next';
+import { RootProvider } from 'fumadocs-ui/provider';
 import { Header } from '../components/Header';
 
 export const metadata: Metadata = {
@@ -9,10 +11,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh">
-      <body>
-        <Header />
-        {children}
+    <html lang="zh" suppressHydrationWarning>
+      <body className="flex flex-col min-h-screen">
+        <RootProvider>
+          <Header />
+          {children}
+        </RootProvider>
       </body>
     </html>
   );

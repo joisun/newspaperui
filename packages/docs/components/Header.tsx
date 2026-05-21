@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { label: 'Docs', href: '/grid-system' },
-  { label: 'Components', href: '/components/article' },
-  { label: 'Themes', href: '/theme' },
+  { label: 'Docs', href: '/docs/grid-system' },
+  { label: 'Components', href: '/docs/components/article' },
+  { label: 'Themes', href: '/docs/theme' },
   { label: 'Blocks', href: '/blocks' },
   { label: 'Create', href: '/create' },
 ];
