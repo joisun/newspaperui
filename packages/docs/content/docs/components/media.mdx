@@ -25,6 +25,19 @@ description: Image、Figure、Video、PullQuote — 报纸版面中的视觉元�
 | `credit` | `string` | - | 摄影师/来源（small-caps 渲染）。 |
 | `span` | `number` | - | 跨栏数。 |
 
+<Layout columns={24} padding="0">
+<Section columns={24}>
+<Article span={24}>
+<Figure
+  src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&h=400&fit=crop"
+  alt="Newspapers on a wooden table"
+  caption="A view of the morning editions, arranged on the newsroom table."
+  credit="Photograph by Roman Kraft / Unsplash"
+/>
+</Article>
+</Section>
+</Layout>
+
 ```tsx
 <Figure
   src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&h=400&fit=crop"
@@ -61,6 +74,16 @@ Video 组件与 Figure 结构类似，包裹 `<video>` 标签并附带 caption/c
 
 ### 独立使用
 
+<Layout columns={24} padding="0">
+<Section columns={24}>
+<Article span={24}>
+<PullQuote author="Senior Cabinet Official">
+  We have lobbied for this kind of clarity for the better part of a decade.
+</PullQuote>
+</Article>
+</Section>
+</Layout>
+
 ```tsx
 <PullQuote author="Senior Cabinet Official">
   We have lobbied for this kind of clarity for the better part of a decade.
@@ -68,6 +91,18 @@ Video 组件与 Figure 结构类似，包裹 `<video>` 标签并附带 caption/c
 ```
 
 ### 在多栏 BodyText 内跨栏
+
+<Layout columns={24} padding="0">
+<Section columns={24}>
+<Article span={24}>
+<BodyText columns={3}>
+  <p>After eleven consecutive days of negotiation that several participants described as the most demanding in a generation, delegates announced a sweeping framework.</p>
+  <PullQuote spanAllColumns author="Margarethe Lindqvist">A long argument that finally became a conversation.</PullQuote>
+  <p>Markets reacted with measured optimism. The continental composite index closed up 1.2 percent, led by capital-goods makers.</p>
+</BodyText>
+</Article>
+</Section>
+</Layout>
 
 ```tsx
 <BodyText columns={3}>
