@@ -9,9 +9,21 @@ export const metadata: Metadata = {
   description: '生产级报纸布局组件库',
 };
 
+const themeInitScript = `
+(function() {
+  try {
+    var t = localStorage.getItem('nui-theme');
+    if (t === 'dark') document.documentElement.dataset.theme = 'dark';
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="flex flex-col min-h-screen">
         <RootProvider>
           <Header />

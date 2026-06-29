@@ -11,6 +11,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...defaultMdxComponents,
     ...components,
+    // Restore native img to avoid Next.js Image hydration mismatch in static export
+    img: (props) => <img {...props} />,
     Layout, Section, Article, Layer, Masthead, Rule, Footer,
     Headline, Subhead, Kicker, BodyText, Quote, Byline, Dateline, Caption,
     Image, Figure, Video, PullQuote,

@@ -51,7 +51,7 @@ export const PullQuote: React.FC<PullQuoteProps> = ({
         ...style,
       }}
     >
-      <p
+      <div
         style={{
           fontFamily: `var(${config.fontFamily})`,
           fontSize: resolveFontSize(config.fontSize),
@@ -64,7 +64,7 @@ export const PullQuote: React.FC<PullQuoteProps> = ({
         }}
       >
         {children}
-      </p>
+      </div>
       {author && (
         <footer
           className="nui-small-caps"

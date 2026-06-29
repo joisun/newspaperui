@@ -79,3 +79,18 @@
   border-top: 1px solid var(--nui-rule-hairline);
   margin: 0;
 }
+
+/* === Responsive: collapse grid to single column on mobile === */
+@media (max-width: 640px) {
+  .nui-section {
+    grid-template-columns: 1fr !important;
+  }
+  .nui-section > * {
+    grid-column: 1 / -1 !important;
+  }
+  /* Collapse multi-column text flow on mobile */
+  .nui-bodytext {
+    column-count: 1 !important;
+    column-width: auto !important;
+  }
+}

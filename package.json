@@ -9,15 +9,19 @@
     "dev": "turbo run dev",
     "lint": "eslint packages/*/src/",
     "test": "turbo run test",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.60.0",
     "eslint": "^10.4.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "prettier": "^3.8.3",
+    "serve": "^14.2.6",
     "turbo": "^2.3.3",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.59.4"

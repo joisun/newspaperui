@@ -39,6 +39,7 @@ export const Layout: React.FC<LayoutProps> = ({
         maxWidth,
         margin: '0 auto',
         padding,
+        overflowX: 'hidden',
         background: 'var(--nui-bg-page)',
         color: 'var(--nui-text-body)',
         fontFamily: 'var(--font-family-body)',

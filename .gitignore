@@ -47,3 +47,4 @@ coverage
 # IDE / tools
 .playwright-mcp/
 screenshots/
+playwright-report/
