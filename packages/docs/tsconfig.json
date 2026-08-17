@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "types": ["vitest/globals"],
     "paths": {
       "@/*": ["./*"],
       "@/.source": ["./.source/index.ts"]

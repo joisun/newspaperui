@@ -1,4 +1,4 @@
-import 'newspaperui-theme';
+import 'newspaperui-theme/dist/style.css';
 
 // layout
 export { Layout, useLayout } from './layout/Layout';

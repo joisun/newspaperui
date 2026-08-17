@@ -1,6 +1,7 @@
 {
   "name": "newspaperui-theme",
   "version": "0.1.0",
+  "private": true,
   "description": "CSS variables, visual weights, and typography utilities for NewspaperUI",
   "type": "module",
   "main": "./dist/index.cjs",

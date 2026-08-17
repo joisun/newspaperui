@@ -29,9 +29,19 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm build
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Build all packages
+        run: pnpm exec turbo run build --force
         env:
           NEXT_PUBLIC_BASE_PATH: /newspaperui
+
+      - name: Verify packed consumer install
+        run: pnpm package:smoke
 
       - uses: actions/upload-pages-artifact@v3
         with:

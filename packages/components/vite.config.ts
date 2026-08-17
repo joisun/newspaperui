@@ -8,6 +8,7 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
+      exclude: ['src/**/__tests__/**', 'src/**/*.test.ts', 'src/**/*.test.tsx'],
     }),
   ],
   build: {
@@ -20,6 +21,8 @@ export default defineConfig({
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
+        assetFileNames: (assetInfo) =>
+          assetInfo.name === 'style.css' ? 'style.css' : 'assets/[name][extname]',
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',

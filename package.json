@@ -7,10 +7,14 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "eslint packages/*/src/",
+    "lint": "pnpm -r --filter './packages/**' --if-present lint",
     "test": "turbo run test",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "package:smoke": "node scripts/package-smoke.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm exec turbo run build --force && pnpm package:smoke && changeset publish",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {

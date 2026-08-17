@@ -48,3 +48,5 @@ coverage
 .playwright-mcp/
 screenshots/
 playwright-report/
+/.vdr-log/
+packages/docs/.source/

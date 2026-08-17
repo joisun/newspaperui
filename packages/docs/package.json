@@ -1,25 +1,29 @@
 {
   "name": "@newspaperui/docs",
   "version": "0.0.0",
+  "type": "module",
   "description": "Documentation site for newspaperui",
   "private": true,
   "scripts": {
+    "postinstall": "fumadocs-mdx",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "prelint": "fumadocs-mdx",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
     "clean": "rm -rf .next"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.2.6",
+    "@phosphor-icons/react": "^2.1.10",
     "@types/mdx": "^2.0.13",
     "fumadocs-core": "14.7.7",
     "fumadocs-mdx": "10.1.0",
     "fumadocs-ui": "14.7.7",
     "newspaperui": "workspace:*",
-    "newspaperui-theme": "workspace:*",
     "next": "^15.1.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -28,12 +32,18 @@
     "zod": "3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
     "@types/node": "^22.10.5",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8",
+    "jsdom": "^25.0.1"
   }
 }
