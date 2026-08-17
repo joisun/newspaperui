@@ -182,15 +182,15 @@ Dark（暖深棕黑，非冷黑）：
 - 路由结构：
   1. `/` 首页 = 报纸风格 Landing Page（Masthead + 介绍 + 多语言 demo 列表 + 设计哲学/技术栈）
   2. `/examples/nyt-frontpage` NYT 派完整报纸头版（Masthead + Briefs + Lead Story 含 hero image + 3 栏 BodyText + drop cap + PullQuote + Secondary + Third Story 4 栏）
-  3. `/grid-system` 栅格系统与 Layout/Section/Article/Layer 说明
-  4. `/components/masthead` Masthead 三种 variant 对照
-  5. `/components/article` Article + Layer 跨栏与浮动 demo
-  6. `/components/rule` Rule 三种 variant 对照
-  7. `/components/media` Image / Figure / Video / PullQuote
-  8. `/text` 文本组件全集 + 视觉权重映射表（实时渲染）+ 多栏文字流 demo + drop cap demo
-  9. `/theme` CSS variables 列表 + color swatch + 暗色主题切换按钮
-  10. `/examples/spanning` 跨栏布局示例
-  11. `/examples/responsive` 响应式布局展示
+  3. `/docs/grid-system` 栅格系统与 Layout/Section/Article/Layer 说明
+  4. `/docs/components/masthead` Masthead 三种 variant 对照
+  5. `/docs/components/article` Article + Layer 跨栏与浮动 demo
+  6. `/docs/components/rule` Rule 三种 variant 对照
+  7. `/docs/components/media` Image / Figure / Video / PullQuote
+  8. `/docs/text` 文本组件全集 + 视觉权重映射表（实时渲染）+ 多栏文字流 demo + drop cap demo
+  9. `/docs/theme` CSS variables 列表 + color swatch + 暗色主题切换按钮
+  10. `/docs/examples/spanning` 跨栏布局示例
+  11. `/docs/examples/responsive` 响应式布局展示
   12. `/examples/blackletter-frontpage` The Times / FAZ 派哥特体头版 preset
 - 全局导航：顶部 Header（Docs / Components / Themes / Blocks / GitHub），文档区域内嵌 Sidebar 二级导航
 

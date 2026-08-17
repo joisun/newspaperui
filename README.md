@@ -1,115 +1,92 @@
 # NewspaperUI
 
-> Production-grade newspaper layout component library for the modern web.
+> Editorial React components for production newspaper layouts.
 
-参考 InDesign 与经典严肃风排版传统（NYT / The Times / FAZ），基于 24 列栅格、CSS Grid + Multi-column 双层机制。支持中文、英文、日语多语言报纸排版。
+NewspaperUI combines a 24-column CSS Grid system, multi-column text flow, multilingual typography, and publishing details such as folios, factboxes, captions, and pull quotes. The visual system uses warm paper tones, deliberate rules, and semantic theme tokens rather than a fixed page template.
 
-## Quick Start
+[Live documentation](https://joisun.github.io/newspaperui/) · [Browse blocks](https://joisun.github.io/newspaperui/blocks/) · [Create a theme](https://joisun.github.io/newspaperui/create/)
+
+## Install
 
 ```bash
-pnpm add @newspaperui/components @newspaperui/theme
+pnpm add newspaperui
 ```
 
 ```tsx
-import '@newspaperui/theme';
-import { Layout, Section, Article, Masthead, BodyText } from '@newspaperui/components';
+import 'newspaperui/style.css';
+import { Article, BodyText, Headline, Layout, Section } from 'newspaperui';
 
-<Layout columns={24}>
-  <Masthead variant="classic" title="The Daily Chronicle" date="May 19, 2026" />
-  <Section columns={24}>
-    <Article span={14}>
-      <BodyText columns={3} dropCap>
-        <p>Multi-column text flow with drop cap...</p>
-      </BodyText>
-    </Article>
-  </Section>
-</Layout>
+export function FrontPage() {
+  return (
+    <Layout columns={24}>
+      <Section columns={24}>
+        <Article span={16}>
+          <Headline as="h1" weight="High">The morning edition</Headline>
+          <BodyText columns={2} dropCap>
+            <p>Compose the story with a real editorial reading flow.</p>
+          </BodyText>
+        </Article>
+      </Section>
+    </Layout>
+  );
+}
 ```
 
-## Packages
+React 18 and ReactDOM 18 are peer dependencies. Theme CSS and runtime utilities are bundled into the single public package.
 
-| Package | Description |
-|---------|-------------|
-| `@newspaperui/theme` | CSS variables, visual weights, typography utilities, Google Fonts |
-| `@newspaperui/utils` | Grid validation (`validateSpan`, `clampSpan`, `cx`) |
-| `@newspaperui/components` | 24 React components |
-| `@newspaperui/docs` | Next.js documentation site with live demos |
+## What is included
 
-## Components (24)
+- 28 exported React components across layout, text, and media.
+- A 24-column grid with validated spans and responsive composition.
+- CSS Multi-column body text, drop caps, small caps, old-style figures, and hairline rules.
+- Typography tokens for English, Chinese, Japanese, and German editorial styles.
+- Light and dark semantic theme variables plus a browser-based theme creator.
+- Six complete blocks for studying multilingual front pages and long-form editions.
 
-### Layout
-`Layout` · `Section` · `Article` · `Layer` · `Masthead` · `Rule` · `Footer` · `Sidebar` · `BreakingNewsBanner` · `Folio` · `IndexBox` · `Factbox` · `RelatedArticles`
+### Component families
 
-### Text
-`Headline` · `Subhead` · `Kicker` · `BodyText` · `Quote` · `Byline` · `Dateline` · `Caption` · `AuthorCard` · `JumpLine`
+- **Layout:** `Layout`, `Section`, `Article`, `Layer`, `Masthead`, `Rule`, `Footer`, `NewsSidebar`, `BreakingNewsBanner`, `RelatedArticles`, `Folio`, `IndexBox`, `Factbox`.
+- **Text:** `Headline`, `Subhead`, `Kicker`, `BodyText`, `Quote`, `Byline`, `Dateline`, `Caption`, `AuthorCard`, `JumpLine`.
+- **Media:** `Image`, `Figure`, `Video`, `PullQuote`.
 
-### Media
-`Image` · `Figure` · `Video` · `PullQuote`
+## Workspace
 
-## Key Features
-
-- **24-column CSS Grid** — unified `grid-column: span N` mechanism
-- **CSS Multi-column flow** — real newspaper text reflow with `column-rule` hairlines
-- **Drop cap** — `::first-letter` float, 4.2em display serif
-- **True small caps** — OpenType `font-variant-caps: small-caps` (not `text-transform`)
-- **Old-style figures** — `font-variant-numeric: oldstyle-nums` for body text
-- **Visual weight system** — data-driven typography from a single `visualWeights` mapping
-- **Warm off-white palette** — `#F7F4ED` background, warm grays, no pure black/white
-- **Dark mode** — `[data-theme="dark"]` with warm deep brown-black
-- **Multi-language** — Chinese (Noto Serif SC), Japanese (Noto Serif JP), English (Source Serif 4), German (UnifrakturMaguntia)
-
-## Typography
-
-| Role | Font | Usage |
-|------|------|-------|
-| Masthead | Cormorant Garamond | Newspaper title |
-| Blackletter | UnifrakturMaguntia | German-style masthead preset |
-| Display / Headline / Body | Source Serif 4 | Main serif family (optical size) |
-| Meta (Byline, Kicker, Caption) | Inter | Sans-serif small caps |
-| Chinese | Noto Serif SC | 中文报纸 |
-| Japanese | Noto Serif JP | 日本語新聞 |
-
-## Live Demos
-
-Run the documentation site:
-
-```bash
-pnpm install
-pnpm --filter @newspaperui/docs dev
-# → http://localhost:3000
+```text
+packages/
+├── components/  # Public newspaperui package
+├── theme/       # Private design tokens and typography source
+├── utils/       # Private grid and class-name utilities
+└── docs/        # Next.js + Fumadocs website
 ```
 
-### Available Pages
-
-| Route | Description |
-|-------|-------------|
-| `/` | Landing page with demo showcase |
-| `/blocks` | 6 production-grade newspaper blocks |
-| `/blocks/zh-frontpage` | Chinese front page (人民周报) |
-| `/blocks/zh-feature` | Chinese feature article (副刊) |
-| `/blocks/en-feature` | English long-form (The Atlantic style) |
-| `/blocks/jp-horizontal` | Japanese horizontal (朝日新聞) |
-| `/blocks/jp-vertical` | Japanese vertical (`writing-mode: vertical-rl`) |
-| `/blocks/zh-editorial` | Chinese editorial (社论) |
-| `/examples/nyt-frontpage` | NYT-style English front page |
-| `/examples/blackletter-frontpage` | German blackletter front page |
-| `/grid-system` | Grid system documentation |
-| `/text` | Text components + visual weight table |
-| `/theme` | Theme system + dark mode toggle |
-| `/components/*` | Component API docs |
+Only `newspaperui` is published. Theme and utility workspaces are internal build modules.
 
 ## Development
 
 ```bash
 pnpm install
-pnpm build           # Build all 4 packages
-pnpm test            # 51 tests (utils 11 + components 40)
-pnpm --filter @newspaperui/docs dev  # Dev server
+pnpm --filter @newspaperui/docs dev
+pnpm lint
+pnpm test
+pnpm exec turbo run build --force
+pnpm package:smoke
 ```
 
-## Design Specification
+`pnpm package:smoke` packs the public package, checks its JS/CJS/types/CSS contract, installs it into an isolated consumer, and verifies both import systems.
 
-See [`design.md`](./design.md) for the full design specification including visual weight mapping table, color system, and typography rules.
+## Documentation routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Product overview and live component composition |
+| `/docs/grid-system` | Grid concepts and API |
+| `/docs/components/article` | Article and layer primitives |
+| `/create` | Theme editor and responsive preview |
+| `/blocks` | Six complete editorial layouts |
+
+## Releases
+
+Changesets manages versions and the GitHub release workflow publishes with npm provenance. See [docs/releasing.md](docs/releasing.md) for dry-run checks, required secrets, and the release sequence.
 
 ## License
 
