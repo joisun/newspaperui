@@ -1,0 +1,29 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  color: var(--nui-text-primary);
+  background: color-mix(in srgb, var(--nui-bg-page) 94%, transparent);
+  border-bottom: 1px solid var(--nui-rule-hairline);
+  backdrop-filter: blur(14px);
+}
+.bar { display: flex; min-height: 68px; max-width: 1440px; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 auto; padding: 0 2rem; }
+.brand { display: inline-flex; min-height: 44px; align-items: center; color: var(--nui-text-primary); font: 700 1.6rem/1 var(--font-family-masthead); letter-spacing: 0.02em; text-decoration: none; }
+.desktopNav { display: flex; align-items: center; gap: 0.45rem; }
+.navLink, .activeLink { display: inline-flex; min-height: 44px; align-items: center; padding: 0 0.7rem; color: var(--nui-text-secondary); font: 600 0.78rem/1 var(--font-family-meta); text-decoration: none; }
+.activeLink { color: var(--nui-accent-primary); }
+.navLink:hover, .activeLink:hover { color: var(--nui-accent-primary); }
+.themeButton, .menuButton, .mobileThemeButton { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: 0.45rem; color: var(--nui-text-primary); background: transparent; border: 1px solid var(--nui-rule-decorative); cursor: pointer; font: 700 0.7rem/1 var(--font-family-meta); letter-spacing: 0.06em; text-transform: uppercase; }
+.themeButton { padding: 0 0.75rem; }
+.menuButton { display: none; padding: 0; }
+.mobileNav { display: grid; padding: 0.75rem 1rem 1.25rem; background: var(--nui-bg-page); border-top: 1px solid var(--nui-rule-hairline); }
+.mobileNav .navLink, .mobileNav .activeLink { min-height: 48px; padding: 0 0.25rem; border-bottom: 1px solid var(--nui-rule-hairline); font-size: 0.95rem; }
+.mobileThemeButton { justify-content: flex-start; width: 100%; margin-top: 0.75rem; padding: 0 0.75rem; }
+@media (max-width: 48rem) {
+  .bar { min-height: 64px; padding: 0 1rem; }
+  .desktopNav { display: none; }
+  .menuButton { display: inline-flex; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .navLink, .activeLink, .themeButton, .menuButton { transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease; }
+}

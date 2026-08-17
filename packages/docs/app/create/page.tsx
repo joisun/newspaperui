@@ -1,10 +1,11 @@
 'use client';
 import { useState, useCallback } from 'react';
 import {
-  Layout, Section, Article, Masthead, Rule,
+  Layout, Section, Article, Rule,
   Headline, Subhead, Kicker, BodyText, Byline, Dateline, Caption,
   PullQuote, Footer,
 } from 'newspaperui';
+import styles from './create.module.css';
 
 // ─── Presets ────────────────────────────────────────────────────────────────
 
@@ -127,17 +128,15 @@ function ComponentPreview({ vars }: { vars: ThemeVars }) {
       transition: 'all 0.2s ease',
     }}>
       <Layout columns={24} maxWidth="100%" padding="2rem">
-        <Masthead
-          variant="classic"
-          title="The Daily Chronicle"
-          edition="Vol. CXLIX · No. 51,895"
-          date="Tuesday, May 20, 2026"
-          price="$4.00"
-        />
+        <header className={styles.previewMasthead}>
+          <p>Vol. CXLIX · No. 51,895</p>
+          <h2>The Daily Chronicle</h2>
+          <p>Tuesday, May 20, 2026 · $4.00</p>
+        </header>
         <Section columns={24}>
           <Article span={24}>
             <Kicker>Capitol · Breaking</Kicker>
-            <Headline weight="High">Historic Accord Reshapes Continental Trade</Headline>
+            <Headline as="h3" weight="High">Historic Accord Reshapes Continental Trade</Headline>
             <Subhead weight="High">Negotiators emerge with sweeping framework on tariffs, labor, and emissions</Subhead>
             <Byline>By Eleanor Whitcombe</Byline>
             <Dateline>Brussels</Dateline>
@@ -169,6 +168,7 @@ export default function CreatePage() {
   const [activePreset, setActivePreset] = useState<PresetName>('Classic NYT');
   const [vars, setVars] = useState<ThemeVars>({ ...PRESETS['Classic NYT'] });
   const [copied, setCopied] = useState(false);
+  const [mobileView, setMobileView] = useState<'editor' | 'preview'>('editor');
 
   const applyPreset = useCallback((name: PresetName) => {
     setActivePreset(name);
@@ -211,26 +211,45 @@ export default function CreatePage() {
   const metaStyle = { fontFamily: 'var(--font-family-meta)', fontSize: '13px' };
 
   return (
-    <div style={{ display: 'flex', height: 'calc(100vh - 65px)', overflow: 'hidden', background: 'var(--nui-bg-page)' }}>
+    <main className={styles.page} data-mobile-view={mobileView}>
+      <div className={styles.mobileTabs} role="tablist" aria-label="Theme creator view">
+        <button
+          id="editor-tab"
+          type="button"
+          role="tab"
+          aria-controls="theme-editor"
+          aria-selected={mobileView === 'editor'}
+          onClick={() => setMobileView('editor')}
+        >
+          Editor
+        </button>
+        <button
+          id="preview-tab"
+          type="button"
+          role="tab"
+          aria-controls="theme-preview"
+          aria-selected={mobileView === 'preview'}
+          onClick={() => setMobileView('preview')}
+        >
+          Preview
+        </button>
+      </div>
 
       {/* ── Left Panel ── */}
-      <aside style={{
-        width: '280px',
-        flexShrink: 0,
-        borderRight: '1px solid var(--nui-rule-hairline)',
-        background: 'var(--nui-bg-surface)',
-        overflowY: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
+      <aside
+        id="theme-editor"
+        className={styles.editor}
+        role="tabpanel"
+        aria-labelledby="editor-tab"
+      >
         {/* Header */}
         <div style={{ padding: '1.5rem 1.5rem 1rem', borderBottom: '1px solid var(--nui-rule-hairline)' }}>
           <div style={{ ...metaStyle, fontVariantCaps: 'small-caps', letterSpacing: '0.08em', color: 'var(--nui-accent-primary)', fontWeight: 600, marginBottom: '0.25rem' }}>
             Create Theme
           </div>
-          <h2 style={{ fontFamily: 'var(--font-family-display)', fontSize: '20px', fontWeight: 600, margin: 0, color: 'var(--nui-text-primary)' }}>
+          <h1 style={{ fontFamily: 'var(--font-family-display)', fontSize: '20px', fontWeight: 600, margin: 0, color: 'var(--nui-text-primary)' }}>
             Customize
-          </h2>
+          </h1>
         </div>
 
         {/* Presets */}
@@ -239,6 +258,7 @@ export default function CreatePage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
             {(Object.keys(PRESETS) as PresetName[]).map(name => (
               <button
+                type="button"
                 key={name}
                 onClick={() => applyPreset(name)}
                 style={{
@@ -261,14 +281,17 @@ export default function CreatePage() {
         <div style={{ padding: '1rem 1.5rem', flex: 1 }}>
           <div style={{ ...metaStyle, color: 'var(--nui-text-muted)', marginBottom: '0.75rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>Customize</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {CONTROLS.map(ctrl => (
+            {CONTROLS.map(ctrl => {
+              const controlId = `theme-${ctrl.key.slice(2)}`;
+              return (
               <div key={ctrl.key}>
-                <label style={{ ...metaStyle, color: 'var(--nui-text-secondary)', display: 'block', marginBottom: '0.35rem' }}>
+                <label htmlFor={controlId} style={{ ...metaStyle, color: 'var(--nui-text-secondary)', display: 'block', marginBottom: '0.35rem' }}>
                   {ctrl.label}
                 </label>
                 {ctrl.type === 'color' ? (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <input
+                      id={controlId}
                       type="color"
                       value={vars[ctrl.key] || '#000000'}
                       onChange={e => updateVar(ctrl.key, e.target.value)}
@@ -280,6 +303,7 @@ export default function CreatePage() {
                   </div>
                 ) : (
                   <select
+                    id={controlId}
                     value={vars[ctrl.key]}
                     onChange={e => updateVar(ctrl.key, e.target.value)}
                     style={{
@@ -300,13 +324,15 @@ export default function CreatePage() {
                   </select>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
         {/* Export */}
         <div style={{ padding: '1rem 1.5rem', borderTop: '1px solid var(--nui-rule-hairline)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <button
+            type="button"
             onClick={copyCSS}
             style={{
               ...metaStyle,
@@ -324,6 +350,7 @@ export default function CreatePage() {
           </button>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button
+              type="button"
               onClick={downloadCSS}
               style={{
                 ...metaStyle,
@@ -334,8 +361,9 @@ export default function CreatePage() {
                 border: '1px solid var(--nui-rule-hairline)',
                 cursor: 'pointer',
               }}
-            >↓ .css</button>
+            >Download CSS</button>
             <button
+              type="button"
               onClick={downloadJSON}
               style={{
                 ...metaStyle,
@@ -346,15 +374,20 @@ export default function CreatePage() {
                 border: '1px solid var(--nui-rule-hairline)',
                 cursor: 'pointer',
               }}
-            >↓ .json</button>
+            >Download JSON</button>
           </div>
         </div>
       </aside>
 
       {/* ── Right Preview ── */}
-      <main style={{ flex: 1, overflowY: 'auto' }}>
+      <section
+        id="theme-preview"
+        className={styles.previewPanel}
+        role="tabpanel"
+        aria-labelledby="preview-tab"
+      >
         <ComponentPreview vars={vars} />
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }

@@ -1,4 +1,4 @@
-@import "newspaperui-theme/dist/style.css";
+@import "newspaperui/style.css";
 
 @tailwind base;
 @tailwind components;
@@ -15,4 +15,74 @@ html, body {
   overflow-x: hidden;
 }
 
+html[data-theme='dark'],
+html[data-theme='dark'] body {
+  background: var(--nui-bg-page) !important;
+}
+
 * { box-sizing: border-box; }
+
+button,
+[role='button'] {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.nui-doc-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--nui-rule-decorative);
+}
+
+.nui-doc-header h1 {
+  margin: 0;
+  color: var(--nui-text-primary);
+  font: 600 clamp(2.8rem, 6vw, 5.5rem) / 0.95 var(--font-family-display);
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.nui-doc-header p {
+  max-width: 44rem;
+  margin: 1rem 0 0;
+  color: var(--nui-text-secondary);
+  font: 400 1.05rem/1.55 var(--font-family-body);
+}
+
+figure[data-rehype-pretty-code-figure],
+.prose figure:has(> pre),
+.prose figure.fd-codeblock {
+  max-width: 100%;
+  overflow-x: auto !important;
+  overscroll-behavior-inline: contain;
+}
+
+figure[data-rehype-pretty-code-figure] > pre,
+.prose figure:has(> pre) > pre,
+.prose figure.fd-codeblock > div {
+  width: max-content;
+  min-width: 100%;
+}
+
+figure[data-rehype-pretty-code-figure] > pre,
+.prose figure:has(> pre) > pre,
+.prose figure.fd-codeblock pre {
+  overflow-x: visible !important;
+}
+
+aside a,
+nav a,
+a[href^='#'] {
+  min-height: 44px;
+}
+
+aside a,
+nav a {
+  display: flex;
+  align-items: center;
+}
+
+a[href^='#'] {
+  display: inline-flex;
+  align-items: center;
+}

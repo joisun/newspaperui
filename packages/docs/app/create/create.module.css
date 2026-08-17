@@ -1,0 +1,108 @@
+.page {
+  display: grid;
+  grid-template-columns: 20rem minmax(0, 1fr);
+  height: calc(100vh - 68px);
+  overflow: hidden;
+  background: var(--nui-bg-page);
+}
+
+.mobileTabs {
+  display: none;
+}
+
+.editor {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow-y: auto;
+  border-right: 1px solid var(--nui-rule-hairline);
+  background: var(--nui-bg-surface);
+}
+
+.editor button,
+.editor select {
+  min-height: 44px;
+}
+
+.editor input[type='color'] {
+  width: 44px !important;
+  height: 44px !important;
+}
+
+.previewPanel {
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.previewMasthead {
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.previewMasthead h2 {
+  margin: 0.25rem 0;
+  color: var(--nui-text-primary);
+  font: 700 clamp(3rem, 8vw, 6rem) / 0.95 var(--font-family-masthead);
+}
+
+.previewMasthead p {
+  margin: 0;
+  color: var(--nui-text-muted);
+  font: 600 0.7rem/1.4 var(--font-family-meta);
+  font-variant-caps: small-caps;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 44rem) {
+  .page {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: calc(100dvh - 64px);
+  }
+
+  .mobileTabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--nui-rule-hairline);
+    background: var(--nui-bg-surface);
+  }
+
+  .mobileTabs button {
+    min-height: 44px;
+    color: var(--nui-text-secondary);
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font: 700 0.75rem/1 var(--font-family-meta);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .mobileTabs button[aria-selected='true'] {
+    color: var(--nui-bg-page);
+    background: var(--nui-text-primary);
+    border-color: var(--nui-text-primary);
+  }
+
+  .editor,
+  .previewPanel {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    border-right: 0;
+  }
+
+  .page[data-mobile-view='editor'] .previewPanel,
+  .page[data-mobile-view='preview'] .editor {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

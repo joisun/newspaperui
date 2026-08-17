@@ -28,13 +28,15 @@ export function CodeBlock({ code, language = 'tsx', title }: CodeBlockProps) {
 
       <div className="relative">
         <button
+          type="button"
+          aria-label="Copy code"
           onClick={handleCopy}
-          className="absolute top-2 right-2 px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-white rounded"
+          className="absolute top-2 right-2 min-h-11 min-w-11 px-3 py-2 text-xs bg-gray-700 hover:bg-gray-600 text-white"
         >
           {copied ? '已复制' : '复制'}
         </button>
 
-        <pre className="p-4 bg-gray-900 text-gray-100 overflow-x-auto">
+        <pre className="p-4 pr-16 bg-gray-900 text-gray-100 overflow-x-auto">
           <code>{code}</code>
         </pre>
       </div>

@@ -5,8 +5,21 @@ import { RootProvider } from 'fumadocs-ui/provider';
 import { Header } from '../components/Header';
 
 export const metadata: Metadata = {
-  title: 'NewspaperUI — Production Newspaper Components',
-  description: '生产级报纸布局组件库',
+  metadataBase: new URL('https://joisun.github.io/newspaperui/'),
+  title: {
+    default: 'NewspaperUI | Editorial React Components',
+    template: '%s | NewspaperUI',
+  },
+  description: 'Production React components for newspaper grids, multilingual typography, and editorial layouts.',
+  applicationName: 'NewspaperUI',
+  authors: [{ name: 'NewspaperUI contributors' }],
+  openGraph: {
+    title: 'NewspaperUI | Editorial React Components',
+    description: 'Build production newspaper layouts with a 24-column grid and multilingual typography.',
+    type: 'website',
+    url: '/',
+    siteName: 'NewspaperUI',
+  },
 };
 
 const themeInitScript = `
@@ -20,7 +33,7 @@ const themeInitScript = `
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
