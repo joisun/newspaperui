@@ -24,7 +24,7 @@
   ],
   "scripts": {
     "build": "vite build",
-    "dev": "vite build --watch",
+    "dev": "vite build --watch --mode development",
     "lint": "tsc --noEmit",
     "clean": "rm -rf dist"
   },

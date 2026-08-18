@@ -6,6 +6,7 @@ node_modules
 # Build outputs
 dist
 .next
+.next-dev
 out
 build
 *.tsbuildinfo

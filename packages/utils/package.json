@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "build": "vite build",
-    "dev": "vite build --watch",
+    "dev": "vite build --watch --mode development",
     "lint": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

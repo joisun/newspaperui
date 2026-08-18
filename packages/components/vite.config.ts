@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import dts from 'vite-plugin-dts';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     dts({
@@ -12,6 +12,7 @@ export default defineConfig({
     }),
   ],
   build: {
+    emptyOutDir: mode !== 'development',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'NewspaperUIComponents',
@@ -35,4 +36,4 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-});
+}));
