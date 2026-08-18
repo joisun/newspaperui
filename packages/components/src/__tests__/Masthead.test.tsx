@@ -9,6 +9,15 @@ describe('Masthead', () => {
     expect(h1.textContent).toBe('The Daily Times');
   });
 
+  it('allows documentation and nested layouts to choose a lower heading level', () => {
+    render(<Masthead title="The Daily Times" as="h3" />);
+
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      'The Daily Times',
+    );
+    expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
+  });
+
   it('uses the blackletter font family when variant="blackletter"', () => {
     render(<Masthead title="Gazette" variant="blackletter" />);
     const h1 = screen.getByRole('heading', { level: 1 }) as HTMLElement;

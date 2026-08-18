@@ -80,7 +80,9 @@ export const AuthorCard: React.FC<AuthorCardProps> = ({
           color: 'var(--nui-accent-primary)',
           textDecoration: 'none',
           marginTop: 'var(--nui-space-2)',
-          display: 'inline-block',
+          minHeight: '44px',
+          display: 'inline-flex',
+          alignItems: 'center',
         }}>{email}</a>
       )}
     </div>

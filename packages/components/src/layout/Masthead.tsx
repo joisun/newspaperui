@@ -9,6 +9,7 @@ export interface MastheadProps {
   date?: string;
   price?: string;
   variant?: 'classic' | 'blackletter' | 'modern';
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   className?: string;
 }
 
@@ -28,7 +29,7 @@ export interface MastheadProps {
  * />
  */
 export const Masthead: React.FC<MastheadProps> = ({
-  title, kicker, edition, date, price, variant = 'classic', className,
+  title, kicker, edition, date, price, variant = 'classic', as: Title = 'h1', className,
 }) => {
   const fontFamily =
     variant === 'blackletter'
@@ -59,7 +60,7 @@ export const Masthead: React.FC<MastheadProps> = ({
           {kicker}
         </div>
       )}
-      <h1
+      <Title
         style={{
           fontFamily,
           fontWeight: 700,
@@ -70,7 +71,7 @@ export const Masthead: React.FC<MastheadProps> = ({
         }}
       >
         {title}
-      </h1>
+      </Title>
       {(edition || date || price) && (
         <div
           className="nui-small-caps"
