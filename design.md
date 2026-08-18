@@ -180,7 +180,7 @@ Dark（暖深棕黑，非冷黑）：
 - 技术栈：Next.js + Tailwind + MDX
 - 页面：所有 demo 用真实组件渲染，非 mockup
 - 路由结构：
-  1. `/` 首页 = 报纸风格 Landing Page（Masthead + 介绍 + 多语言 demo 列表 + 设计哲学/技术栈）
+  1. `/` 首页 = 极简产品入口（一句话价值主张 + 安装指令 + 7 份完整报纸的循环 3D Demo 画廊）；Embla 统一处理鼠标/触控拖动、Mac trackpad wheel gesture 与单页 snap
   2. `/examples/nyt-frontpage` NYT 派完整报纸头版（Masthead + Briefs + Lead Story 含 hero image + 3 栏 BodyText + drop cap + PullQuote + Secondary + Third Story 4 栏）
   3. `/docs/grid-system` 栅格系统与 Layout/Section/Article/Layer 说明
   4. `/docs/components/masthead` Masthead 三种 variant 对照
@@ -192,7 +192,7 @@ Dark（暖深棕黑，非冷黑）：
   10. `/docs/examples/spanning` 跨栏布局示例
   11. `/docs/examples/responsive` 响应式布局展示
   12. `/examples/blackletter-frontpage` The Times / FAZ 派哥特体头版 preset
-- 全局导航：顶部 Header（Docs / Components / Themes / Blocks / GitHub），文档区域内嵌 Sidebar 二级导航
+- 全局导航：顶部 Header（Docs / Components / Blocks / Create / GitHub）；文档区域使用固定在 Header 下方的非折叠 Sidebar 目录列，目录内容独立滚动
 
 ---
 
@@ -203,7 +203,7 @@ Dark（暖深棕黑，非冷黑）：
 3. 实现 utils（`validateSpan` / `clampSpan` / `cx`）
 4. 实现 components 三层（layout / text / media）；统一 grid-column span 跨栏机制；BodyText 接入 CSS multi-column
 5. 测试生产级头版：跨栏、多栏文字流、首字下沉、栏间 hairline、真小帽、Pull Quote 跨栏、breakable、响应式
-6. 构建文档网站，首页为报纸风格 Landing Page 汇聚多语言 demo，`/examples/nyt-frontpage` 作为 NYT 派生产级标杆，章节页用真实组件 demo
+6. 构建文档网站，首页以 Embla 驱动的循环 3D 画廊展示完整多语言报纸，`/examples/nyt-frontpage` 作为 NYT 派生产级标杆，章节页用真实组件 demo
 7. 验收：视觉与传统报纸排版（NYT / The Times / FAZ）一致；自动化构建/测试通过；Design Agent 复评 ≥ 9/10
 
 ---

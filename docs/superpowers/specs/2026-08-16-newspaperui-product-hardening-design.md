@@ -33,11 +33,11 @@ A package-smoke script packs the public package, installs it into an isolated te
 
 ### Homepage
 
-The homepage becomes a concise editorial landing page with one semantic `main` and one H1. Its asymmetric hero includes a factual value proposition, a copyable install command, primary documentation and secondary theme-builder actions, and a real responsive component preview.
+The homepage becomes a demo-first editorial showroom with one semantic `main` and one H1. Its asymmetric hero pairs a concise value proposition with four simultaneous live component specimens, followed immediately by the copyable install command and a direct component index.
 
-Below the fold, the page presents verified capabilities: 28 exported components, a 24-column grid, multilingual typography, theme tokens, selected component families, and a short install-to-compose workflow. It links to full blocks rather than embedding three extremely long newspapers.
+Below the fold, an asymmetric grid renders real headline, media, body text, quote, multilingual, data, and author components. A compact block rail links to complete Chinese, English, and Japanese editions without embedding three extremely long newspapers. Repeated capability claims, statistics, and install workflow copy are removed in favor of visible product evidence.
 
-The visual language keeps warm paper, oxblood accent, high-contrast editorial typography, square borders, and deliberate rules. Layout asymmetry comes from scale and column balance, not decorative cards. Motion is limited to state feedback and respects `prefers-reduced-motion`.
+The documentation site uses a cool Swiss showroom language: silver-grey canvas, cobalt accent, sans-serif product typography, soft modular stages, and deliberate spacing. Live NewspaperUI specimens remain the visual evidence, preserving the library's editorial character inside a clearer product frame. Motion establishes entry hierarchy and interaction feedback, and respects `prefers-reduced-motion`.
 
 ### Documentation and navigation
 

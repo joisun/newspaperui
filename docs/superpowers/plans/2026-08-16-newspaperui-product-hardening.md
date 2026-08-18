@@ -34,7 +34,7 @@
 **Files:** `packages/docs/app/page.tsx`, `packages/docs/app/page.module.css`, `packages/docs/components/InstallCommand.tsx`, its CSS module, `packages/docs/app/globals.css`, `packages/docs/app/layout.tsx`.
 
 1. Add focused static assertions for one H1/main and the verified install command.
-2. Replace the long demo stack with an asymmetric hero, real component preview, capability proof, component families, and workflow CTA.
+2. Replace the long demo stack with a concise asymmetric hero, four live specimens, a direct component index, seven real component demonstrations, and a compact block rail.
 3. Add copy feedback with a native button and accessible live status.
 4. Apply continuous light/dark page surfaces, responsive type/spacing, focus-visible states, and reduced-motion support.
 5. Improve metadata and route language defaults.

@@ -1,155 +1,235 @@
 'use client';
 
+import type {
+  CSSProperties,
+  KeyboardEvent,
+} from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ArrowUpRight } from '@phosphor-icons/react';
+import type { EmblaCarouselType } from 'embla-carousel';
+import useEmblaCarousel from 'embla-carousel-react';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
+import Image from 'next/image';
 import Link from 'next/link';
-import { Article, BodyText, Headline, Kicker, Layout, Rule, Section } from 'newspaperui';
 import { InstallCommand } from '../components/InstallCommand';
 import styles from './page.module.css';
 
-const capabilities = [
-  ['28', 'exported components'],
-  ['24', 'column grid'],
-  ['4', 'language-ready type systems'],
-  ['1', 'package to install'],
-];
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
-const families = [
+const galleryItems = [
   {
-    number: '01',
-    title: 'Editorial structure',
-    components: 'Layout, Section, Article, Layer, Sidebar, Footer',
-    description: 'Compose page architecture on a strict 24-column system, then let content reflow responsively.',
-    href: '/docs/grid-system',
+    id: 'zh-frontpage',
+    title: '人民周报',
+    href: '/blocks/zh-frontpage',
+    preview: `${basePath}/gallery/zh-frontpage.jpg`,
+    width: 1280,
+    height: 2394,
   },
   {
-    number: '02',
-    title: 'Typographic hierarchy',
-    components: 'Headline, Subhead, Kicker, BodyText, Byline, Quote',
-    description: 'Use measured visual weights, real small caps, drop caps, and multi-column reading flows.',
-    href: '/docs/components/article',
+    id: 'zh-feature',
+    title: '文化副刊',
+    href: '/blocks/zh-feature',
+    preview: `${basePath}/gallery/zh-feature.jpg`,
+    width: 1200,
+    height: 1679,
   },
   {
-    number: '03',
-    title: 'Publishing details',
-    components: 'Figure, Caption, Folio, Factbox, RelatedArticles',
-    description: 'Finish the page with the small structures that make editorial layouts feel credible.',
-    href: '/blocks',
+    id: 'en-feature',
+    title: 'Daily Chronicle',
+    href: '/blocks/en-feature',
+    preview: `${basePath}/gallery/en-feature.jpg`,
+    width: 750,
+    height: 3134,
   },
-];
+  {
+    id: 'jp-horizontal',
+    title: '朝日新聞 横組み',
+    href: '/blocks/jp-horizontal',
+    preview: `${basePath}/gallery/jp-horizontal.jpg`,
+    width: 1280,
+    height: 2044,
+  },
+  {
+    id: 'jp-vertical',
+    title: '朝日新聞 縦組み',
+    href: '/blocks/jp-vertical',
+    preview: `${basePath}/gallery/jp-vertical.jpg`,
+    width: 1440,
+    height: 1000,
+  },
+  {
+    id: 'zh-editorial',
+    title: '社论',
+    href: '/blocks/zh-editorial',
+    preview: `${basePath}/gallery/zh-editorial.jpg`,
+    width: 1200,
+    height: 1327,
+  },
+  {
+    id: 'nyt-frontpage',
+    title: 'New York Times',
+    href: '/examples/nyt-frontpage',
+    preview: `${basePath}/gallery/nyt-frontpage.jpg`,
+    width: 1440,
+    height: 5203,
+  },
+] as const;
+
+function getCircularOffset(index: number, activeIndex: number) {
+  const length = galleryItems.length;
+  let offset = index - activeIndex;
+
+  if (offset > length / 2) offset -= length;
+  if (offset < -length / 2) offset += length;
+
+  return offset;
+}
 
 export default function LandingPage() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const wheelPlugin = useMemo(
+    () => WheelGesturesPlugin({ wheelDraggingClass: styles.wheelDragging }),
+    [],
+  );
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: 'center',
+      containScroll: false,
+      dragFree: false,
+      duration: 28,
+      loop: true,
+      skipSnaps: false,
+    },
+    [wheelPlugin],
+  );
+
+  const syncSelection = useCallback((api: EmblaCarouselType) => {
+    setActiveIndex(api.selectedScrollSnap());
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    syncSelection(emblaApi);
+    emblaApi.on('select', syncSelection);
+    emblaApi.on('reInit', syncSelection);
+
+    return () => {
+      emblaApi.off('select', syncSelection);
+      emblaApi.off('reInit', syncSelection);
+    };
+  }, [emblaApi, syncSelection]);
+
+  function handleGalleryKeys(event: KeyboardEvent<HTMLElement>) {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      emblaApi?.scrollPrev();
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      emblaApi?.scrollNext();
+    }
+  }
+
   return (
     <main className={styles.page}>
-      <section className={styles.hero} aria-labelledby="hero-title">
-        <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>Editorial React components · v0.1</p>
-          <h1 id="hero-title">Build pages that read like they were edited.</h1>
-          <p className={styles.lede}>
-            NewspaperUI brings disciplined grids, multilingual typography, and newsroom details to
-            production React interfaces. One package, composable primitives, no imitation template.
-          </p>
-          <InstallCommand />
-          <div className={styles.actions}>
-            <Link className={styles.primaryAction} href="/docs/grid-system">Read the documentation</Link>
-            <Link className={styles.secondaryAction} href="/create">Create a theme</Link>
+      <section className={styles.intro} aria-labelledby="home-title">
+        <h1 id="home-title">Editorial components for React.</h1>
+        <InstallCommand />
+      </section>
+
+      <section
+        className={styles.gallery}
+        aria-label="NewspaperUI full newspaper demo gallery"
+        aria-roledescription="carousel"
+        onKeyDown={handleGalleryKeys}
+      >
+        <div className={styles.galleryViewport} ref={emblaRef}>
+          <div className={styles.galleryStage}>
+            {galleryItems.map((item, index) => {
+              const offset = getCircularOffset(index, activeIndex);
+              const distance = Math.abs(offset);
+              const style = {
+                '--gallery-offset': offset,
+                '--gallery-distance': distance,
+                '--gallery-layer': galleryItems.length - distance,
+              } as CSSProperties;
+
+              const preview = (
+                <Image
+                  src={item.preview}
+                  alt={`${item.title} complete newspaper page preview`}
+                  width={item.width}
+                  height={item.height}
+                  sizes="(max-width: 767px) calc(100vw - 2rem), 48rem"
+                  priority={index === 0}
+                  draggable={false}
+                  className={styles.editionPreview}
+                />
+              );
+
+              return (
+                <div
+                  key={item.id}
+                  className={styles.gallerySlide}
+                  style={style}
+                  data-distance={distance}
+                  aria-hidden={distance > 2 ? true : undefined}
+                >
+                  <article
+                    className={styles.galleryCard}
+                    data-distance={distance}
+                    data-home-demo={item.id}
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${index + 1} of ${galleryItems.length}: ${item.title}${distance === 0 ? ', current demo' : ''}`}
+                    aria-current={distance === 0 ? 'true' : undefined}
+                  >
+                    <header className={styles.cardBar}>
+                      <span>{item.title}</span>
+                      {distance === 0 ? (
+                        <Link
+                          href={item.href}
+                          className={styles.openEdition}
+                          aria-label={`Open ${item.title} demo`}
+                        >
+                          <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
+                        </Link>
+                      ) : (
+                        <span className={styles.openEditionVisual} aria-hidden="true">
+                          <ArrowUpRight size={14} weight="bold" />
+                        </span>
+                      )}
+                    </header>
+                    <div className={styles.cardCanvas} data-scrollable={distance === 0 ? 'true' : undefined}>
+                      {preview}
+                    </div>
+                    {distance !== 0 ? (
+                      <button
+                        type="button"
+                        className={styles.selectEdition}
+                        aria-label={`Show ${item.title} demo`}
+                        aria-hidden={distance > 2 ? true : undefined}
+                        tabIndex={distance > 2 ? -1 : 0}
+                        onClick={() => emblaApi?.scrollTo(index)}
+                      />
+                    ) : null}
+                  </article>
+                </div>
+              );
+            })}
           </div>
         </div>
-
-        <div className={styles.previewWrap} aria-label="Live NewspaperUI component preview">
-          <div className={styles.previewMeta}>
-            <span>Live composition</span>
-            <span>24-column · responsive</span>
-          </div>
-          <Layout className={styles.preview} columns={24} maxWidth="none" padding="clamp(1rem, 3vw, 2rem)">
-            <div className={styles.previewMasthead}>The Evening Ledger</div>
-            <div className={styles.previewDate}>Vol. 18 · Sunday Review · Edition 04</div>
-            <Rule variant="double" />
-            <Section columns={24} gap="1rem" className={styles.previewGrid}>
-              <Article span={16}>
-                <Kicker>Design · Systems</Kicker>
-                <Headline as="h2" weight="High" className={styles.previewHeadline}>
-                  The quiet rules behind an unmistakable page
-                </Headline>
-                <BodyText columns={2} dropCap className={styles.previewBody}>
-                  <p>
-                    Great editorial design starts before decoration. Proportion, rhythm, and type
-                    establish a structure that lets every story find its proper voice.
-                  </p>
-                </BodyText>
-              </Article>
-              <Article span={8} className={styles.previewRail}>
-                <Kicker>Inside</Kicker>
-                <h3>Twenty-four columns, one coherent system</h3>
-                <Rule variant="hairline" />
-                <p>Theme tokens · Multilingual type · Accessible semantics</p>
-              </Article>
-            </Section>
-          </Layout>
-        </div>
-      </section>
-
-      <section className={styles.proof} aria-label="Verified library capabilities">
-        {capabilities.map(([value, label]) => (
-          <div key={label} className={styles.proofItem}>
-            <strong>{value}</strong>
-            <span>{label}</span>
-          </div>
-        ))}
-      </section>
-
-      <section className={styles.section} aria-labelledby="components-title">
-        <div className={styles.sectionIntro}>
-          <p className={styles.eyebrow}>Component library</p>
-          <h2 id="components-title">A system, not a pile of styled boxes.</h2>
-          <p>Start with layout, establish hierarchy, then add the publishing details that make a page believable.</p>
-        </div>
-        <div className={styles.familyList}>
-          {families.map((family) => (
-            <Link className={styles.family} href={family.href} key={family.number}>
-              <span className={styles.familyNumber}>{family.number}</span>
-              <div>
-                <h3>{family.title}</h3>
-                <p className={styles.familyComponents}>{family.components}</p>
-                <p>{family.description}</p>
-              </div>
-              <span className={styles.familyAction}>Explore</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.workflow} aria-labelledby="workflow-title">
-        <div>
-          <p className={styles.eyebrow}>From install to edition</p>
-          <h2 id="workflow-title">Compose with editorial intent.</h2>
-        </div>
-        <ol>
-          <li><span>01</span><strong>Install</strong><p>Add one package and one stylesheet.</p></li>
-          <li><span>02</span><strong>Compose</strong><p>Place stories on the 24-column grid.</p></li>
-          <li><span>03</span><strong>Tune</strong><p>Adjust semantic tokens in the theme creator.</p></li>
-        </ol>
-      </section>
-
-      <section className={styles.blocks} aria-labelledby="blocks-title">
-        <div className={styles.blocksCopy}>
-          <p className={styles.eyebrow}>Production blocks</p>
-          <h2 id="blocks-title">Study complete editions. Keep only what serves the story.</h2>
-          <p>Six reference layouts cover Chinese, English, and Japanese editorial patterns without locking you into a template.</p>
-          <Link className={styles.textLink} href="/blocks">Browse all six blocks</Link>
-        </div>
-        <div className={styles.blockSpecimens}>
-          <article><span>ZH · 01</span><h3>人民周报</h3><p>Dense front page, restrained vermilion, regional type.</p></article>
-          <article><span>EN · 03</span><h3>Long-form feature</h3><p>Measured reading width, pull quotes, deep story rhythm.</p></article>
-          <article><span>JP · 05</span><h3>縦組み edition</h3><p>Traditional vertical flow with modern responsive behavior.</p></article>
-        </div>
-      </section>
-
-      <section className={styles.finalCta} aria-labelledby="cta-title">
-        <p className={styles.eyebrow}>Make the first edition</p>
-        <h2 id="cta-title">Give the content a structure worth reading.</h2>
-        <div className={styles.actions}>
-          <Link className={styles.primaryAction} href="/docs/grid-system">Start with the grid</Link>
-          <a className={styles.secondaryAction} href="https://github.com/joisun/newspaperui">View on GitHub</a>
-        </div>
+        <p
+          className={styles.galleryPosition}
+          aria-label={`Edition ${activeIndex + 1} of ${galleryItems.length}`}
+          aria-live="polite"
+        >
+          {String(activeIndex + 1).padStart(2, '0')}
+          <span aria-hidden="true"> / </span>
+          {String(galleryItems.length).padStart(2, '0')}
+        </p>
+        <p className={styles.srOnly} aria-live="polite">{galleryItems[activeIndex].title}</p>
       </section>
     </main>
   );
