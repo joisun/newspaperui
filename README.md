@@ -12,6 +12,15 @@ NewspaperUI combines a 24-column CSS Grid system, multi-column text flow, multil
 pnpm add newspaperui
 ```
 
+### Agent skill
+
+Install the bundled NewspaperUI skill to give coding agents the library's
+component usage and editorial layout guidance:
+
+```bash
+npx skills add joisun/newspaperui
+```
+
 ```tsx
 import 'newspaperui/style.css';
 import { Article, BodyText, Headline, Layout, Section } from 'newspaperui';
@@ -65,12 +74,14 @@ Only `newspaperui` is published. Theme and utility workspaces are internal build
 
 ```bash
 pnpm install
-pnpm --filter @newspaperui/docs dev
+pnpm dev
 pnpm lint
 pnpm test
 pnpm exec turbo run build --force
 pnpm package:smoke
 ```
+
+`pnpm dev` first builds the internal theme, utility, and component packages, then starts their watch processes and the documentation site at `http://localhost:3000`.
 
 `pnpm package:smoke` packs the public package, checks its JS/CJS/types/CSS contract, installs it into an isolated consumer, and verifies both import systems.
 
@@ -78,7 +89,7 @@ pnpm package:smoke
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Product overview and live component composition |
+| `/` | Minimal product overview with an Embla-powered, looped 3D gallery of seven complete newspaper editions |
 | `/docs/grid-system` | Grid concepts and API |
 | `/docs/components/article` | Article and layer primitives |
 | `/create` | Theme editor and responsive preview |

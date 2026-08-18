@@ -1,240 +1,194 @@
-# Skill: Agent-Driven 从 0 到 1 落地复杂前端项目
-
-## 适用场景
-
-- 从设计文档（design.md / PRD）出发，构建完整的组件库 / 应用
-- 项目涉及多个 package / 多层架构（theme → utils → components → docs）
-- 需要达到「生产级」视觉和代码质量
-- 单人操作但希望并行推进多个模块
-
+---
+name: newspaperui
+description: "Use this skill whenever the user asks to build, generate, or lay out a page with NewspaperUI (React components: Layout, Section, Article, Masthead, BodyText, etc.), or asks for a newspaper-style / editorial-style page, front page, weekly digest, or long-form feature and NewspaperUI is available in the project. Covers grid math (Layout → Section → Article span budgeting), component selection for a given content type, content-length rules for headlines/kickers/multi-column body text, ready-made page skeletons (front page, weekly digest, long-form feature, editorial), and a post-generation self-check checklist. Do NOT use for generic CSS Grid layout questions unrelated to NewspaperUI, or for interactive/app UI (forms, dashboards) — NewspaperUI is a static editorial-layout library only."
 ---
 
-## 核心工作流（5 阶段）
+# NewspaperUI — agent usage guide
 
-```
-需求分析 → 技术规划 → 并行实施 → 视觉验证 → 设计复评
-   ↑                                              |
-   └──── 如果复评 < 目标分 → 回到规划 ────────────┘
-```
+NewspaperUI (`pnpm add newspaperui`) is a static, editorial-layout React component
+library: a 24-column CSS Grid system plus typography/publishing components
+(headlines, bylines, pull quotes, factboxes, etc.) styled to look like a printed
+newspaper page. It has **no interactive/app components** (no comments, no auth,
+no data tables) — it only lays out content that already exists.
 
----
+This skill exists because the type system clamps individual out-of-range spans
+but does not validate the total span budget for a row. It also cannot stop an
+agent from writing a 96px headline that's 40 characters long or from opening a
+3-column `BodyText` with 60 words in it. Those are the mistakes this guide
+prevents.
 
-## 阶段 1：需求分析（不写代码）
-
-### 1.1 读蓝本，提炼决策点
-
-读 design.md，列出所有需要用户决策的方向性问题（不超过 4 个）。用 `AskUserQuestion` 一次性收集，避免来回。
-
-**关键决策点模板**：
-- 视觉风格基调？（给 2-3 个带 ASCII preview 的选项）
-- 核心技术机制？（给 2-3 个方案对比）
-- 交付物范围？（MVP vs 完整版）
-- 现有代码处理？（保留 / 重写 / 增量）
-
-### 1.2 派发探索 Agent（只读）
-
-并行派 2 个 Explore agent：
-- Agent A：探索现有代码结构、工具链版本、可复用的好东西
-- Agent B：做领域调研（视觉系统 / 技术方案 / 竞品参考）
-
-**产出**：结构化报告（缺口矩阵 + 可复用清单 + 调研结论）
-
----
-
-## 阶段 2：技术规划（Plan Mode）
-
-### 2.1 进入 Plan Mode
-
-用 `EnterPlanMode`，基于阶段 1 的探索结果写 plan 文件。
-
-### 2.2 Plan 文件结构
-
-```markdown
-# 项目名 重做/新建 计划
-
-## Context（为什么做、做什么、预期结果）
-
-## 范围与边界（保留什么 / 重写什么 / 不做什么）
-
-## 1-N. 各 Package 详细设计
-  - 文件清单
-  - 关键代码模板（不是伪代码，是可直接落地的 TSX）
-  - 依赖关系
-
-## 实施顺序（Stage 1 → N，标注串行/并行）
-
-## 验证方案（自动化 + 视觉清单）
-
-## 风险与权衡
+```js
+import { Layout, Section, Article, Masthead, Headline, BodyText, /* ... */ } from 'newspaperui';
+import 'newspaperui/style.css';
 ```
 
-### 2.3 关键原则
+## 1. The grid model — get this right first
 
-- **Plan 里写真实代码模板**，不写「大概这样做」。Agent 执行时直接复制粘贴，减少发挥空间
-- **标注依赖关系**：哪些 Stage 可并行、哪些必须串行
-- **验证清单要具体**：不写「检查样式是否正确」，写「Headline fontSize ≥ 48px, fontWeight === 600」
-
----
-
-## 阶段 3：并行实施
-
-### 3.1 任务拆分
-
-用 `TaskCreate` 按 Stage 建任务，用 `addBlockedBy` 标注依赖：
+Three nested contexts, each constraining the next:
 
 ```
-Stage 1 (基础设施) ← 无依赖，先做
-Stage 2 (组件层)  ← blocked by Stage 1
-Stage 3 (Demo)    ← blocked by Stage 2
-Stage 4 (文档)    ← blocked by Stage 2（可与 Stage 3 并行）
-Stage 5 (验证)    ← blocked by Stage 3 + 4
+Layout columns={24}                 // top-level grid, usually 24
+  └─ Section columns={n}            // n ≤ Layout.columns
+       └─ Article / NewsSidebar span={m}  // m ≤ Section.columns; each item is clamped
 ```
 
-### 3.2 Agent 派发策略
+**`span` values intended to share one row must sum to ≤ that Section's
+`columns`.** Going over doesn't throw: each individual span is clamped to the
+Section width, but excess row items wrap onto another row. Always total the spans
+yourself.
 
-| 场景 | 做法 |
-|---|---|
-| 有依赖的 Stage | 串行：等前一个 Agent 完成再派下一个 |
-| 无依赖的 Stage | 并行：同一条消息里派多个 Agent |
-| Agent 需要协调 | 用 `SendMessage` 通知另一个 Agent 上游已就绪 |
+Proven ratios (24-column section), pick one instead of inventing a split:
 
-### 3.3 Agent Prompt 黄金模板
-
-```
-你需要在 [路径] 实现 [什么]。
-
-## 上游依赖（已就绪）
-[列出可 import 的模块和 API]
-
-## 任务
-### 1. [具体文件] — [完整代码]
-### 2. [具体文件] — [完整代码]
-...
-
-## 验证步骤
-[具体命令 + 期望输出]
-
-## 约束
-- 严格按上面代码写，不要发挥
-- 不引入新依赖
-- 完成后直接报告，不要询问
-```
-
-**关键**：给 Agent 的 prompt 越具体、代码越完整，产出质量越高。不要给 Agent 留设计决策空间。
-
-### 3.4 每个 Stage 完成后
-
-- 跑 `pnpm build` + `pnpm test` 确认不破坏
-- 标记 TaskUpdate status=completed
-- 解锁下游 Stage
-
----
-
-## 阶段 4：视觉验证
-
-### 4.1 自动化验证
-
-```bash
-pnpm build          # 全包构建
-pnpm test           # 全测试通过
-pnpm dev            # 启动 dev server
-```
-
-### 4.2 Playwright DOM 实测
-
-不依赖截图肉眼判断，用 `browser_evaluate` 直接读 computed style：
-
-```javascript
-// 验证字体、字号、颜色、布局属性
-const cs = getComputedStyle(element);
-return {
-  fontFamily: cs.fontFamily,
-  fontSize: cs.fontSize,
-  fontWeight: cs.fontWeight,
-  columnCount: cs.columnCount,
-  backgroundColor: cs.backgroundColor,
-};
-```
-
-### 4.3 视觉验收清单
-
-提前在 Plan 里写好 10-15 项具体的验收条件，每项都是可自动化检测的：
-
-```
-- [ ] Masthead fontFamily 包含 "Cormorant Garamond"
-- [ ] Headline fontSize >= 48px
-- [ ] BodyText columnCount === "3"
-- [ ] body backgroundColor === "rgb(247, 244, 237)"
-```
-
----
-
-## 阶段 5：设计复评
-
-### 5.1 派发 UI Designer Agent
-
-给 Designer Agent：
-- 截图路径
-- 关键文件路径
-- 第一次评估结果（如果是迭代）
-- 明确的评分维度和输出格式
-
-### 5.2 目标分数
-
-- 首次实现目标：≥ 8/10
-- 迭代后目标：≥ 9/10
-- 如果 < 目标分，回到阶段 2 重新规划问题区域
-
----
-
-## 反模式（避免）
-
-| 反模式 | 正确做法 |
-|---|---|
-| 给 Agent 模糊指令「实现组件库」 | 给完整代码模板 + 文件路径 |
-| 一个 Agent 做所有事 | 按 Stage 拆分，每个 Agent 职责单一 |
-| 先写代码再想设计 | Plan Mode 先对齐，用户批准再动手 |
-| 只跑 build 就算完成 | Playwright 实测 computed style |
-| 截图肉眼看「差不多」 | 量化验收清单（字号/颜色/布局属性） |
-| 一次性全部并行 | 按依赖关系分层，基础设施必须先完成 |
-| Agent 报错就放弃 | 分析根因，调整 prompt 重试（最多 3 次） |
-
----
-
-## 时间分配参考
-
-| 阶段 | 占比 | 说明 |
+| Layout | Spans | Use for |
 |---|---|---|
-| 需求分析 + 探索 | 15% | 磨刀不误砍柴工 |
-| 技术规划 | 20% | Plan 越详细，实施越快 |
-| 并行实施 | 45% | Agent 并行，人只做协调 |
-| 验证 + 复评 | 15% | 量化验收，不靠感觉 |
-| 迭代修复 | 5% | 如果规划到位，这步很轻 |
+| Two-up, main + sidebar | `16 + 8` or `14 + 10` | Feature article + widgets/related |
+| Three-up | `8 + 8 + 8` | Digest / roundup, several short items |
+| Full width | `24` (or omit `span`) | Masthead, banners, footer, single lead story |
+| Four-up | `6 + 6 + 6 + 6` | Brief-format news ticker |
 
----
+`Masthead`, `Folio`, `BreakingNewsBanner`, `Footer` are always full-width —
+don't wrap them in an `Article`, place them directly in `Layout`/`Section` with
+`gridColumn: '1 / -1'` (they set this themselves).
 
-## 可复用的 Agent 类型
+## 2. Which component for which content
 
-| Agent 类型 | 用途 |
-|---|---|
-| Explore | 只读探索代码结构、生成报告 |
-| UI Designer | 视觉系统调研、设计复评打分 |
-| Frontend Developer | 写代码、跑构建、跑测试 |
-| Minimal Change Engineer | 精准修复特定问题，不扩大范围 |
+| Content | Component | Constraint |
+|---|---|---|
+| Section/category label above a headline | `Kicker` | 1–3 words, all-caps/small-caps |
+| Main headline | `Headline weight="High\|Medium\|Low"` | High→h1 (48–96px). **Keep ≤ ~10–12 English words / ~16–20 CJK chars** — `textWrap:balance` helps wrapping but won't fix a headline that's really a sentence |
+| Secondary headline | `Headline weight="Medium"` or `Subhead` | One line, not two clauses |
+| Deck/standfirst | `Subhead` | One sentence, not a paragraph |
+| Author credit | `Byline` | "BY NAME" / "本报记者 X" — short, one line |
+| Dateline | `Dateline` | Inline inside the first `BodyText` paragraph, e.g. `<Dateline>LONDON —</Dateline>` |
+| Article body | `BodyText columns={1-4} dropCap` | See §3 for column/length rules |
+| Short standout line pulled from the body | `PullQuote` | One sentence, **≤ ~25–30 words**. Max 1–2 per article — more than that and nothing stands out |
+| Full quote / testimonial / letter | `Quote variant="block"` | Can be a full paragraph |
+| Structured facts, stats, timeline | `Factbox` | Short list items, not prose |
+| "See also" list | `RelatedArticles` | Title-only entries, no summaries |
+| Front-page contents box | `IndexBox` | `page + title + one-line headline` per item |
+| Top-of-page urgent banner | `BreakingNewsBanner` | One sentence, one per page max |
+| Page header (page no. / section / date) | `Folio` | Every page after the front page |
+| Continuation marker | `JumpLine` | Always in pairs: `direction="to"` at the break, `direction="from"` where it resumes |
+| Widget column (weather, related links, stats) | `NewsSidebar` | Defaults to `span={6}` if unset |
+| Image + caption | `Figure` | Use over raw `Image` when a caption/credit is needed |
 
----
+## 3. Content-length rules
 
-## Checklist：启动新项目时
+These aren't enforced by the library — they're what makes generated output look
+like a real page instead of an awkwardly stretched one:
 
-1. [ ] 有 design.md / PRD 蓝本？
-2. [ ] 用 AskUserQuestion 收集 3-4 个方向性决策？
-3. [ ] 派 Explore agent 做现状分析 + 领域调研？
-4. [ ] 进入 Plan Mode 写详细计划（含代码模板）？
-5. [ ] 用户批准 plan？
-6. [ ] 按依赖关系拆 TaskCreate + addBlockedBy？
-7. [ ] Stage 1 基础设施先串行完成？
-8. [ ] Stage 2+ 尽量并行派发？
-9. [ ] 每个 Stage 完成后跑 build + test？
-10. [ ] Playwright 量化验收 10+ 项？
-11. [ ] Designer Agent 复评 ≥ 目标分？
-12. [ ] 同步 design.md / README？
+- **`BodyText columns={2+}`**: only use multi-column when there's enough copy to
+  fill it — roughly **≥120–150 CJK characters or ≥90–100 English words per
+  column**. A 60-word blurb in `columns={3}` produces three half-empty slivers;
+  use `columns={1}` for short items (news-brief blocks, `span={8}` three-up items
+  almost always want `columns={1}`).
+- **`dropCap`**: only on a first paragraph of at least 3–4 sentences, or the
+  oversized first letter looks stranded above a stub paragraph.
+- **`Headline weight="High"`**: renders at `clamp(48px,8vw,96px)`. Long headlines
+  don't error, they just wrap into an ugly multi-line block — treat the char
+  limits above as hard budget, not a suggestion.
+- **`Kicker` / `Byline` / `Dateline`**: single-line small-caps labels. Keep under
+  ~15 characters; they aren't designed to wrap gracefully.
+
+## 4. Page skeletons
+
+Use these as starting scaffolds instead of improvising grid structure per
+request — they're pre-validated span budgets.
+
+### Front page
+
+```
+Layout(columns=24)
+  Masthead(title, edition, date, variant="classic|blackletter|modern")
+  Folio?(page="A1")                    // optional on the very front page
+  BreakingNewsBanner?                  // only if there's real breaking news
+  Section(columns=24)
+    Article(span=16)                   // lead story
+      Kicker + Headline(High) + Byline + Dateline
+      BodyText(columns=2, dropCap)
+      PullQuote?
+    NewsSidebar(span=8)
+      IndexBox(title="Inside", items=[...])   // 4-6 short entries
+  Rule(variant="double")
+  Section(columns=24)
+    Article(span=8) × 3                // three secondary stories
+      Kicker + Headline(Medium) + BodyText(columns=1)
+  Footer
+```
+
+### Weekly digest / roundup (e.g. "AI 圈周报")
+
+```
+Layout(columns=24)
+  Masthead(title="AI Weekly", variant="modern")
+  Folio(page, section="AI周报", date)
+  Section(columns=24)
+    Article(span=16)                   // week's top story, deeper treatment
+      Kicker + Headline(High) + Byline
+      BodyText(columns=2, dropCap)
+    NewsSidebar(span=8)
+      IndexBox(title="本期速览", items=[6-item list])
+  Rule(variant="double")
+  Section(columns=24)
+    Article(span=8) × 3                // three short items per row, repeat rows as needed
+      Kicker + Headline(Medium) + BodyText(columns=1)  // 100-150 words each
+  Footer
+```
+
+### Long-form feature (single deep-dive article)
+
+```
+Layout(columns=24)
+  Folio(page, section)
+  Section(columns=24)
+    Article(span=24)                   // full-width headline block
+      Kicker + Headline(High) + Subhead + Byline + Dateline
+  Section(columns=24)
+    Article(span=16)
+      BodyText(columns=2, dropCap)     // long body, PullQuote 1-2x
+      JumpLine(direction="to", page="A6")   // if genuinely continuing elsewhere
+    NewsSidebar(span=8, divider)
+      Factbox(title="Key Facts")
+      RelatedArticles
+  AuthorCard                            // at the very end
+```
+
+### Editorial / op-ed (two-column debate style)
+
+```
+Layout(columns=24)
+  Section(columns=24, gap="2rem")
+    Article(span=14)                   // main editorial
+      Kicker + Headline(High) + Subhead + Byline
+      BodyText(weight="High", columns=2, dropCap)
+    Article(span=10)                   // expert commentary + letters
+      (Kicker + Headline(Medium) + Byline + BodyText) × N
+      Rule(variant="hairline") between each item
+      Quote(variant="block") for reader letters, with attribution below
+```
+
+## 5. Anti-patterns
+
+- Don't nest `Article` inside `Layer` — `Layer` is `position: absolute/fixed/sticky`
+  and takes elements out of grid flow, so `span` math no longer applies.
+- Don't open a multi-column `BodyText` inside a span narrower than ~8 — the
+  resulting column width drops below comfortable reading width.
+- Don't use more than 1–2 `PullQuote`s per article.
+- For CJK content, switch the font tokens or text renders in the default Latin
+  serif and looks wrong — see `var(--font-family-cjk-serif)` and
+  `var(--nui-accent-cjk-red)` used in the library's own zh-editorial example.
+- Don't invent a `span` split — use the ratios in §1, or if a custom split is
+  unavoidable, verify it sums to the section's `columns` before writing it out.
+
+## 6. Self-check before returning the page
+
+Run through this after generating, don't just eyeball it:
+
+- [ ] For every `Section`, do all direct `Article`/`NewsSidebar` `span` values sum to
+      that Section's `columns`?
+- [ ] Does every `Article` that represents a story have a `Headline`?
+- [ ] Is CJK content using the CJK font/accent tokens?
+- [ ] Does every multi-column `BodyText` have enough copy per column (§3)?
+- [ ] Is `PullQuote` used sparingly (≤2 per article)?
+- [ ] Is there exactly one `Masthead` and at most one `BreakingNewsBanner`?
+- [ ] Are `JumpLine`s paired (`to` at the break, `from` where it resumes) if used?
