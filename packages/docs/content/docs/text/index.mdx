@@ -1,140 +1,238 @@
 ---
 title: 文本组件
-description: 从 Headline 到 Caption 的完整文本谱系
+description: 文本组件与视觉权重
 ---
-
-从 Headline 到 Caption 的完整文本谱系。每个组件按视觉权重映射到字体、字号、字重、行高与颜色 token，避免硬编码样式。
 
 ## Headline
 
-三档视觉权重：High / Medium / Low。
-
-```tsx
-<Headline weight="High" as="h1">
-  A Quiet Revolution in the Treasury Forecast
-</Headline>
-
-<Headline weight="Medium" as="h2">
-  Whitehall Confirms Infrastructure Review
-</Headline>
-
-<Headline weight="Low" as="h3">
-  Briefing: regional rail commitments
-</Headline>
-```
+<ComponentDemo
+  title="Headline weights"
+  code={[
+    '<Headline weight="High" as="h3">',
+    '  A Quiet Revolution in the Treasury Forecast',
+    '</Headline>',
+    '',
+    '<Headline weight="Medium" as="h4">',
+    '  Whitehall Confirms Infrastructure Review',
+    '</Headline>',
+    '',
+    '<Headline weight="Low" as="h5">',
+    '  Briefing: regional rail commitments',
+    '</Headline>',
+  ].join('\n')}
+>
+  <div>
+    <Headline weight="High" as="h3">
+      {'A Quiet Revolution in the Treasury Forecast'}
+    </Headline>
+    <Headline weight="Medium" as="h4">
+      {'Whitehall Confirms Infrastructure Review'}
+    </Headline>
+    <Headline weight="Low" as="h5">
+      {'Briefing: regional rail commitments'}
+    </Headline>
+  </div>
+</ComponentDemo>
 
 ## Subhead
 
-两档视觉权重：High / Medium。
-
-```tsx
-<Subhead weight="High">
-  A measured recalibration of regional priorities is expected to define
-  the chancellor's autumn agenda.
-</Subhead>
-
-<Subhead weight="Medium">
-  Officials emphasized that the headline figures should be read as a planning
-  envelope rather than a binding allocation.
-</Subhead>
-```
+<ComponentDemo
+  title="Subhead weights"
+  code={[
+    '<Subhead weight="High">',
+    "  A measured recalibration of regional priorities is expected to define the chancellor's autumn agenda.",
+    '</Subhead>',
+    '',
+    '<Subhead weight="Medium">',
+    '  Officials emphasized that the figures are a planning envelope rather than a binding allocation.',
+    '</Subhead>',
+  ].join('\n')}
+>
+  <div>
+    <Subhead weight="High">
+      {
+        "A measured recalibration of regional priorities is expected to define the chancellor's autumn agenda."
+      }
+    </Subhead>
+    <Subhead weight="Medium">
+      {
+        'Officials emphasized that the figures are a planning envelope rather than a binding allocation.'
+      }
+    </Subhead>
+  </div>
+</ComponentDemo>
 
 ## Kicker
 
-朱红 small-caps，挂在 Headline 上方。
-
-```tsx
-<Kicker>POLITICS · WHITEHALL</Kicker>
-<Headline weight="Medium" as="h3">
-  A Standing Technical Commission, Quietly Proposed
-</Headline>
-```
+<ComponentDemo
+  title="Section kicker"
+  code={[
+    '<Kicker>POLITICS / WHITEHALL</Kicker>',
+    '<Headline weight="Medium" as="h3">',
+    '  A Standing Technical Commission, Quietly Proposed',
+    '</Headline>',
+  ].join('\n')}
+>
+  <div>
+    <Kicker>POLITICS / WHITEHALL</Kicker>
+    <Headline weight="Medium" as="h3">
+      {'A Standing Technical Commission, Quietly Proposed'}
+    </Headline>
+  </div>
+</ComponentDemo>
 
 ## BodyText
 
-多栏文字流组件，支持 `columns` 和 `dropCap`。
+### 单栏
 
-### 单栏（默认）
+<ComponentDemo
+  title="Single-column body"
+  code={[
+    '<BodyText>',
+    '  <p>',
+    '    The committee published its findings after six months of public hearings and regional consultation.',
+    '  </p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText>
+    <p>
+      {
+        'The committee published its findings after six months of public hearings and regional consultation. Its recommendations focus on transport, housing, and long-term regional investment.'
+      }
+    </p>
+  </BodyText>
+</ComponentDemo>
 
-```tsx
-<BodyText>
-  <p>默认形态，适合中等宽度的文章正文。</p>
-</BodyText>
-```
+### 三栏与首字下沉
 
-### 三栏 + 首字下沉
-
-开启 `columns={3}` 与 `dropCap`，第一段首字母自动下沉占 2-3 行。
-
-```tsx
-<BodyText columns={3} dropCap>
-  <p>...</p>
-  <p>...</p>
-</BodyText>
-```
+<ComponentDemo
+  title="Three-column body with drop cap"
+  code={[
+    '<BodyText columns={3} dropCap>',
+    '  <p>The morning session opened with a revised fiscal forecast.</p>',
+    '  <p>Regional leaders asked for clearer delivery milestones.</p>',
+    '  <p>The final report will return to parliament in September.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={3} dropCap>
+    <p>
+      {
+        'The morning session opened with a revised fiscal forecast and a sharper focus on regional infrastructure.'
+      }
+    </p>
+    <p>
+      {
+        'Regional leaders asked ministers to publish clearer delivery milestones before the autumn review.'
+      }
+    </p>
+    <p>The final report will return to parliament in September with costed recommendations.</p>
+  </BodyText>
+</ComponentDemo>
 
 ### 两栏
 
-`columns={2}`，栏间细线由 `nui-column-rule` 提供。
-
-```tsx
-<BodyText columns={2}>
-  <p>...</p>
-  <p>...</p>
-</BodyText>
-```
+<ComponentDemo
+  title="Two-column body"
+  code={[
+    '<BodyText columns={2}>',
+    '  <p>Officials described the plan as a practical starting point.</p>',
+    '  <p>Independent reviewers welcomed the published timetable.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={2}>
+    <p>
+      {'Officials described the plan as a practical starting point rather than a final settlement.'}
+    </p>
+    <p>
+      {
+        'Independent reviewers welcomed the published timetable and asked for quarterly progress data.'
+      }
+    </p>
+  </BodyText>
+</ComponentDemo>
 
 ## Quote
 
-block / inline 两种变体。
-
-```tsx
-{/* Block quote */}
-<Quote variant="block">
-  We have lobbied for this kind of clarity for the better part of a decade.
-</Quote>
-
-{/* Inline quote */}
-<BodyText>
-  <p>
-    按一位资深内阁人士的说法，这份评估
-    <Quote variant="inline">是一个时代以来最连贯的战略蓝图</Quote>
-    ，但能否落地仍取决于春季立法。
-  </p>
-</BodyText>
-```
+<ComponentDemo
+  title="Block and inline quote"
+  code={[
+    '<Quote variant="block">',
+    '  We have lobbied for this kind of clarity for the better part of a decade.',
+    '</Quote>',
+    '',
+    '<BodyText>',
+    '  <p>',
+    '    One official called the assessment',
+    '    <Quote variant="inline">the most coherent blueprint in a generation</Quote>.',
+    '  </p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <div>
+    <Quote variant="block">
+      {'We have lobbied for this kind of clarity for the better part of a decade.'}
+    </Quote>
+    <BodyText>
+      <p>
+        {'One official called the assessment '}
+        <Quote variant="inline">{'the most coherent blueprint in a generation'}</Quote>
+        {'.'}
+      </p>
+    </BodyText>
+  </div>
+</ComponentDemo>
 
 ## Byline / Dateline / Caption
 
-元信息组件。
-
-```tsx
-<Byline>BY ALICE SMITH</Byline>
-<Dateline>LONDON —</Dateline>
-
-<figure>
-  <img src="..." alt="..." />
-  <Caption credit="Photograph by Jane Doe">
-    A view of the Treasury terrace at dusk; the new commission will report here from May.
-  </Caption>
-</figure>
-```
+<ComponentDemo
+  title="Article metadata"
+  code={[
+    '<Byline>BY ELEANOR WHITCOMBE</Byline>',
+    '<BodyText>',
+    '  <p><Dateline>LONDON -</Dateline> The commission published its final report.</p>',
+    '</BodyText>',
+    '<figure>',
+    '  <img src="/newsroom.jpg" alt="Editors reviewing the morning edition" />',
+    '  <Caption credit="Photograph by Roman Kraft">',
+    '    Editors review the final morning edition before publication.',
+    '  </Caption>',
+    '</figure>',
+  ].join('\n')}
+>
+  <div>
+    <Byline>{'BY ELEANOR WHITCOMBE'}</Byline>
+    <BodyText>
+      <p>
+        <Dateline>{'LONDON -'}</Dateline>
+        {' The commission published its final report after six months of public hearings.'}
+      </p>
+    </BodyText>
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=900&h=420&fit=crop"
+        alt="Editors reviewing newspapers on a table"
+      />
+      <Caption credit="Photograph by Roman Kraft">
+        {'Editors review the final morning edition before publication.'}
+      </Caption>
+    </figure>
+  </div>
+</ComponentDemo>
 
 ## 视觉权重映射
 
-所有文本组件的样式由 `visualWeights` 数据驱动，修改 theme 后自动同步。映射关系：
+所有文本组件的样式由 <code>visualWeights</code> 数据驱动，修改 theme 后自动同步。
 
-| 组件 | 权重 | 字体 | 字号 | 字重 | 行高 |
-|---|---|---|---|---|---|
-| Headline | High | `--font-family-display` | 48px | 700 | 1.05 |
-| Headline | Medium | `--font-family-headline` | 32px | 700 | 1.15 |
-| Headline | Low | `--font-family-headline` | 22px | 600 | 1.25 |
-| Subhead | High | `--font-family-headline` | 22px | 400 | 1.35 |
-| Subhead | Medium | `--font-family-headline` | 18px | 400 | 1.4 |
-| Kicker | - | `--font-family-meta` | 12px | 700 | 1.2 |
-| BodyText | High | `--font-family-body` | 17px | 400 | 1.65 |
-| BodyText | Medium | `--font-family-body` | 16px | 400 | 1.6 |
-| BodyText | Low | `--font-family-body` | 15px | 400 | 1.55 |
-| Byline | - | `--font-family-meta` | 12px | 600 | 1.2 |
-| Dateline | - | `--font-family-meta` | 13px | 700 | 1.2 |
-| Caption | - | `--font-family-meta` | 12px | 400 | 1.4 |
+| 组件     | 权重   | 字体     | 字号 | 字重 | 行高 |
+| -------- | ------ | -------- | ---- | ---- | ---- |
+| Headline | High   | Display  | 48px | 700  | 1.05 |
+| Headline | Medium | Headline | 32px | 700  | 1.15 |
+| Headline | Low    | Headline | 22px | 600  | 1.25 |
+| Subhead  | High   | Headline | 22px | 400  | 1.35 |
+| Subhead  | Medium | Headline | 18px | 400  | 1.4  |
+| BodyText | High   | Body     | 17px | 400  | 1.65 |
+| BodyText | Medium | Body     | 16px | 400  | 1.6  |
+| BodyText | Low    | Body     | 15px | 400  | 1.55 |

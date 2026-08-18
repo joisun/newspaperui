@@ -4,7 +4,16 @@ import type { ReactNode } from 'react';
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <DocsLayout tree={source.pageTree}>
+    <DocsLayout
+      tree={source.pageTree}
+      disableThemeSwitch
+      nav={{ enabled: false }}
+      sidebar={{
+        hideSearch: true,
+        collapsible: false,
+        className: 'nui-docs-sidebar',
+      }}
+    >
       {children}
     </DocsLayout>
   );

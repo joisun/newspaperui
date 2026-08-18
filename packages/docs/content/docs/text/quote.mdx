@@ -1,6 +1,6 @@
 ---
 title: Quote
-description: 引用组件，block 和 inline 两种变体
+description: Block 与 inline 引用
 ---
 
 ## API
@@ -14,8 +14,34 @@ description: 引用组件，block 和 inline 两种变体
 
 ## Block Quote
 
-左缩进 1.5em，**无 border-left**（报纸传统）。
+<ComponentDemo
+  title="Block quotation"
+  code={[
+    '<Quote variant="block" weight="High" cite="https://example.com/public-record">',
+    '  The agreement gives every region a measurable route from policy to delivery.',
+    '</Quote>',
+  ].join('\n')}
+>
+  <Quote variant="block" weight="High" cite="https://example.com/public-record">
+    {'The agreement gives every region a measurable route from policy to delivery.'}
+  </Quote>
+</ComponentDemo>
 
 ## Inline Quote
 
-渲染为 `<em>` italic，不加引号（报纸传统）。
+<ComponentDemo
+  title="Inline quotation"
+  code={[
+    '<BodyText>',
+    '  <p>The chair described the vote as <Quote variant="inline">a practical beginning rather than a final settlement</Quote> before the committee adjourned.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText>
+    <p>
+      {'The chair described the vote as '}
+      <Quote variant="inline">a practical beginning rather than a final settlement</Quote>
+      {' before the committee adjourned.'}
+    </p>
+  </BodyText>
+</ComponentDemo>

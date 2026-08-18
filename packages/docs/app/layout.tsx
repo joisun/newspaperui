@@ -1,8 +1,9 @@
-import './globals.css';
 import 'fumadocs-ui/style.css';
+import './globals.css';
 import type { Metadata } from 'next';
 import { RootProvider } from 'fumadocs-ui/provider';
 import { Header } from '../components/Header';
+import { rootProviderTheme } from '../lib/theme';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://joisun.github.io/newspaperui/'),
@@ -38,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="flex flex-col min-h-screen">
-        <RootProvider>
+        <RootProvider theme={rootProviderTheme} search={{ enabled: false }}>
           <Header />
           {children}
         </RootProvider>

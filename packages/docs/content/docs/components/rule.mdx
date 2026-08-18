@@ -1,11 +1,7 @@
 ---
 title: Rule 分隔线
-description: 显式分隔线组件，支持三种线型和两种方向
+description: 三种线型，两种方向
 ---
-
-## 概述
-
-显式分隔线组件。三个 variant 覆盖 hairline、double、thick，支持水平和垂直方向。
 
 ## API
 
@@ -19,24 +15,49 @@ description: 显式分隔线组件，支持三种线型和两种方向
 
 ## 水平方向三种 variant
 
-```tsx
-<Rule variant="hairline" />
-<Rule variant="double" />
-<Rule variant="thick" />
-```
+<ComponentDemo
+  title="Horizontal rules"
+  code={[
+    '<div style={{ display: "grid", gap: "1.5rem" }}>',
+    '  <Rule variant="hairline" />',
+    '  <Rule variant="double" />',
+    '  <Rule variant="thick" />',
+    '</div>',
+  ].join('\n')}
+>
+  <div style={{ display: 'grid', gap: '1.5rem' }}>
+    <Rule variant="hairline" />
+    <Rule variant="double" />
+    <Rule variant="thick" />
+  </div>
+</ComponentDemo>
 
 ## 垂直方向
 
-在两栏之间放置垂直 Rule：
-
-```tsx
-<div style={{ display: 'flex', gap: '1.5rem', height: '120px' }}>
-  <div>左栏内容</div>
-  <Rule variant="hairline" orientation="vertical" />
-  <div>右栏内容</div>
-</div>
-```
+<ComponentDemo
+  title="Vertical column divider"
+  code={[
+    '<div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "1.25rem", minHeight: "9rem" }}>',
+    '  <p>City officials approved the revised transit timetable after a final public hearing.</p>',
+    '  <Rule variant="hairline" orientation="vertical" />',
+    '  <p>Regional operators will publish the first coordinated schedule next month.</p>',
+    '</div>',
+  ].join('\n')}
+>
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: '1fr auto 1fr',
+      gap: '1.25rem',
+      minHeight: '9rem',
+    }}
+  >
+    <p>{'City officials approved the revised transit timetable after a final public hearing.'}</p>
+    <Rule variant="hairline" orientation="vertical" />
+    <p>{'Regional operators will publish the first coordinated schedule next month.'}</p>
+  </div>
+</ComponentDemo>
 
 ## 使用建议
 
-Rule 在 Section 栅格内默认 `gridColumn: 1 / -1` 全跨。如果只需要跨部分列，传入 `span` prop。垂直 Rule 适合放在 flex 容器中作为栏间分隔。
+Rule 在 Section 内默认全跨；使用 `span` 限制栏宽。垂直 Rule 适合 flex 或 grid 栏间分隔。

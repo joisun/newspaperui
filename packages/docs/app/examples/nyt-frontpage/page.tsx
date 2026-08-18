@@ -8,7 +8,8 @@ import {
 
 export default function FrontPage() {
   return (
-    <Layout columns={24} maxWidth="1200px" padding="2rem 1.5rem">
+    <main>
+      <Layout columns={24} maxWidth="1200px" padding="2rem 1.5rem">
       <Masthead
         variant="classic"
         kicker="Late City Edition"
@@ -83,7 +84,7 @@ export default function FrontPage() {
 
         <Article span={14}>
           <div style={{ textAlign: 'center' }}><Kicker>Capitol · Breaking</Kicker></div>
-          <Headline weight="High" align="center">
+          <Headline weight="High" as="h2" align="center">
             Historic Accord Reshapes Continental Trade After Marathon Session
           </Headline>
           <Subhead weight="High" style={{ textAlign: 'center', marginTop: 0 }}>
@@ -103,7 +104,7 @@ export default function FrontPage() {
           />
 
           <BodyText weight="High" columns={3} dropCap style={{ marginTop: '1.5rem' }}>
-            <p><Dateline>Brussels —</Dateline> After eleven consecutive days of negotiation that several
+            <p><Dateline>Brussels -</Dateline> After eleven consecutive days of negotiation that several
             participants described as the most demanding in a generation, delegates from twenty-three nations
             announced on Monday a sweeping framework to reorganize commerce across the continent. The accord,
             which still requires ratification by member parliaments, would harmonize tariff schedules, set
@@ -162,7 +163,7 @@ export default function FrontPage() {
 
             <p>Historians of continental integration noted that the accord&rsquo;s scope exceeds any single
             agreement since the postwar reconstruction treaties. &ldquo;What makes this different,&rdquo; said
-            Professor Elena Marchetti of the University of Turin, &ldquo;is that it touches every household&mdash;
+            Professor Elena Marchetti of the University of Turin, &ldquo;is that it touches every household -
             not just through trade, but through the air they breathe and the wages they earn.&rdquo;</p>
           </BodyText>
 
@@ -194,7 +195,7 @@ export default function FrontPage() {
           <Byline>By Tomás Almeida</Byline>
 
           <BodyText weight="Medium" style={{ marginTop: '0.75rem' }}>
-            <p><Dateline>Lisbon —</Dateline> Eleven coastal nations announced a binding compact to coordinate
+            <p><Dateline>Lisbon -</Dateline> Eleven coastal nations announced a binding compact to coordinate
             cleanup operations and harmonize liability rules for vessels exceeding fifty thousand tons. The
             agreement establishes a shared rapid-response fund and creates a regional inspectorate empowered
             to detain non-compliant ships in any signatory port.</p>
@@ -239,7 +240,7 @@ export default function FrontPage() {
           <Byline style={{ marginBottom: '1rem' }}>By Ravi Nair, Anita Kowalski, and Charles Weston</Byline>
 
           <BodyText weight="High" columns={4}>
-            <p><Dateline>Sacramento —</Dateline> A six-month review of more than four thousand pages of
+            <p><Dateline>Sacramento -</Dateline> A six-month review of more than four thousand pages of
             inspection records, interviews with twenty-three current and former engineers, and reconstructions
             of three near-failure incidents reveals a pattern of unheeded warnings about the structural
             integrity of mid-twentieth-century earthen dams across the western states.</p>
@@ -272,6 +273,7 @@ export default function FrontPage() {
           </BodyText>
         </Article>
       </Section>
-    </Layout>
+      </Layout>
+    </main>
   );
 }

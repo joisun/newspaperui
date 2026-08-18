@@ -1,11 +1,9 @@
 ---
 title: Byline · Dateline · Caption
-description: 署名、发稿地、图片说明
+description: 署名、发稿地、图注与作者信息
 ---
 
 ## Byline
-
-署名，Inter small-caps 格式。
 
 | 属性 | 类型 | 说明 |
 |---|---|---|
@@ -13,15 +11,11 @@ description: 署名、发稿地、图片说明
 
 ## Dateline
 
-发稿地，Inter small-caps + 粗体。
-
 | 属性 | 类型 | 说明 |
 |---|---|---|
 | children | ReactNode | 如 "LONDON —" |
 
 ## Caption
-
-图片说明，italic 衬线 13px。
 
 | 属性 | 类型 | 说明 |
 |---|---|---|
@@ -29,8 +23,6 @@ description: 署名、发稿地、图片说明
 | children | ReactNode | 说明文字 |
 
 ## AuthorCard
-
-作者简介卡片。
 
 | 属性 | 类型 | 说明 |
 |---|---|---|
@@ -42,9 +34,72 @@ description: 署名、发稿地、图片说明
 
 ## JumpLine
 
-跨版续转标注。
-
 | 属性 | 类型 | 说明 |
 |---|---|---|
 | direction | "to" \| "from" | 方向 |
 | page | string | 目标版面，如 "A6" |
+
+## Attribution stack
+
+<ComponentDemo
+  title="Byline, dateline, and caption"
+  code={[
+    '<Byline>BY ELEANOR WHITCOMBE</Byline>',
+    '<BodyText><p><Dateline>BRUSSELS —</Dateline> Delegates published the final text shortly after midnight.</p></BodyText>',
+    '<figure>',
+    '  <img',
+    '    src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80"',
+    '    alt="Delegates gathering in the chamber before the final session"',
+    '    style={{ width: "100%", aspectRatio: "16/5", objectFit: "cover", display: "block" }}',
+    '  />',
+    '  <Caption credit="Photograph by the Chronicle photo desk">The chamber before the final session.</Caption>',
+    '</figure>',
+  ].join('\n')}
+>
+  <div>
+    <Byline>BY ELEANOR WHITCOMBE</Byline>
+    <BodyText>
+      <p>
+        <Dateline>BRUSSELS —</Dateline>
+        {' Delegates published the final text shortly after midnight.'}
+      </p>
+    </BodyText>
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80"
+        alt="Delegates gathering in the chamber before the final session"
+        style={{ width: '100%', aspectRatio: '16/5', objectFit: 'cover', display: 'block' }}
+      />
+      <Caption credit="Photograph by the Chronicle photo desk">
+        {'The chamber before the final session.'}
+      </Caption>
+    </figure>
+  </div>
+</ComponentDemo>
+
+## Author and continuation
+
+<ComponentDemo
+  title="Author card with jump lines"
+  code={[
+    '<JumpLine direction="from" page="A1" />',
+    '<AuthorCard',
+    '  name="Eleanor Whitcombe"',
+    '  role="Senior Correspondent"',
+    '  bio="Reports on public institutions, cities, and regional policy."',
+    '  email="eleanor@example.com"',
+    '/>',
+    '<JumpLine direction="to" page="A6" />',
+  ].join('\n')}
+>
+  <div>
+    <JumpLine direction="from" page="A1" />
+    <AuthorCard
+      name="Eleanor Whitcombe"
+      role="Senior Correspondent"
+      bio="Reports on public institutions, cities, and regional policy."
+      email="eleanor@example.com"
+    />
+    <JumpLine direction="to" page="A6" />
+  </div>
+</ComponentDemo>

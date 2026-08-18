@@ -9,7 +9,6 @@ import styles from './Header.module.css';
 const navItems = [
   { label: 'Docs', href: '/docs/grid-system' },
   { label: 'Components', href: '/docs/components/article' },
-  { label: 'Themes', href: '/docs/theme' },
   { label: 'Blocks', href: '/blocks' },
   { label: 'Create', href: '/create' },
 ];
@@ -51,7 +50,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.bar}>
-        <Link href="/" className={styles.brand} aria-label="NewspaperUI home">NewspaperUI</Link>
+        <Link href="/" prefetch={false} className={styles.brand} aria-label="NewspaperUI home">NewspaperUI</Link>
 
         <nav className={styles.desktopNav} aria-label="Primary navigation">
           {navigationLinks()}
@@ -80,7 +79,7 @@ export function Header() {
           <a className={styles.navLink} href="https://github.com/joisun/newspaperui" target="_blank" rel="noreferrer">GitHub</a>
           <button type="button" onClick={toggleTheme} className={styles.mobileThemeButton}>
             {dark ? <Sun size={18} weight="bold" aria-hidden="true" /> : <Moon size={18} weight="bold" aria-hidden="true" />}
-            <span>{dark ? 'Use light theme' : 'Use dark theme'}</span>
+            <span>{dark ? 'Light' : 'Dark'}</span>
           </button>
         </nav>
       )}

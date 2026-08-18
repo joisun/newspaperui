@@ -1,50 +1,122 @@
 'use client';
 
-import { useState } from 'react';
+import { Check, Code, Copy } from '@phosphor-icons/react';
+import { useId, useState } from 'react';
+import styles from './Demo.module.css';
 
-interface DemoProps {
+interface ComponentDemoProps {
   title: string;
   description?: string;
-  code?: string;
+  code: string;
   children: React.ReactNode;
 }
 
-export function Demo({ title, description, code, children }: DemoProps) {
-  const [showCode, setShowCode] = useState(false);
+type CopyState = 'idle' | 'copied' | 'error';
+
+export function ComponentDemo({ title, description, code, children }: ComponentDemoProps) {
+  const sourceId = useId();
+  const sourceLines = code.split('\n');
+  const [sourceOpen, setSourceOpen] = useState(false);
+  const [copyState, setCopyState] = useState<CopyState>('idle');
+
+  async function copySource() {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopyState('copied');
+    } catch {
+      setCopyState('error');
+    }
+  }
+
+  function toggleSource() {
+    setSourceOpen((open) => !open);
+    setCopyState('idle');
+  }
 
   return (
-    <div className="my-8 border border-gray-200 rounded-lg overflow-hidden">
-      <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-        {description && (
-          <p className="mt-1 text-sm text-gray-600">{description}</p>
+    <section className={styles.frame} aria-label={`${title} demo`}>
+      <header className={styles.previewHeader}>
+        <div>
+          <span className={styles.eyebrow}>Live preview</span>
+          <strong className={styles.title}>{title}</strong>
+        </div>
+        {description && <p className={styles.description}>{description}</p>}
+      </header>
+
+      <div className={styles.preview}>{children}</div>
+
+      <div className={styles.source}>
+        <div className={styles.sourceHeader}>
+          <span className={styles.sourceLabel}>
+            <Code size={17} weight="bold" aria-hidden="true" />
+            <span>Source</span>
+            <span className={styles.language}>TSX</span>
+          </span>
+          {sourceOpen && (
+            <button
+              type="button"
+              className={styles.copyButton}
+              onClick={copySource}
+              aria-label={copyState === 'copied' ? 'Source copied' : 'Copy source'}
+            >
+              {copyState === 'copied' ? (
+                <Check size={17} weight="bold" aria-hidden="true" />
+              ) : (
+                <Copy size={17} weight="bold" aria-hidden="true" />
+              )}
+              <span>{copyState === 'copied' ? 'Copied' : 'Copy'}</span>
+            </button>
+          )}
+        </div>
+
+        <div
+          id={sourceId}
+          className={`${styles.sourceViewport} ${sourceOpen ? styles.expanded : styles.collapsed}`}
+        >
+          <pre className={styles.pre} tabIndex={0}>
+            <code className={styles.code}>
+              {sourceLines.map((line, index) => (
+                <span className={styles.codeLine} data-source-line key={index}>
+                  <span
+                    className={styles.lineNumber}
+                    data-line-number
+                    aria-hidden="true"
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span className={styles.lineText}>
+                    {line || ' '}
+                    {index < sourceLines.length - 1 ? '\n' : null}
+                  </span>
+                </span>
+              ))}
+            </code>
+          </pre>
+        </div>
+
+        <div className={styles.sourceFooter}>
+          <button
+            type="button"
+            className={styles.sourceToggle}
+            onClick={toggleSource}
+            aria-expanded={sourceOpen}
+            aria-controls={sourceId}
+          >
+            {sourceOpen ? 'Hide source' : 'View source'}
+          </button>
+        </div>
+
+        <p className={styles.status} role="status" aria-live="polite">
+          {copyState === 'copied' ? 'Source copied to clipboard.' : ''}
+        </p>
+        {copyState === 'error' && (
+          <p className={styles.error} role="alert">
+            Copy failed. Select the source and copy it manually.
+          </p>
         )}
       </div>
-
-      <div className="p-6 bg-white">
-        {children}
-      </div>
-
-      {code && (
-        <>
-          <div className="border-t border-gray-200 px-4 py-2 bg-gray-50">
-            <button
-              onClick={() => setShowCode(!showCode)}
-              className="text-sm font-medium text-gray-700 hover:text-gray-900"
-            >
-              {showCode ? '隐藏代码' : '查看代码'}
-            </button>
-          </div>
-
-          {showCode && (
-            <div className="border-t border-gray-200">
-              <pre className="p-4 bg-gray-900 text-gray-100 overflow-x-auto text-sm">
-                <code>{code}</code>
-              </pre>
-            </div>
-          )}
-        </>
-      )}
-    </div>
+    </section>
   );
 }
+
+export const Demo = ComponentDemo;

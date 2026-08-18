@@ -1,6 +1,6 @@
 ---
 title: Headline
-description: 标题组件，High/Medium/Low 三档视觉权重
+description: High、Medium、Low 三档视觉权重
 ---
 
 ## API
@@ -17,3 +17,18 @@ description: 标题组件，High/Medium/Low 三档视觉权重
 - **High**: 48–72px, weight 600, line-height 1.05, Source Serif 4 Display
 - **Medium**: 32–40px, weight 600, line-height 1.1
 - **Low**: 22–26px, weight 500, line-height 1.2
+
+<ComponentDemo
+  title="Headline hierarchy"
+  code={[
+    '<Headline weight="High" as="h3">A National Programme Takes Shape</Headline>',
+    '<Headline weight="Medium" as="h4">Regional Leaders Set Delivery Dates</Headline>',
+    '<Headline weight="Low" as="h5">Five questions for the next review</Headline>',
+  ].join('\n')}
+>
+  <div>
+    <Headline weight="High" as="h3">{'A National Programme Takes Shape'}</Headline>
+    <Headline weight="Medium" as="h4">{'Regional Leaders Set Delivery Dates'}</Headline>
+    <Headline weight="Low" as="h5">{'Five questions for the next review'}</Headline>
+  </div>
+</ComponentDemo>

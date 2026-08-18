@@ -1,65 +1,119 @@
 ---
 title: 响应式设计
-description: 基于 CSS media query + container query 的响应式策略
+description: CSS 响应式策略
 ---
 
-NewspaperUI 的响应式策略完全基于 CSS media query + container query，不依赖 JavaScript 运行时计算。
+响应式布局使用 CSS media query 与 container query，不读取 JavaScript viewport。
 
 ## 断点说明
 
-三个核心断点覆盖移动、平板、桌面：
+| 断点    | 宽度           | 栏数建议 | 说明                     |
+| ------- | -------------- | -------- | ------------------------ |
+| Mobile  | 小于 768px     | 1 栏     | 单栏堆叠，核心内容优先   |
+| Tablet  | 768px - 1024px | 12 列    | 主报道全宽，辅助内容双栏 |
+| Desktop | 大于 1024px    | 24 列    | 6 + 12 + 6 完整版面      |
 
-| 断点 | 宽度 | 栏数建议 | 说明 |
-|---|---|---|---|
-| Mobile | 小于 768px | 1 栏（全宽） | 单栏堆叠，BodyText columns=1 |
-| Tablet | 768px - 1024px | 12 列 | 两栏布局，BodyText columns=2 |
-| Desktop | 大于 1024px | 24 列 | 完整多栏布局 |
+## Viewport comparison
 
-## 实施手法
+<ComponentDemo
+  title="Responsive editorial composition"
+  code={[
+    '<Section columns={24} className="edition-grid">',
+    '  <Article span={12} className="lead-story">...</Article>',
+    '  <Article span={6} className="left-rail">...</Article>',
+    '  <Article span={6} className="right-rail">...</Article>',
+    '</Section>',
+    '',
+    '@container (max-width: 48rem) {',
+    '  .edition-grid { grid-template-columns: 1fr !important; }',
+    '  .edition-grid > article { grid-column: 1 / -1 !important; }',
+    '}',
+  ].join('\n')}
+>
+  <div className="nui-viewport-comparison">
+    <section className="nui-viewport-card" data-demo-viewport="desktop">
+      <header className="nui-viewport-label">
+        <strong>Desktop</strong>
+        <span>24 columns</span>
+      </header>
+      <Section columns={24} gap="0.75rem" className="nui-responsive-example-section">
+        <Article span={12} className="nui-responsive-lead">
+          <Kicker>Lead story</Kicker>
+          <Headline weight="Low" as="h3">
+            {'Regional Accord Sets a New Standard for Public Transit'}
+          </Headline>
+          <BodyText weight="Low">
+            <p>Major cities agree on shared fares and a coordinated timetable.</p>
+          </BodyText>
+        </Article>
+        <Article span={6} className="nui-responsive-left">
+          <Kicker>Analysis</Kicker>
+          <Headline weight="Low" as="h4">{'What changes first'}</Headline>
+        </Article>
+        <Article span={6} className="nui-responsive-right">
+          <Kicker>Briefing</Kicker>
+          <Headline weight="Low" as="h4">{'Five dates to watch'}</Headline>
+        </Article>
+      </Section>
+    </section>
 
-NewspaperUI 不再使用 JavaScript responsive 函数。所有响应式行为通过 CSS media query 和 container query 实现，零运行时开销。
+    <section className="nui-viewport-card" data-demo-viewport="tablet">
+      <header className="nui-viewport-label">
+        <strong>Tablet</strong>
+        <span>12 columns</span>
+      </header>
+      <Section columns={12} gap="0.75rem" className="nui-responsive-example-section">
+        <Article span={12} className="nui-responsive-lead">
+          <Kicker>Lead story</Kicker>
+          <Headline weight="Low" as="h3">
+            {'Regional Accord Sets a New Standard for Public Transit'}
+          </Headline>
+          <BodyText weight="Low">
+            <p>Major cities agree on shared fares and a coordinated timetable.</p>
+          </BodyText>
+        </Article>
+        <Article span={6} className="nui-responsive-left">
+          <Kicker>Analysis</Kicker>
+          <Headline weight="Low" as="h4">{'What changes first'}</Headline>
+        </Article>
+        <Article span={6} className="nui-responsive-right">
+          <Kicker>Briefing</Kicker>
+          <Headline weight="Low" as="h4">{'Five dates to watch'}</Headline>
+        </Article>
+      </Section>
+    </section>
 
-Section 的 `gridTemplateColumns` 是 inline style，因此需要在消费侧用 CSS 覆盖。推荐做法：
+    <section className="nui-viewport-card" data-demo-viewport="mobile">
+      <header className="nui-viewport-label">
+        <strong>Mobile</strong>
+        <span>1 column</span>
+      </header>
+      <Section columns={1} gap="0.75rem" className="nui-responsive-example-section">
+        <Article span={1} className="nui-responsive-lead">
+          <Kicker>Lead story</Kicker>
+          <Headline weight="Low" as="h3">
+            {'Regional Accord Sets a New Standard for Public Transit'}
+          </Headline>
+          <BodyText weight="Low">
+            <p>Major cities agree on shared fares and a coordinated timetable.</p>
+          </BodyText>
+        </Article>
+        <Article span={1} className="nui-responsive-left">
+          <Kicker>Analysis</Kicker>
+          <Headline weight="Low" as="h4">{'What changes first'}</Headline>
+        </Article>
+        <Article span={1} className="nui-responsive-right">
+          <Kicker>Briefing</Kicker>
+          <Headline weight="Low" as="h4">{'Five dates to watch'}</Headline>
+        </Article>
+      </Section>
+    </section>
 
-### Media Query 方案
+  </div>
+</ComponentDemo>
 
-```css
-/* 在你的 globals.css 或组件 CSS 中 */
-@media (max-width: 768px) {
-  .nui-section {
-    grid-template-columns: 1fr !important;
-  }
-  .nui-article {
-    grid-column: span 1 !important;
-  }
-}
+## 实施原则
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .nui-section[data-columns="24"] {
-    grid-template-columns: repeat(12, 1fr) !important;
-  }
-}
-```
-
-### Container Query 方案
-
-```css
-/* 给 Section 添加 container-type */
-.nui-section {
-  container-type: inline-size;
-}
-
-@container (max-width: 600px) {
-  .nui-article {
-    grid-column: 1 / -1 !important;
-  }
-}
-```
-
-## 视口效果
-
-- **Desktop (1024px+)**: 24 列完整布局，6 + 12 + 6 三栏
-- **Tablet (768-1024px)**: 12 列简化，两栏并列
-- **Mobile (小于 768px)**: 单栏堆叠，所有 Article 全宽
-
-实际项目中建议使用浏览器 DevTools 的 responsive mode 进行测试。
+- 内容优先级决定 Mobile 顺序，不依赖视觉上的 CSS order 反转。
+- 栅格变化写在 CSS 中，避免 render 阶段读取 viewport。
+- 窄屏正文回到单栏，table 与 source 仅在自身容器内滚动。

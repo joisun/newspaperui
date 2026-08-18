@@ -1,11 +1,9 @@
 ---
 title: 数据组件
-description: Folio / IndexBox / Factbox / RelatedArticles
+description: Folio、IndexBox、Factbox、RelatedArticles
 ---
 
 ## Folio
-
-版面页眉（页码 + 版名 + 日期），每个内页顶部使用。
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
@@ -14,18 +12,56 @@ description: Folio / IndexBox / Factbox / RelatedArticles
 | date | string | — | 日期 |
 | publication | string | — | 报名 |
 
-## IndexBox
+<ComponentDemo
+  title="Section folio"
+  code={[
+    '<Folio',
+    '  page="A2"',
+    '  section="National"',
+    '  publication="The Daily Chronicle"',
+    '  date="Tuesday, May 19, 2026"',
+    '/>',
+  ].join('\n')}
+>
+  <Folio
+    page="A2"
+    section="National"
+    publication="The Daily Chronicle"
+    date="Tuesday, May 19, 2026"
+  />
+</ComponentDemo>
 
-头版内容索引框，告诉读者各版有什么。
+## IndexBox
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
 | title | string | "Inside" | 标题 |
 | items | `Array<{ page, title, headline? }>` | — | 索引条目 |
 
-## Factbox
+<ComponentDemo
+  title="Front-page index"
+  code={[
+    '<IndexBox',
+    '  title="Inside today"',
+    '  items={[',
+    '    { page: "A2", title: "National", headline: "Mayors agree shared housing targets" },',
+    '    { page: "B1", title: "Business", headline: "Markets welcome infrastructure plan" },',
+    '    { page: "C3", title: "Culture", headline: "Archive opens a new public gallery" },',
+    '  ]}',
+    '/>',
+  ].join('\n')}
+>
+  <IndexBox
+    title="Inside today"
+    items={[
+      { page: 'A2', title: 'National', headline: 'Mayors agree shared housing targets' },
+      { page: 'B1', title: 'Business', headline: 'Markets welcome infrastructure plan' },
+      { page: 'C3', title: 'Culture', headline: 'Archive opens a new public gallery' },
+    ]}
+  />
+</ComponentDemo>
 
-嵌入正文的信息框（数据、时间线、人物简介等）。
+## Factbox
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
@@ -33,11 +69,53 @@ description: Folio / IndexBox / Factbox / RelatedArticles
 | span | number | — | 跨栏数 |
 | variant | "default" \| "highlight" \| "timeline" | "default" | 样式变体 |
 
-## RelatedArticles
+<ComponentDemo
+  title="Highlighted factbox"
+  code={[
+    '<Factbox title="Programme at a glance" variant="highlight">',
+    '  <ul>',
+    '    <li>Six regional projects</li>',
+    '    <li>Ten-year delivery window</li>',
+    '    <li>Annual independent review</li>',
+    '  </ul>',
+    '</Factbox>',
+  ].join('\n')}
+>
+  <Factbox title="Programme at a glance" variant="highlight">
+    <ul>
+      <li>Six regional projects</li>
+      <li>Ten-year delivery window</li>
+      <li>Annual independent review</li>
+    </ul>
+  </Factbox>
+</ComponentDemo>
 
-"相关报道" 列表。
+## RelatedArticles
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
 | title | string | "Related" | 标题 |
 | articles | `Array<{ title, href, category? }>` | — | 文章列表 |
+
+<ComponentDemo
+  title="Related coverage"
+  code={[
+    '<RelatedArticles',
+    '  title="Continue reading"',
+    '  articles={[',
+    '    { category: "Analysis", title: "What the new timetable changes", href: "#story-analysis" },',
+    '    { category: "Data", title: "Six projects in detail", href: "#story-data" },',
+    '    { category: "Opinion", title: "The case for patient delivery", href: "#story-opinion" },',
+    '  ]}',
+    '/>',
+  ].join('\n')}
+>
+  <RelatedArticles
+    title="Continue reading"
+    articles={[
+      { category: 'Analysis', title: 'What the new timetable changes', href: '#story-analysis' },
+      { category: 'Data', title: 'Six projects in detail', href: '#story-data' },
+      { category: 'Opinion', title: 'The case for patient delivery', href: '#story-opinion' },
+    ]}
+  />
+</ComponentDemo>

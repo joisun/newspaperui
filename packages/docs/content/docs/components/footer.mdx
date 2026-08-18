@@ -1,11 +1,9 @@
 ---
 title: Footer · Sidebar · Banner
-description: 页脚、侧边栏、突发新闻横幅
+description: Footer、NewsSidebar、BreakingNewsBanner
 ---
 
 ## Footer
-
-报纸页脚/版权信息区。
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
@@ -13,9 +11,30 @@ description: 页脚、侧边栏、突发新闻横幅
 | edition | string | — | 版次 |
 | links | `Array<{ label, href }>` | — | 底部链接 |
 
-## NewsSidebar
+<ComponentDemo
+  title="Publication footer"
+  code={[
+    '<Footer',
+    '  copyright="© 2026 The Daily Chronicle"',
+    '  edition="Late City Edition"',
+    '  links={[',
+    '    { label: "Archive", href: "#archive" },',
+    '    { label: "Contact", href: "#contact" },',
+    '  ]}',
+    '/>',
+  ].join('\n')}
+>
+  <Footer
+    copyright="© 2026 The Daily Chronicle"
+    edition="Late City Edition"
+    links={[
+      { label: 'Archive', href: '#archive' },
+      { label: 'Contact', href: '#contact' },
+    ]}
+  />
+</ComponentDemo>
 
-侧边栏内容区（天气、股票、快讯摘要等）。
+## NewsSidebar
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
@@ -23,11 +42,47 @@ description: 页脚、侧边栏、突发新闻横幅
 | position | "left" \| "right" | "right" | 位置 |
 | divider | boolean | false | 是否显示分隔线 |
 
-## BreakingNewsBanner
+<ComponentDemo
+  title="Article with news sidebar"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1.5rem">',
+    '    <Article span={18}><Headline weight="Low" as="h3">Council Publishes Housing Programme</Headline><BodyText><p>The first phase begins with six publicly owned sites.</p></BodyText></Article>',
+    '    <NewsSidebar span={6} divider><Kicker>AT A GLANCE</Kicker><BodyText weight="Low"><p>2,400 homes · six sites · three phases</p></BodyText></NewsSidebar>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1.5rem">
+      <Article span={18}>
+        <Headline weight="Low" as="h3">{'Council Publishes Housing Programme'}</Headline>
+        <BodyText><p>{'The first phase begins with six publicly owned sites.'}</p></BodyText>
+      </Article>
+      <NewsSidebar span={6} divider>
+        <Kicker>AT A GLANCE</Kicker>
+        <BodyText weight="Low"><p>{'2,400 homes · six sites · three phases'}</p></BodyText>
+      </NewsSidebar>
+    </Section>
+  </Layout>
+</ComponentDemo>
 
-突发新闻横幅，全宽显示。
+## BreakingNewsBanner
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
 | label | string | "BREAKING" | 标签文字 |
 | children | ReactNode | — | 新闻内容 |
+
+<ComponentDemo
+  title="Breaking-news banner"
+  code={[
+    '<BreakingNewsBanner label="BREAKING">',
+    '  Rail services resume after overnight signaling repairs',
+    '</BreakingNewsBanner>',
+  ].join('\n')}
+>
+  <BreakingNewsBanner label="BREAKING">
+    {'Rail services resume after overnight signaling repairs'}
+  </BreakingNewsBanner>
+</ComponentDemo>

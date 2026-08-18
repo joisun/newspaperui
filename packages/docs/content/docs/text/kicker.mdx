@@ -1,6 +1,6 @@
 ---
 title: Kicker
-description: 小帽体标签，朱红 accent 色
+description: 栏目标签
 ---
 
 ## API
@@ -9,7 +9,15 @@ description: 小帽体标签，朱红 accent 色
 |---|---|---|---|
 | children | ReactNode | — | 标签文字 |
 
-## 说明
-
-使用 Inter 字体 + 真 OpenType small-caps + 朱红色（`--nui-accent-primary`）。
-常用于 Headline 上方的栏目标识。
+<ComponentDemo
+  title="Editorial section kicker"
+  code={[
+    '<Kicker>POLITICS · WHITEHALL</Kicker>',
+    '<Headline weight="Low" as="h3">Committee Publishes the Final Evidence</Headline>',
+  ].join('\n')}
+>
+  <div>
+    <Kicker>POLITICS · WHITEHALL</Kicker>
+    <Headline weight="Low" as="h3">{'Committee Publishes the Final Evidence'}</Headline>
+  </div>
+</ComponentDemo>

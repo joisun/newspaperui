@@ -1,6 +1,6 @@
 ---
 title: BodyText
-description: 正文组件，支持多栏文字流和首字下沉
+description: 多栏正文与首字下沉
 ---
 
 ## API
@@ -16,11 +16,41 @@ description: 正文组件，支持多栏文字流和首字下沉
 
 ## 多栏文字流
 
-设置 `columns={3}` 启用 CSS Multi-column，文字自动 reflow 到 3 栏，栏间有 1px hairline 分隔。
+<ComponentDemo
+  title="Balanced three-column body"
+  code={[
+    '<BodyText columns={3}>',
+    '  <p>The first phase reconnects the station with the civic quarter.</p>',
+    '  <p>A second route will serve the university and western suburbs.</p>',
+    '  <p>Independent reviewers will publish annual delivery reports.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={3}>
+    <p>{'The first phase reconnects the station with the civic quarter.'}</p>
+    <p>{'A second route will serve the university and western suburbs.'}</p>
+    <p>{'Independent reviewers will publish annual delivery reports.'}</p>
+  </BodyText>
+</ComponentDemo>
 
 ## 首字下沉
 
-设置 `dropCap` 启用 `::first-letter` 首字下沉效果（4.2em Display 字体）。
+<ComponentDemo
+  title="Two-column opening with drop cap"
+  code={[
+    '<BodyText columns={2} dropCap>',
+    '  <p>Before sunrise, the first engineering team entered the restored market hall.</p>',
+    '  <p>The public entrance will reopen after a final safety inspection.</p>',
+    '  <p>Stallholders return next week under a new long-term lease.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={2} dropCap>
+    <p>{'Before sunrise, the first engineering team entered the restored market hall.'}</p>
+    <p>{'The public entrance will reopen after a final safety inspection.'}</p>
+    <p>{'Stallholders return next week under a new long-term lease.'}</p>
+  </BodyText>
+</ComponentDemo>
 
 ## 排版细节
 

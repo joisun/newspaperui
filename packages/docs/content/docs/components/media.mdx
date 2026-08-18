@@ -1,11 +1,9 @@
 ---
 title: 媒体组件
-description: Image、Figure、Video、PullQuote — 报纸版面中的视觉元素
+description: Image、Figure、Video、PullQuote
 ---
 
 ## Image
-
-基础图片组件。`display: block; width: 100%`，在 Section 栅格内通过 span 跨栏。
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
@@ -13,9 +11,24 @@ description: Image、Figure、Video、PullQuote — 报纸版面中的视觉元�
 | `alt` | `string` | **必填** | 替代文本。 |
 | `span` | `number` | - | 跨栏数。 |
 
-## Figure
+<ComponentDemo
+  title="Responsive editorial image"
+  code={[
+    '<Image',
+    '  src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&h=675&fit=crop"',
+    '  alt="A printed newspaper open on a desk"',
+    '  aspectRatio="16/9"',
+    '/>',
+  ].join('\n')}
+>
+  <Image
+    src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&h=675&fit=crop"
+    alt="A printed newspaper open on a desk"
+    aspectRatio="16/9"
+  />
+</ComponentDemo>
 
-组合 Image + Caption + Credit 的语义容器。自动渲染 figcaption。
+## Figure
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
@@ -25,27 +38,26 @@ description: Image、Figure、Video、PullQuote — 报纸版面中的视觉元�
 | `credit` | `string` | - | 摄影师/来源（small-caps 渲染）。 |
 | `span` | `number` | - | 跨栏数。 |
 
-<Layout columns={24} padding="0">
-<Section columns={24}>
-<Article span={24}>
-<Figure
-  src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&h=400&fit=crop"
-  alt="Newspapers on a wooden table"
-  caption="A view of the morning editions, arranged on the newsroom table."
-  credit="Photograph by Roman Kraft / Unsplash"
-/>
-</Article>
-</Section>
-</Layout>
-
-```tsx
-<Figure
-  src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&h=400&fit=crop"
-  alt="Newspapers on a wooden table"
-  caption="A view of the morning editions, arranged on the newsroom table."
-  credit="Photograph by Roman Kraft / Unsplash"
-/>
-```
+<ComponentDemo
+  title="Figure with caption and credit"
+  code={[
+    '<Figure',
+    '  src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200&h=675&fit=crop"',
+    '  alt="Newspapers arranged on a newsroom table"',
+    '  caption="The morning editions arrive before the first editorial meeting."',
+    '  credit="Photograph by Roman Kraft / Unsplash"',
+    '  aspectRatio="16/9"',
+    '/>',
+  ].join('\n')}
+>
+  <Figure
+    src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200&h=675&fit=crop"
+    alt="Newspapers arranged on a newsroom table"
+    caption="The morning editions arrive before the first editorial meeting."
+    credit="Photograph by Roman Kraft / Unsplash"
+    aspectRatio="16/9"
+  />
+</ComponentDemo>
 
 ## Video
 
@@ -58,11 +70,26 @@ description: Image、Figure、Video、PullQuote — 报纸版面中的视觉元�
 | `controls` | `boolean` | `true` | 显示播放控件。 |
 | `span` | `number` | - | 跨栏数。 |
 
-Video 组件与 Figure 结构类似，包裹 `<video>` 标签并附带 caption/credit。
+<ComponentDemo
+  title="Video with editorial context"
+  code={[
+    '<Video',
+    '  src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"',
+    '  poster="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=1200&h=675&fit=crop"',
+    '  caption="A short field recording accompanies the weekend environment report."',
+    '  credit="CC0 video / MDN"',
+    '/>',
+  ].join('\n')}
+>
+  <Video
+    src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+    poster="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=1200&h=675&fit=crop"
+    caption="A short field recording accompanies the weekend environment report."
+    credit="CC0 video / MDN"
+  />
+</ComponentDemo>
 
 ## PullQuote
-
-上下双 hairline + Display 字体的拉引组件。在多栏 BodyText 内设置 `spanAllColumns` 可跨所有栏（通过 `column-span: all`）。
 
 | 属性 | 类型 | 默认值 | 说明 |
 |---|---|---|---|
@@ -74,40 +101,40 @@ Video 组件与 Figure 结构类似，包裹 `<video>` 标签并附带 caption/c
 
 ### 独立使用
 
-<Layout columns={24} padding="0">
-<Section columns={24}>
-<Article span={24}>
-<PullQuote author="Senior Cabinet Official">
-  We have lobbied for this kind of clarity for the better part of a decade.
-</PullQuote>
-</Article>
-</Section>
-</Layout>
-
-```tsx
-<PullQuote author="Senior Cabinet Official">
-  We have lobbied for this kind of clarity for the better part of a decade.
-</PullQuote>
-```
+<ComponentDemo
+  title="Standalone pull quote"
+  code={[
+    '<PullQuote author="Senior Cabinet Official">',
+    '  We have lobbied for this kind of clarity for the better part of a decade.',
+    '</PullQuote>',
+  ].join('\n')}
+>
+  <PullQuote author="Senior Cabinet Official">
+    {'We have lobbied for this kind of clarity for the better part of a decade.'}
+  </PullQuote>
+</ComponentDemo>
 
 ### 在多栏 BodyText 内跨栏
 
-<Layout columns={24} padding="0">
-<Section columns={24}>
-<Article span={24}>
-<BodyText columns={3}>
-  <p>After eleven consecutive days of negotiation that several participants described as the most demanding in a generation, delegates announced a sweeping framework.</p>
-  <PullQuote spanAllColumns author="Margarethe Lindqvist">A long argument that finally became a conversation.</PullQuote>
-  <p>Markets reacted with measured optimism. The continental composite index closed up 1.2 percent, led by capital-goods makers.</p>
-</BodyText>
-</Article>
-</Section>
-</Layout>
-
-```tsx
-<BodyText columns={3}>
-  <p>...</p>
-  <PullQuote spanAllColumns author="...">...</PullQuote>
-  <p>...</p>
-</BodyText>
-```
+<ComponentDemo
+  title="Pull quote across text columns"
+  code={[
+    '<BodyText columns={3}>',
+    '  <p>After eleven consecutive days of negotiation, delegates announced a sweeping framework.</p>',
+    '  <PullQuote spanAllColumns author="Margarethe Lindqvist">A long argument that finally became a conversation.</PullQuote>',
+    '  <p>Markets reacted with measured optimism as the agreement moved toward ratification.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={3}>
+    <p>
+      {'After eleven consecutive days of negotiation, delegates announced a sweeping framework.'}
+    </p>
+    <PullQuote spanAllColumns author="Margarethe Lindqvist">
+      {'A long argument that finally became a conversation.'}
+    </PullQuote>
+    <p>
+      {'Markets reacted with measured optimism as the agreement moved toward ratification.'}
+    </p>
+  </BodyText>
+</ComponentDemo>
