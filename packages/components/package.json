@@ -1,6 +1,6 @@
 {
   "name": "newspaperui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Production-grade newspaper layout React components with built-in theme and utilities",
   "type": "module",
   "main": "./dist/index.cjs",
