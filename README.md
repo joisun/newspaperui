@@ -18,22 +18,15 @@
   </a>
 </p>
 
-NewspaperUI combines a 24-column CSS Grid system, multi-column text flow, multilingual typography, and publishing details such as folios, factboxes, captions, and pull quotes. The visual system uses warm paper tones, deliberate rules, and semantic theme tokens rather than a fixed page template.
+NewspaperUI is a React component library for building responsive newspaper and editorial interfaces. Compose front pages, long-form stories, and multilingual publications from reusable layout, typography, and media primitives.
 
-## Install
+## Installation
 
 ```bash
 pnpm add newspaperui
 ```
 
-### Agent skill
-
-Install the bundled NewspaperUI skill to give coding agents the library's
-component usage and editorial layout guidance:
-
-```bash
-npx skills add joisun/newspaperui
-```
+## Quick start
 
 ```tsx
 import 'newspaperui/style.css';
@@ -44,7 +37,9 @@ export function FrontPage() {
     <Layout columns={24}>
       <Section columns={24}>
         <Article span={16}>
-          <Headline as="h1" weight="High">The morning edition</Headline>
+          <Headline as="h1" weight="High">
+            The morning edition
+          </Headline>
           <BodyText columns={2} dropCap>
             <p>Compose the story with a real editorial reading flow.</p>
           </BodyText>
@@ -55,63 +50,31 @@ export function FrontPage() {
 }
 ```
 
-React 18 and ReactDOM 18 are peer dependencies. Theme CSS and runtime utilities are bundled into the single public package.
+## Highlights
 
-## What is included
+- Responsive composition on a 24-column editorial grid.
+- Multi-column text, drop caps, rules, captions, quotes, and publication metadata.
+- Typography presets for English, Chinese, Japanese, and German layouts.
+- Light and dark themes, complete example editions, and a visual theme creator.
 
-- 28 exported React components across layout, text, and media.
-- A 24-column grid with validated spans and responsive composition.
-- CSS Multi-column body text, drop caps, small caps, old-style figures, and hairline rules.
-- Typography tokens for English, Chinese, Japanese, and German editorial styles.
-- Light and dark semantic theme variables plus a browser-based theme creator.
-- Six complete blocks for studying multilingual front pages and long-form editions.
+## Documentation
 
-### Component families
-
-- **Layout:** `Layout`, `Section`, `Article`, `Layer`, `Masthead`, `Rule`, `Footer`, `NewsSidebar`, `BreakingNewsBanner`, `RelatedArticles`, `Folio`, `IndexBox`, `Factbox`.
-- **Text:** `Headline`, `Subhead`, `Kicker`, `BodyText`, `Quote`, `Byline`, `Dateline`, `Caption`, `AuthorCard`, `JumpLine`.
-- **Media:** `Image`, `Figure`, `Video`, `PullQuote`.
-
-## Workspace
-
-```text
-packages/
-├── components/  # Public newspaperui package
-├── theme/       # Private design tokens and typography source
-├── utils/       # Private grid and class-name utilities
-└── docs/        # Next.js + Fumadocs website
-```
-
-Only `newspaperui` is published. Theme and utility workspaces are internal build modules.
+Visit the [documentation](https://joisun.github.io/newspaperui/) for component APIs, layout guides, complete editions, and theming. The repository also includes an optional [NewspaperUI agent skill](SKILL.md) for coding assistants.
 
 ## Development
 
 ```bash
 pnpm install
 pnpm dev
+```
+
+Before submitting changes, run:
+
+```bash
 pnpm lint
 pnpm test
 pnpm exec turbo run build --force
-pnpm package:smoke
 ```
-
-`pnpm dev` first builds the internal theme, utility, and component packages, then starts their watch processes and the documentation site at `http://localhost:3000`.
-
-`pnpm package:smoke` packs the public package, checks its JS/CJS/types/CSS contract, installs it into an isolated consumer, and verifies both import systems.
-
-## Documentation routes
-
-| Route | Purpose |
-| --- | --- |
-| `/` | Minimal product overview with a Swiper Coverflow gallery of seven complete newspaper editions |
-| `/docs/grid-system` | Grid concepts and API |
-| `/docs/components/article` | Article and layer primitives |
-| `/create` | Theme editor and responsive preview |
-| `/blocks` | Six complete editorial layouts |
-
-## Releases
-
-Changesets manages versions and the GitHub release workflow publishes with npm provenance. See [docs/releasing.md](docs/releasing.md) for dry-run checks, required secrets, and the release sequence.
 
 ## License
 
