@@ -1,10 +1,24 @@
-# NewspaperUI
+<p align="center">
+  <img src="packages/docs/app/icon.svg" width="96" height="96" alt="NewspaperUI logo">
+</p>
 
-> Editorial React components for production newspaper layouts.
+<h1 align="center">NewspaperUI</h1>
+
+<p align="center">Editorial React components for production newspaper layouts.</p>
+
+<p align="center">
+  <a href="https://joisun.github.io/newspaperui/">Live documentation</a> ·
+  <a href="https://joisun.github.io/newspaperui/blocks/">Browse blocks</a> ·
+  <a href="https://joisun.github.io/newspaperui/create/">Create a theme</a>
+</p>
+
+<p align="center">
+  <a href="https://joisun.github.io/newspaperui/">
+    <img src=".github/assets/newspaperui-homepage.png" width="1200" alt="NewspaperUI homepage with an interactive 3D gallery of complete newspaper editions">
+  </a>
+</p>
 
 NewspaperUI combines a 24-column CSS Grid system, multi-column text flow, multilingual typography, and publishing details such as folios, factboxes, captions, and pull quotes. The visual system uses warm paper tones, deliberate rules, and semantic theme tokens rather than a fixed page template.
-
-[Live documentation](https://joisun.github.io/newspaperui/) · [Browse blocks](https://joisun.github.io/newspaperui/blocks/) · [Create a theme](https://joisun.github.io/newspaperui/create/)
 
 ## Install
 
