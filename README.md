@@ -89,7 +89,7 @@ pnpm package:smoke
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Minimal product overview with an Embla-powered, looped 3D gallery of seven complete newspaper editions |
+| `/` | Minimal product overview with a Swiper Coverflow gallery of seven complete newspaper editions |
 | `/docs/grid-system` | Grid concepts and API |
 | `/docs/components/article` | Article and layer primitives |
 | `/create` | Theme editor and responsive preview |

@@ -1,59 +1,95 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import type { ReactNode } from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 const carouselMock = vi.hoisted(() => {
-  const listeners = new Map<string, (api: { selectedScrollSnap: () => number }) => void>();
-  let selectedIndex = 0;
+  type MockApi = {
+    activeIndex: number;
+    slideTo: (index: number, speed?: number, runCallbacks?: boolean) => void;
+  };
 
+  let onSlideChange: ((api: MockApi) => void) | undefined;
+  let onTransitionEnd: ((api: MockApi) => void) | undefined;
+  let swiperProps: Record<string, unknown> | undefined;
   const api = {
-    off: vi.fn((event: string) => {
-      listeners.delete(event);
-      return api;
+    activeIndex: 7,
+    slideTo: vi.fn((index: number) => {
+      api.activeIndex = index;
+      onSlideChange?.(api);
     }),
-    on: vi.fn((event: string, listener: (instance: { selectedScrollSnap: () => number }) => void) => {
-      listeners.set(event, listener);
-      return api;
-    }),
-    scrollNext: vi.fn(() => {
-      selectedIndex = (selectedIndex + 1) % 7;
-      listeners.get('select')?.(api);
-    }),
-    scrollPrev: vi.fn(() => {
-      selectedIndex = (selectedIndex + 6) % 7;
-      listeners.get('select')?.(api);
-    }),
-    scrollTo: vi.fn((index: number) => {
-      selectedIndex = index;
-      listeners.get('select')?.(api);
-    }),
-    selectedScrollSnap: vi.fn(() => selectedIndex),
   };
 
   return {
     api,
-    hook: vi.fn(() => [vi.fn(), api]),
-    reset() {
-      listeners.clear();
-      selectedIndex = 0;
-      Object.values(api).forEach((value) => {
-        if (typeof value === 'function' && 'mockClear' in value) value.mockClear();
-      });
+    capture(props: Record<string, unknown>) {
+      swiperProps = props;
+      onSlideChange = props.onSlideChange as typeof onSlideChange;
+      onTransitionEnd = props.onTransitionEnd as typeof onTransitionEnd;
     },
-    wheelPlugin: vi.fn((options: unknown) => ({ name: 'wheelGestures', options })),
+    get props() {
+      return swiperProps;
+    },
+    select(index: number) {
+      api.activeIndex = index;
+      onSlideChange?.(api);
+    },
+    settle() {
+      onTransitionEnd?.(api);
+    },
+    reset() {
+      api.activeIndex = 7;
+      api.slideTo.mockClear();
+      onSlideChange = undefined;
+      onTransitionEnd = undefined;
+      swiperProps = undefined;
+    },
   };
 });
 
-vi.mock('embla-carousel-react', () => ({ default: carouselMock.hook }));
-vi.mock('embla-carousel-wheel-gestures', () => ({
-  WheelGesturesPlugin: carouselMock.wheelPlugin,
+vi.mock('swiper/modules', () => ({
+  A11y: 'A11y',
+  EffectCoverflow: 'EffectCoverflow',
+  Keyboard: 'Keyboard',
+  Mousewheel: 'Mousewheel',
 }));
+
+vi.mock('swiper/react', async () => {
+  const React = await import('react');
+
+  return {
+    Swiper: ({
+      children,
+      className,
+      'aria-label': ariaLabel,
+      'aria-roledescription': ariaRoleDescription,
+      ...props
+    }: Record<string, unknown>) => {
+      carouselMock.capture(props);
+      return React.createElement(
+        'div',
+        {
+          className,
+          'aria-label': ariaLabel,
+          'aria-roledescription': ariaRoleDescription,
+        },
+        children as ReactNode,
+      );
+    },
+    SwiperSlide: ({
+      children,
+      className,
+    }: Record<string, unknown>) => React.createElement(
+      'div',
+      { className },
+      children as ReactNode,
+    ),
+  };
+});
 
 import LandingPage from './page';
 
 describe('LandingPage', () => {
   beforeEach(() => {
     carouselMock.reset();
-    carouselMock.hook.mockClear();
-    carouselMock.wheelPlugin.mockClear();
   });
 
   test('exposes one primary landmark with one page title', () => {
@@ -74,26 +110,62 @@ describe('LandingPage', () => {
 
     expect(screen.getByRole('heading', { name: 'Editorial components for React.' })).toBeVisible();
     expect(container.querySelectorAll('[data-home-demo]')).toHaveLength(7);
+    expect(container.querySelectorAll('[data-gallery-slide]')).toHaveLength(21);
     expect(screen.getByRole('link', { name: 'Open 人民周报 demo' })).toHaveAttribute('href', '/blocks/zh-frontpage');
-    expect(screen.getByRole('button', { name: 'Show 文化副刊 demo' })).toBeVisible();
+    expect(screen.queryByRole('button', { name: /^Show / })).not.toBeInTheDocument();
     expect(screen.getByLabelText('Edition 1 of 7')).toHaveTextContent('01 / 07');
   });
 
-  test('moves the 3D gallery by selecting a neighboring edition', () => {
+  test('lets Swiper own the coverflow geometry, loop and one-slide navigation', () => {
     render(<LandingPage />);
-    const gallery = screen.getByLabelText('NewspaperUI full newspaper demo gallery');
-    const neighboringEdition = screen.getByRole('button', { name: 'Show 文化副刊 demo' });
 
-    expect(screen.getByRole('group', { name: /人民周报, current demo/ })).toHaveAttribute('aria-current', 'true');
-    expect(screen.queryByRole('button', { name: 'Next' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Previous' })).not.toBeInTheDocument();
-    fireEvent.click(neighboringEdition);
-    expect(carouselMock.api.scrollTo).toHaveBeenCalledWith(1);
+    expect(carouselMock.props).toEqual(expect.objectContaining({
+      centeredSlides: true,
+      effect: 'coverflow',
+      initialSlide: 7,
+      slideToClickedSlide: true,
+      slidesPerGroup: 1,
+      slidesPerView: 'auto',
+      speed: 120,
+    }));
+    expect(carouselMock.props).not.toHaveProperty('loop');
+    expect(carouselMock.props?.coverflowEffect).toEqual(expect.objectContaining({
+      depth: 80,
+      rotate: -8,
+      scale: 0.94,
+      stretch: '20%',
+      slideShadows: false,
+    }));
+    expect(carouselMock.props?.breakpoints).toEqual(expect.objectContaining({
+      768: expect.objectContaining({
+        coverflowEffect: expect.objectContaining({
+          depth: 140,
+          rotate: -4,
+          stretch: '60%',
+        }),
+      }),
+    }));
+    expect(carouselMock.props?.mousewheel).toEqual(expect.objectContaining({
+      forceToAxis: true,
+      thresholdDelta: 4,
+    }));
+    expect(carouselMock.props?.mousewheel).not.toHaveProperty('thresholdTime');
+
+    act(() => carouselMock.select(8));
     expect(screen.getByRole('group', { name: /文化副刊, current demo/ })).toHaveAttribute('aria-current', 'true');
+    expect(screen.getByRole('link', { name: 'Open 文化副刊 demo' })).toHaveAttribute('href', '/blocks/zh-feature');
     expect(screen.getByLabelText('Edition 2 of 7')).toHaveTextContent('02 / 07');
-    fireEvent.keyDown(gallery, { key: 'ArrowLeft' });
-    expect(carouselMock.api.scrollPrev).toHaveBeenCalledOnce();
-    expect(screen.getByRole('group', { name: /人民周报, current demo/ })).toHaveAttribute('aria-current', 'true');
+  });
+
+  test('normalizes an identical outer deck without reordering slides', () => {
+    const { container } = render(<LandingPage />);
+
+    act(() => carouselMock.select(14));
+    act(() => carouselMock.settle());
+
+    expect(carouselMock.api.slideTo).toHaveBeenCalledWith(7, 0, false);
+    expect(container.querySelectorAll('[data-gallery-slide]')).toHaveLength(21);
+    expect(screen.getByLabelText('Edition 1 of 7')).toHaveTextContent('01 / 07');
   });
 
   test('keeps the active paper scrollable without making its canvas a link', () => {
@@ -102,21 +174,6 @@ describe('LandingPage', () => {
 
     expect(activePaper.querySelector('[data-scrollable="true"]')).toBeInTheDocument();
     expect(activePaper.querySelectorAll('a')).toHaveLength(1);
-  });
-
-  test('delegates looped one-snap drag and trackpad gestures to Embla', () => {
-    render(<LandingPage />);
-
-    expect(carouselMock.hook).toHaveBeenCalledWith(
-      expect.objectContaining({
-        align: 'center',
-        dragFree: false,
-        loop: true,
-        skipSnaps: false,
-      }),
-      [expect.objectContaining({ name: 'wheelGestures' })],
-    );
-    expect(carouselMock.wheelPlugin).toHaveBeenCalledOnce();
   });
 
   test('confirms when the installation command is copied', async () => {

@@ -1,16 +1,18 @@
 'use client';
 
-import type {
-  CSSProperties,
-  KeyboardEvent,
-} from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { ArrowUpRight } from '@phosphor-icons/react';
-import type { EmblaCarouselType } from 'embla-carousel';
-import useEmblaCarousel from 'embla-carousel-react';
-import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import Image from 'next/image';
 import Link from 'next/link';
+import {
+  EffectCoverflow,
+  Keyboard,
+  Mousewheel,
+} from 'swiper/modules';
+import type { Swiper as SwiperInstance } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
 import { InstallCommand } from '../components/InstallCommand';
 import styles from './page.module.css';
 
@@ -75,61 +77,30 @@ const galleryItems = [
   },
 ] as const;
 
-function getCircularOffset(index: number, activeIndex: number) {
-  const length = galleryItems.length;
-  let offset = index - activeIndex;
+const deckLength = galleryItems.length;
+const middleDeckStart = deckLength;
+const gallerySlides = [-1, 0, 1].flatMap((cycle) => galleryItems.map((item, logicalIndex) => ({
+  ...item,
+  cycle,
+  key: `${cycle}:${item.id}`,
+  logicalIndex,
+})));
 
-  if (offset > length / 2) offset -= length;
-  if (offset < -length / 2) offset += length;
+function getLogicalIndex(index: number) {
+  return ((index % deckLength) + deckLength) % deckLength;
+}
 
-  return offset;
+function normalizeDeck(swiper: SwiperInstance) {
+  if (swiper.activeIndex < middleDeckStart) {
+    swiper.slideTo(swiper.activeIndex + deckLength, 0, false);
+  } else if (swiper.activeIndex >= middleDeckStart + deckLength) {
+    swiper.slideTo(swiper.activeIndex - deckLength, 0, false);
+  }
 }
 
 export default function LandingPage() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const wheelPlugin = useMemo(
-    () => WheelGesturesPlugin({ wheelDraggingClass: styles.wheelDragging }),
-    [],
-  );
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      align: 'center',
-      containScroll: false,
-      dragFree: false,
-      duration: 28,
-      loop: true,
-      skipSnaps: false,
-    },
-    [wheelPlugin],
-  );
-
-  const syncSelection = useCallback((api: EmblaCarouselType) => {
-    setActiveIndex(api.selectedScrollSnap());
-  }, []);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    syncSelection(emblaApi);
-    emblaApi.on('select', syncSelection);
-    emblaApi.on('reInit', syncSelection);
-
-    return () => {
-      emblaApi.off('select', syncSelection);
-      emblaApi.off('reInit', syncSelection);
-    };
-  }, [emblaApi, syncSelection]);
-
-  function handleGalleryKeys(event: KeyboardEvent<HTMLElement>) {
-    if (event.key === 'ArrowLeft') {
-      event.preventDefault();
-      emblaApi?.scrollPrev();
-    }
-
-    if (event.key === 'ArrowRight') {
-      event.preventDefault();
-      emblaApi?.scrollNext();
-    }
-  }
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(middleDeckStart);
+  const activeIndex = getLogicalIndex(activeSlideIndex);
 
   return (
     <main className={styles.page}>
@@ -138,88 +109,112 @@ export default function LandingPage() {
         <InstallCommand />
       </section>
 
-      <section
-        className={styles.gallery}
-        aria-label="NewspaperUI full newspaper demo gallery"
-        aria-roledescription="carousel"
-        onKeyDown={handleGalleryKeys}
-      >
-        <div className={styles.galleryViewport} ref={emblaRef}>
-          <div className={styles.galleryStage}>
-            {galleryItems.map((item, index) => {
-              const offset = getCircularOffset(index, activeIndex);
-              const distance = Math.abs(offset);
-              const style = {
-                '--gallery-offset': offset,
-                '--gallery-distance': distance,
-                '--gallery-layer': galleryItems.length - distance,
-              } as CSSProperties;
+      <section className={styles.gallery}>
+        <Swiper
+          className={styles.galleryViewport}
+          aria-label="NewspaperUI full newspaper demo gallery"
+          aria-roledescription="carousel"
+          modules={[EffectCoverflow, Keyboard, Mousewheel]}
+          effect="coverflow"
+          centeredSlides
+          slidesPerView="auto"
+          slidesPerGroup={1}
+          initialSlide={middleDeckStart}
+          slideToClickedSlide
+          grabCursor
+          speed={120}
+          threshold={8}
+          touchAngle={35}
+          watchSlidesProgress
+          keyboard={{
+            enabled: true,
+            onlyInViewport: true,
+          }}
+          mousewheel={{
+            forceToAxis: true,
+            releaseOnEdges: false,
+            thresholdDelta: 4,
+          }}
+          coverflowEffect={{
+            rotate: -8,
+            stretch: '20%',
+            depth: 80,
+            scale: 0.94,
+            modifier: 1,
+            slideShadows: false,
+          }}
+          breakpoints={{
+            768: {
+              coverflowEffect: {
+                rotate: -4,
+                stretch: '60%',
+                depth: 140,
+                scale: 0.94,
+                modifier: 1,
+                slideShadows: false,
+              },
+            },
+          }}
+          onSlideChange={(swiper) => setActiveSlideIndex(swiper.activeIndex)}
+          onTransitionEnd={normalizeDeck}
+        >
+          {gallerySlides.map((item, slideIndex) => {
+            const isActive = slideIndex === activeSlideIndex;
+            const isCanonical = item.cycle === 0;
 
-              const preview = (
-                <Image
-                  src={item.preview}
-                  alt={`${item.title} complete newspaper page preview`}
-                  width={item.width}
-                  height={item.height}
-                  sizes="(max-width: 767px) calc(100vw - 2rem), 48rem"
-                  priority={index === 0}
-                  draggable={false}
-                  className={styles.editionPreview}
-                />
-              );
-
-              return (
-                <div
-                  key={item.id}
-                  className={styles.gallerySlide}
-                  style={style}
-                  data-distance={distance}
-                  aria-hidden={distance > 2 ? true : undefined}
+            return (
+              <SwiperSlide
+                key={item.key}
+                className={styles.gallerySlide}
+                aria-hidden={isActive ? undefined : true}
+                data-gallery-index={item.logicalIndex}
+              >
+                <article
+                  className={styles.galleryCard}
+                  data-active={isActive ? 'true' : undefined}
+                  data-gallery-slide={item.id}
+                  data-home-demo={isCanonical ? item.id : undefined}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${item.logicalIndex + 1} of ${galleryItems.length}: ${item.title}${isActive ? ', current demo' : ''}`}
+                  aria-current={isActive ? 'true' : undefined}
                 >
-                  <article
-                    className={styles.galleryCard}
-                    data-distance={distance}
-                    data-home-demo={item.id}
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label={`${index + 1} of ${galleryItems.length}: ${item.title}${distance === 0 ? ', current demo' : ''}`}
-                    aria-current={distance === 0 ? 'true' : undefined}
+                  <header className={styles.cardBar}>
+                    <span>{item.title}</span>
+                    {isActive ? (
+                      <Link
+                        href={item.href}
+                        className={styles.openEdition}
+                        aria-label={`Open ${item.title} demo`}
+                      >
+                        <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
+                      </Link>
+                    ) : (
+                      <span className={styles.openEditionVisual} aria-hidden="true">
+                        <ArrowUpRight size={14} weight="bold" />
+                      </span>
+                    )}
+                  </header>
+                  <div
+                    className={styles.cardCanvas}
+                    data-scrollable={isActive ? 'true' : undefined}
                   >
-                    <header className={styles.cardBar}>
-                      <span>{item.title}</span>
-                      {distance === 0 ? (
-                        <Link
-                          href={item.href}
-                          className={styles.openEdition}
-                          aria-label={`Open ${item.title} demo`}
-                        >
-                          <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
-                        </Link>
-                      ) : (
-                        <span className={styles.openEditionVisual} aria-hidden="true">
-                          <ArrowUpRight size={14} weight="bold" />
-                        </span>
-                      )}
-                    </header>
-                    <div className={styles.cardCanvas} data-scrollable={distance === 0 ? 'true' : undefined}>
-                      {preview}
-                    </div>
-                    {distance !== 0 ? (
-                      <button
-                        type="button"
-                        className={styles.selectEdition}
-                        aria-label={`Show ${item.title} demo`}
-                        aria-hidden={distance > 2 ? true : undefined}
-                        tabIndex={distance > 2 ? -1 : 0}
-                        onClick={() => emblaApi?.scrollTo(index)}
-                      />
-                    ) : null}
-                  </article>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                    <Image
+                      src={item.preview}
+                      alt={`${item.title} complete newspaper page preview`}
+                      width={item.width}
+                      height={item.height}
+                      sizes="(max-width: 767px) calc(100vw - 4rem), 48rem"
+                      priority={item.logicalIndex === 0}
+                      draggable={false}
+                      className={styles.editionPreview}
+                    />
+                  </div>
+                </article>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
         <p
           className={styles.galleryPosition}
           aria-label={`Edition ${activeIndex + 1} of ${galleryItems.length}`}
