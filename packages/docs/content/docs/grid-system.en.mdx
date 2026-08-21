@@ -1,0 +1,142 @@
+---
+title: Grid System
+description: 24 columns CSS Grid
+---
+
+`Layout`, `Section`, and `Article` form a 24-column CSS Grid that supports common 2 / 3 / 4 / 6 / 8 / 12-column combinations.
+
+## Layout API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `columns` | `number` | `24` | Total grid columns. Sets the maximum columns for child Sections. |
+| `maxWidth` | `string` | `'1280px'` | Maximum page width. |
+| `padding` | `string` | `'var(--nui-space-6)'` | Page padding. |
+| `theme` | `'light' \| 'dark'` | - | Force a theme; when omitted, follow documentElement.dataset.theme. |
+| `children` | `ReactNode` | **Required** | Child content, usually one or more Sections. |
+
+## Section API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `columns` | `number` | **Required** | Grid columns inside the Section (≤ Layout.columns). |
+| `gap` | `string` | `'var(--nui-gutter)'` | Column gap. |
+| `breakable` | `boolean` | `true` | Allow page breaks when printing. |
+| `divider` | `'none' \| 'top' \| 'bottom' \| 'both'` | `'none'` | Hairline dividers above and/or below. |
+
+## Article API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `span` | `number` | - | Number of columns to span (0 &lt; span ≤ Section.columns). |
+| `breakable` | `boolean` | `true` | Allow page breaks when printing. |
+| `children` | `ReactNode` | **Required** | Article content. |
+
+## Usage examples
+
+### 8 + 16 column spans
+
+<ComponentDemo
+  title="Eight + sixteen"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1.5rem">',
+    '    <Article span={8}>',
+    '      <Kicker>BRIEFING</Kicker>',
+    '      <Headline weight="Low" as="h3">Three items before noon</Headline>',
+    '      <BodyText><p>Committee hearings begin with transport and housing.</p></BodyText>',
+    '    </Article>',
+    '    <Article span={16}>',
+    '      <Kicker>LEAD</Kicker>',
+    '      <Headline weight="Medium" as="h3">Regional Budget Places Infrastructure First</Headline>',
+    '      <BodyText columns={2}><p>The ten-year programme links rail, schools, and public housing.</p></BodyText>',
+    '    </Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1.5rem">
+      <Article span={8}>
+        <Kicker>BRIEFING</Kicker>
+        <Headline weight="Low" as="h3">{'Three items before noon'}</Headline>
+        <BodyText>
+          <p>{'Committee hearings begin with transport and housing.'}</p>
+        </BodyText>
+      </Article>
+      <Article span={16}>
+        <Kicker>LEAD</Kicker>
+        <Headline weight="Medium" as="h3">
+          {'Regional Budget Places Infrastructure First'}
+        </Headline>
+        <BodyText columns={2}>
+          <p>{'The ten-year programme links rail, schools, and public housing.'}</p>
+        </BodyText>
+      </Article>
+    </Section>
+  </Layout>
+</ComponentDemo>
+### Symmetrical 6 + 12 + 6 columns
+
+<ComponentDemo
+  title="Six + twelve + six"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1rem">',
+    '    <Article span={6}><Kicker>MARKETS</Kicker><Headline weight="Low" as="h4">Rates hold steady</Headline></Article>',
+    '    <Article span={12}><Kicker>ANALYSIS</Kicker><Headline weight="Medium" as="h3">The Centre Holds Through a Difficult Vote</Headline></Article>',
+    '    <Article span={6}><Kicker>WEATHER</Kicker><Headline weight="Low" as="h4">Rain clears east</Headline></Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1rem">
+      <Article span={6}>
+        <Kicker>MARKETS</Kicker>
+        <Headline weight="Low" as="h4">{'Rates hold steady'}</Headline>
+      </Article>
+      <Article span={12}>
+        <Kicker>ANALYSIS</Kicker>
+        <Headline weight="Medium" as="h3">
+          {'The Centre Holds Through a Difficult Vote'}
+        </Headline>
+      </Article>
+      <Article span={6}>
+        <Kicker>WEATHER</Kicker>
+        <Headline weight="Low" as="h4">{'Rain clears east'}</Headline>
+      </Article>
+    </Section>
+  </Layout>
+</ComponentDemo>
+
+### 24-column full width
+
+<ComponentDemo
+  title="Full-width feature"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24}>',
+    '    <Article span={24}>',
+    '      <Kicker>SUNDAY REVIEW</Kicker>',
+    '      <Headline weight="High" as="h3">The River Returns to the Centre of the City</Headline>',
+    '      <BodyText columns={4} dropCap><p>A generation of planning has opened the waterfront again.</p></BodyText>',
+    '    </Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24}>
+      <Article span={24}>
+        <Kicker>SUNDAY REVIEW</Kicker>
+        <Headline weight="High" as="h3">
+          {'The River Returns to the Centre of the City'}
+        </Headline>
+        <BodyText columns={4} dropCap>
+          <p>{'A generation of planning has opened the waterfront again.'}</p>
+        </BodyText>
+      </Article>
+    </Section>
+  </Layout>
+</ComponentDemo>

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Headline, Kicker, Layout, Subhead } from 'newspaperui';
+import { useLocale } from '../../components/LocaleContext';
 import styles from './blocks.module.css';
 
 const blocks = [
@@ -14,27 +15,29 @@ const blocks = [
 ];
 
 export default function BlocksIndex() {
+  const { localizeHref, messages } = useLocale();
+
   return (
     <main className={styles.page}>
       <Layout columns={24} maxWidth="1400px" padding="clamp(3rem, 7vw, 7rem) clamp(1.25rem, 5vw, 4rem)">
         <header className={styles.hero}>
-          <Kicker>Production blocks · Copy, adapt, publish</Kicker>
-          <Headline as="h1" weight="High">Newspaper Blocks</Headline>
-          <Subhead weight="Medium">Six complete editorial layouts across Chinese, English, and Japanese typography.</Subhead>
+          <Kicker>{messages.blocks.kicker}</Kicker>
+          <Headline as="h1" weight="High">{messages.blocks.title}</Headline>
+          <Subhead weight="Medium">{messages.blocks.subtitle}</Subhead>
         </header>
 
         <div className={styles.list}>
           {blocks.map((block, index) => (
-            <Link className={styles.block} href={block.href} key={block.href}>
+            <Link className={styles.block} href={localizeHref(block.href)} key={block.href}>
               <div className={styles.meta}>
                 <span style={{ color: block.color }}>{block.lang}</span>
-                <span>Block {String(index + 1).padStart(2, '0')}</span>
+                <span>{messages.blocks.block} {String(index + 1).padStart(2, '0')}</span>
               </div>
               <div className={styles.copy}>
                 <h2>{block.title}</h2>
-                <p>{block.description}</p>
+                <p>{messages.blocks.descriptions[index] ?? block.description}</p>
               </div>
-              <span className={styles.action}>View block</span>
+              <span className={styles.action}>{messages.blocks.view}</span>
             </Link>
           ))}
         </div>

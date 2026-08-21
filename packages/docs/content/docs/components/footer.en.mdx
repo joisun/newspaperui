@@ -1,0 +1,88 @@
+---
+title: Footer · Sidebar · Banner
+description: Footer、NewsSidebar、BreakingNewsBanner
+---
+
+## Footer
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| copyright | string | — | Copyright text |
+| edition | string | — | Edition |
+| links | `Array<{ label, href }>` | — | Footer links |
+
+<ComponentDemo
+  title="Publication footer"
+  code={[
+    '<Footer',
+    '  copyright="© 2026 The Daily Chronicle"',
+    '  edition="Late City Edition"',
+    '  links={[',
+    '    { label: "Archive", href: "#archive" },',
+    '    { label: "Contact", href: "#contact" },',
+    '  ]}',
+    '/>',
+  ].join('\n')}
+>
+  <Footer
+    copyright="© 2026 The Daily Chronicle"
+    edition="Late City Edition"
+    links={[
+      { label: 'Archive', href: '#archive' },
+      { label: 'Contact', href: '#contact' },
+    ]}
+  />
+</ComponentDemo>
+
+## NewsSidebar
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| span | number | 6 | Columns occupied |
+| position | "left" \| "right" | "right" | Position |
+| divider | boolean | false | Whether to show a divider |
+
+<ComponentDemo
+  title="Article with news sidebar"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1.5rem">',
+    '    <Article span={18}><Headline weight="Low" as="h3">Council Publishes Housing Programme</Headline><BodyText><p>The first phase begins with six publicly owned sites.</p></BodyText></Article>',
+    '    <NewsSidebar span={6} divider><Kicker>AT A GLANCE</Kicker><BodyText weight="Low"><p>2,400 homes · six sites · three phases</p></BodyText></NewsSidebar>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1.5rem">
+      <Article span={18}>
+        <Headline weight="Low" as="h3">{'Council Publishes Housing Programme'}</Headline>
+        <BodyText><p>{'The first phase begins with six publicly owned sites.'}</p></BodyText>
+      </Article>
+      <NewsSidebar span={6} divider>
+        <Kicker>AT A GLANCE</Kicker>
+        <BodyText weight="Low"><p>{'2,400 homes · six sites · three phases'}</p></BodyText>
+      </NewsSidebar>
+    </Section>
+  </Layout>
+</ComponentDemo>
+
+## BreakingNewsBanner
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| label | string | "BREAKING" | Label text |
+| children | ReactNode | — | News content |
+
+<ComponentDemo
+  title="Breaking-news banner"
+  code={[
+    '<BreakingNewsBanner label="BREAKING">',
+    '  Rail services resume after overnight signaling repairs',
+    '</BreakingNewsBanner>',
+  ].join('\n')}
+>
+  <BreakingNewsBanner label="BREAKING">
+    {'Rail services resume after overnight signaling repairs'}
+  </BreakingNewsBanner>
+</ComponentDemo>

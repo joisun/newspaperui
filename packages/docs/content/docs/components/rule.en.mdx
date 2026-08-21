@@ -1,0 +1,63 @@
+---
+title: Rule
+description: Three rule styles in two orientations
+---
+
+## API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'hairline' \| 'double' \| 'thick'` | `'hairline'` | Rule style. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Orientation. |
+| `span` | `number` | - | Column span when horizontal. By default it spans from 1 to -1. |
+| `className` | `string` | - | Custom CSS class name. |
+| `style` | `CSSProperties` | - | Custom inline styles. |
+
+## Three horizontal variants
+
+<ComponentDemo
+  title="Horizontal rules"
+  code={[
+    '<div style={{ display: "grid", gap: "1.5rem" }}>',
+    '  <Rule variant="hairline" />',
+    '  <Rule variant="double" />',
+    '  <Rule variant="thick" />',
+    '</div>',
+  ].join('\n')}
+>
+  <div style={{ display: 'grid', gap: '1.5rem' }}>
+    <Rule variant="hairline" />
+    <Rule variant="double" />
+    <Rule variant="thick" />
+  </div>
+</ComponentDemo>
+
+## Vertical orientation
+
+<ComponentDemo
+  title="Vertical column divider"
+  code={[
+    '<div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "1.25rem", minHeight: "9rem" }}>',
+    '  <p>City officials approved the revised transit timetable after a final public hearing.</p>',
+    '  <Rule variant="hairline" orientation="vertical" />',
+    '  <p>Regional operators will publish the first coordinated schedule next month.</p>',
+    '</div>',
+  ].join('\n')}
+>
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: '1fr auto 1fr',
+      gap: '1.25rem',
+      minHeight: '9rem',
+    }}
+  >
+    <p>{'City officials approved the revised transit timetable after a final public hearing.'}</p>
+    <Rule variant="hairline" orientation="vertical" />
+    <p>{'Regional operators will publish the first coordinated schedule next month.'}</p>
+  </div>
+</ComponentDemo>
+
+## Usage guidance
+
+Rule spans the full Section by default; use `span` to constrain its width. Vertical rules work well between flex or grid columns.

@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react';
+import { useLocale } from './LocaleContext';
 
 export function ThemeToggle() {
+  const { messages } = useLocale();
   const [dark, setDark] = useState(false);
   return (
     <button
@@ -22,7 +24,7 @@ export function ThemeToggle() {
         cursor: 'pointer',
       }}
     >
-      {dark ? 'Light Mode' : 'Dark Mode'}
+      {dark ? messages.themeToggle.light : messages.themeToggle.dark}
     </button>
   );
 }

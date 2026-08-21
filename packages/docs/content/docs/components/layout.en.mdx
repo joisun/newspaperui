@@ -1,0 +1,113 @@
+---
+title: Layout
+description: Layout、Section、Article、Layer
+---
+
+## Layout
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| columns | number | 24 | Total grid columns |
+| maxWidth | string | "1280px" | Maximum width |
+| padding | string | "var(--nui-space-6)" | Padding |
+| theme | "light" \| "dark" | — | Theme |
+
+## Section
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| columns | number | — | Grid columns (≤ Layout.columns) |
+| gap | string | "var(--nui-gutter)" | Gap |
+| breakable | boolean | true | Whether page breaks are allowed |
+| divider | "none" \| "top" \| "bottom" \| "both" | "none" | Divider |
+| responsive | `{ sm?: number; md?: number; lg?: number }` | — | Responsive column count |
+
+## Article
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| span | number | — | Column span |
+| breakable | boolean | true | Whether page breaks are allowed |
+
+## Layer
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| position | "absolute" \| "fixed" \| "sticky" | "absolute" | Positioning mode |
+| top / left / right / bottom | string \| number | — | Position |
+| zIndex | number | — | Layer order |
+
+## 24-column editorial layout
+
+<ComponentDemo
+  title="Lead story with briefing rail"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1.5rem" divider="both">',
+    '    <Article span={16}>',
+    '      <Kicker>PUBLIC REALM</Kicker>',
+    '      <Headline weight="Medium" as="h3">A New Civic Square Opens to the River</Headline>',
+    '      <BodyText><p>The project reconnects three neighborhoods with the waterfront.</p></BodyText>',
+    '    </Article>',
+    '    <Article span={8}>',
+    '      <Kicker>BRIEFING</Kicker>',
+    '      <Headline weight="Low" as="h4">What changes this week</Headline>',
+    '      <BodyText weight="Low"><p>Bus routes and pedestrian access move first.</p></BodyText>',
+    '    </Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1.5rem" divider="both">
+      <Article span={16}>
+        <Kicker>PUBLIC REALM</Kicker>
+        <Headline weight="Medium" as="h3">
+          {'A New Civic Square Opens to the River'}
+        </Headline>
+        <BodyText>
+          <p>{'The project reconnects three neighborhoods with the waterfront.'}</p>
+        </BodyText>
+      </Article>
+      <Article span={8}>
+        <Kicker>BRIEFING</Kicker>
+        <Headline weight="Low" as="h4">{'What changes this week'}</Headline>
+        <BodyText weight="Low">
+          <p>{'Bus routes and pedestrian access move first.'}</p>
+        </BodyText>
+      </Article>
+    </Section>
+  </Layout>
+</ComponentDemo>
+
+## Positioned layers
+
+<ComponentDemo
+  title="Absolute edition marker"
+  code={[
+    '<div style={{ position: "relative", minHeight: "11rem", padding: "1.5rem", border: "1px solid var(--nui-rule-hairline)" }}>',
+    '  <Kicker>CITY DESK</Kicker>',
+    '  <Headline weight="Low" as="h3">Evening Edition</Headline>',
+    '  <BodyText><p>Updated reporting appears throughout this edition.</p></BodyText>',
+    '  <Layer position="absolute" top="1rem" right="1rem" zIndex={1}>FINAL</Layer>',
+    '</div>',
+  ].join('\n')}
+>
+  <div
+    style={{
+      position: 'relative',
+      minHeight: '11rem',
+      padding: '1.5rem',
+      border: '1px solid var(--nui-rule-hairline)',
+    }}
+  >
+    <Kicker>CITY DESK</Kicker>
+    <Headline weight="Low" as="h3">{'Evening Edition'}</Headline>
+    <BodyText>
+      <p>{'Updated reporting appears throughout this edition.'}</p>
+    </BodyText>
+    <Layer position="absolute" top="1rem" right="1rem" zIndex={1}>
+      FINAL
+    </Layer>
+  </div>
+</ComponentDemo>

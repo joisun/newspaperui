@@ -1,14 +1,14 @@
 {
-  "title": "Documentation",
+  "title": "文档",
   "pages": [
     "grid-system",
-    "---Components---",
+    "---组件---",
     "...components",
-    "---Text---",
+    "---文本---",
     "...text",
-    "---Theme---",
+    "---主题---",
     "...theme",
-    "---Examples---",
+    "---示例---",
     "...examples"
   ]
 }

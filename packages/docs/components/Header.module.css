@@ -13,17 +13,19 @@
 .navLink, .activeLink { display: inline-flex; min-height: 44px; align-items: center; padding: 0 0.7rem; color: var(--nui-text-secondary); font: 650 0.78rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; text-decoration: none; }
 .activeLink { color: var(--nui-accent-primary); }
 .navLink:hover, .activeLink:hover { color: var(--nui-accent-primary); }
-.themeButton, .mobileThemeButton { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: 0.4rem; padding: 0 0.45rem; color: var(--nui-text-secondary); background: transparent; border: 0; border-radius: 0; cursor: pointer; font: 650 0.7rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
-.themeButton:hover, .mobileThemeButton:hover { color: var(--nui-text-primary); }
+.themeButton, .mobileThemeButton, .localeButton, .mobileLocaleButton { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: 0.4rem; padding: 0 0.45rem; color: var(--nui-text-secondary); background: transparent; border: 0; border-radius: 0; cursor: pointer; font: 650 0.7rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
+.localeButton, .mobileLocaleButton { border-left: 1px solid var(--nui-rule-hairline); }
+.themeButton:hover, .mobileThemeButton:hover, .localeButton:hover, .mobileLocaleButton:hover { color: var(--nui-text-primary); }
 .menuButton { display: none; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; padding: 0; color: var(--nui-text-primary); background: transparent; border: 0; cursor: pointer; }
 .mobileNav { display: grid; padding: 0.75rem 1rem 1.25rem; background: var(--nui-bg-page); border-top: 1px solid var(--nui-rule-hairline); }
 .mobileNav .navLink, .mobileNav .activeLink { min-height: 48px; padding: 0 0.25rem; border-bottom: 1px solid var(--nui-rule-hairline); font-size: 0.95rem; }
-.mobileThemeButton { justify-content: flex-start; width: max-content; margin-top: 0.5rem; padding: 0 0.25rem; }
+.mobileThemeButton, .mobileLocaleButton { justify-content: flex-start; width: max-content; margin-top: 0.5rem; padding: 0 0.25rem; }
+.mobileLocaleButton { border-left: 0; }
 @media (max-width: 48rem) {
   .bar { min-height: 64px; padding: 0 1rem; }
   .desktopNav { display: none; }
   .menuButton { display: inline-flex; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .navLink, .activeLink, .themeButton, .mobileThemeButton, .menuButton { transition: color 150ms ease; }
+  .navLink, .activeLink, .themeButton, .mobileThemeButton, .localeButton, .mobileLocaleButton, .menuButton { transition: color 150ms ease; }
 }

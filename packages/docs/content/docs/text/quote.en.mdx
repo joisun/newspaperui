@@ -1,0 +1,47 @@
+---
+title: Quote
+description: Block and inline quotations
+---
+
+## API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| variant | "block" \| "inline" | "block" | Variant |
+| weight | "High" \| "Medium" | "Medium" | Visual weight |
+| span | number | — | Column span |
+| cite | string | — | Citation URL |
+
+## Block Quote
+
+<ComponentDemo
+  title="Block quotation"
+  code={[
+    '<Quote variant="block" weight="High" cite="https://example.com/public-record">',
+    '  The agreement gives every region a measurable route from policy to delivery.',
+    '</Quote>',
+  ].join('\n')}
+>
+  <Quote variant="block" weight="High" cite="https://example.com/public-record">
+    {'The agreement gives every region a measurable route from policy to delivery.'}
+  </Quote>
+</ComponentDemo>
+
+## Inline Quote
+
+<ComponentDemo
+  title="Inline quotation"
+  code={[
+    '<BodyText>',
+    '  <p>The chair described the vote as <Quote variant="inline">a practical beginning rather than a final settlement</Quote> before the committee adjourned.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText>
+    <p>
+      {'The chair described the vote as '}
+      <Quote variant="inline">a practical beginning rather than a final settlement</Quote>
+      {' before the committee adjourned.'}
+    </p>
+  </BodyText>
+</ComponentDemo>

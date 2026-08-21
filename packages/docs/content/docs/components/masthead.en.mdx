@@ -1,0 +1,95 @@
+---
+title: Masthead
+description: Three masthead styles
+---
+
+## API
+
+| Property      | Type                            | Default    | Description                       |
+| --------- | ------------------------------- | --------- | -------------------------- |
+| title     | string                          | Required      | Publication title.                 |
+| variant   | classic, blackletter, or modern | classic   | Visual style.                 |
+| as        | h1 through h6                    | h1        | Semantic heading level for the publication title.       |
+| kicker    | string                          | -         | Kicker above the publication title.           |
+| edition   | string                          | -         | Edition.                     |
+| date      | string                          | -         | Date。                     |
+| price     | string                          | -         | Price.                     |
+
+## Classic
+
+<ComponentDemo
+  title="Classic"
+  code={[
+    '<Masthead',
+    '  as="h3"',
+    '  variant="classic"',
+    '  title="The Daily Chronicle"',
+    '  kicker="All the News That Is Fit to Print"',
+    '  edition="Vol. CLXXII No. 59,678"',
+    '  date="Monday, May 19, 2026"',
+    '  price="USD 3.00"',
+    '/>',
+  ].join('\n')}
+>
+  <Masthead
+    as="h3"
+    variant="classic"
+    title="The Daily Chronicle"
+    kicker="All the News That Is Fit to Print"
+    edition="Vol. CLXXII No. 59,678"
+    date="Monday, May 19, 2026"
+    price="USD 3.00"
+  />
+</ComponentDemo>
+
+## Blackletter
+
+<ComponentDemo
+  title="Blackletter"
+  code={[
+    '<Masthead',
+    '  as="h3"',
+    '  variant="blackletter"',
+    '  title="The Evening Standard"',
+    '  edition="Late Final Edition"',
+    '  date="Monday, May 19, 2026"',
+    '  price="£2.50"',
+    '/>',
+  ].join('\n')}
+>
+  <Masthead
+    as="h3"
+    variant="blackletter"
+    title="The Evening Standard"
+    edition="Late Final Edition"
+    date="Monday, May 19, 2026"
+    price="£2.50"
+  />
+</ComponentDemo>
+
+## Modern
+
+<ComponentDemo
+  title="Modern"
+  code={[
+    '<Masthead',
+    '  as="h3"',
+    '  variant="modern"',
+    '  title="The Observer"',
+    '  kicker="Sunday Edition"',
+    '  date="May 19, 2026"',
+    '/>',
+  ].join('\n')}
+>
+  <Masthead
+    as="h3"
+    variant="modern"
+    title="The Observer"
+    kicker="Sunday Edition"
+    date="May 19, 2026"
+  />
+</ComponentDemo>
+
+## Usage guidance
+
+Masthead spans all Section columns by default. Keep the default <code>h1</code> for a page-level masthead; when nested in documentation, cards, or composed examples, use <code>as</code> to preserve a continuous heading hierarchy.

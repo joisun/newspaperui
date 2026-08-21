@@ -1,0 +1,120 @@
+---
+title: Data Components
+description: Folio、IndexBox、Factbox、RelatedArticles
+---
+
+## Folio
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| page | string | — | Page number, such as "A2" |
+| section | string | — | Section name, such as "News" |
+| date | string | — | Date |
+| publication | string | — | Publication name |
+
+<ComponentDemo
+  title="Section folio"
+  code={[
+    '<Folio',
+    '  page="A2"',
+    '  section="National"',
+    '  publication="The Daily Chronicle"',
+    '  date="Tuesday, May 19, 2026"',
+    '/>',
+  ].join('\n')}
+>
+  <Folio
+    page="A2"
+    section="National"
+    publication="The Daily Chronicle"
+    date="Tuesday, May 19, 2026"
+  />
+</ComponentDemo>
+
+## IndexBox
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| title | string | "Inside" | Title |
+| items | `Array<{ page, title, headline? }>` | — | Index entries |
+
+<ComponentDemo
+  title="Front-page index"
+  code={[
+    '<IndexBox',
+    '  title="Inside today"',
+    '  items={[',
+    '    { page: "A2", title: "National", headline: "Mayors agree shared housing targets" },',
+    '    { page: "B1", title: "Business", headline: "Markets welcome infrastructure plan" },',
+    '    { page: "C3", title: "Culture", headline: "Archive opens a new public gallery" },',
+    '  ]}',
+    '/>',
+  ].join('\n')}
+>
+  <IndexBox
+    title="Inside today"
+    items={[
+      { page: 'A2', title: 'National', headline: 'Mayors agree shared housing targets' },
+      { page: 'B1', title: 'Business', headline: 'Markets welcome infrastructure plan' },
+      { page: 'C3', title: 'Culture', headline: 'Archive opens a new public gallery' },
+    ]}
+  />
+</ComponentDemo>
+## Factbox
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| title | string | — | Title |
+| span | number | — | Column span |
+| variant | "default" \| "highlight" \| "timeline" | "default" | Style variant |
+
+<ComponentDemo
+  title="Highlighted factbox"
+  code={[
+    '<Factbox title="Programme at a glance" variant="highlight">',
+    '  <ul>',
+    '    <li>Six regional projects</li>',
+    '    <li>Ten-year delivery window</li>',
+    '    <li>Annual independent review</li>',
+    '  </ul>',
+    '</Factbox>',
+  ].join('\n')}
+>
+  <Factbox title="Programme at a glance" variant="highlight">
+    <ul>
+      <li>Six regional projects</li>
+      <li>Ten-year delivery window</li>
+      <li>Annual independent review</li>
+    </ul>
+  </Factbox>
+</ComponentDemo>
+
+## RelatedArticles
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| title | string | "Related" | Title |
+| articles | `Array<{ title, href, category? }>` | — | Article list |
+
+<ComponentDemo
+  title="Related coverage"
+  code={[
+    '<RelatedArticles',
+    '  title="Continue reading"',
+    '  articles={[',
+    '    { category: "Analysis", title: "What the new timetable changes", href: "#story-analysis" },',
+    '    { category: "Data", title: "Six projects in detail", href: "#story-data" },',
+    '    { category: "Opinion", title: "The case for patient delivery", href: "#story-opinion" },',
+    '  ]}',
+    '/>',
+  ].join('\n')}
+>
+  <RelatedArticles
+    title="Continue reading"
+    articles={[
+      { category: 'Analysis', title: 'What the new timetable changes', href: '#story-analysis' },
+      { category: 'Data', title: 'Six projects in detail', href: '#story-data' },
+      { category: 'Opinion', title: 'The case for patient delivery', href: '#story-opinion' },
+    ]}
+  />
+</ComponentDemo>

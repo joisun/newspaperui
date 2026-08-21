@@ -1,3 +1,7 @@
+'use client';
+
+import { useLocale } from './LocaleContext';
+
 interface PropDefinition {
   name: string;
   type: string;
@@ -11,15 +15,17 @@ interface PropsTableProps {
 }
 
 export function PropsTable({ data }: PropsTableProps) {
+  const { messages } = useLocale();
+
   return (
     <div className="my-6 overflow-x-auto">
       <table className="w-full border-collapse">
         <thead>
           <tr className="border-b-2 border-gray-300">
-            <th className="text-left py-3 px-4 font-semibold text-gray-900">属性</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-900">类型</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-900">默认值</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-900">说明</th>
+            <th className="text-left py-3 px-4 font-semibold text-gray-900">{messages.propsTable.property}</th>
+            <th className="text-left py-3 px-4 font-semibold text-gray-900">{messages.propsTable.type}</th>
+            <th className="text-left py-3 px-4 font-semibold text-gray-900">{messages.propsTable.defaultValue}</th>
+            <th className="text-left py-3 px-4 font-semibold text-gray-900">{messages.propsTable.description}</th>
           </tr>
         </thead>
         <tbody>

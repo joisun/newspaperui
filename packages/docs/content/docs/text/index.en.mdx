@@ -1,0 +1,238 @@
+---
+title: Text Components
+description: Text components and visual weights
+---
+
+## Headline
+
+<ComponentDemo
+  title="Headline weights"
+  code={[
+    '<Headline weight="High" as="h3">',
+    '  A Quiet Revolution in the Treasury Forecast',
+    '</Headline>',
+    '',
+    '<Headline weight="Medium" as="h4">',
+    '  Whitehall Confirms Infrastructure Review',
+    '</Headline>',
+    '',
+    '<Headline weight="Low" as="h5">',
+    '  Briefing: regional rail commitments',
+    '</Headline>',
+  ].join('\n')}
+>
+  <div>
+    <Headline weight="High" as="h3">
+      {'A Quiet Revolution in the Treasury Forecast'}
+    </Headline>
+    <Headline weight="Medium" as="h4">
+      {'Whitehall Confirms Infrastructure Review'}
+    </Headline>
+    <Headline weight="Low" as="h5">
+      {'Briefing: regional rail commitments'}
+    </Headline>
+  </div>
+</ComponentDemo>
+
+## Subhead
+
+<ComponentDemo
+  title="Subhead weights"
+  code={[
+    '<Subhead weight="High">',
+    "  A measured recalibration of regional priorities is expected to define the chancellor's autumn agenda.",
+    '</Subhead>',
+    '',
+    '<Subhead weight="Medium">',
+    '  Officials emphasized that the figures are a planning envelope rather than a binding allocation.',
+    '</Subhead>',
+  ].join('\n')}
+>
+  <div>
+    <Subhead weight="High">
+      {
+        "A measured recalibration of regional priorities is expected to define the chancellor's autumn agenda."
+      }
+    </Subhead>
+    <Subhead weight="Medium">
+      {
+        'Officials emphasized that the figures are a planning envelope rather than a binding allocation.'
+      }
+    </Subhead>
+  </div>
+</ComponentDemo>
+
+## Kicker
+
+<ComponentDemo
+  title="Section kicker"
+  code={[
+    '<Kicker>POLITICS / WHITEHALL</Kicker>',
+    '<Headline weight="Medium" as="h3">',
+    '  A Standing Technical Commission, Quietly Proposed',
+    '</Headline>',
+  ].join('\n')}
+>
+  <div>
+    <Kicker>POLITICS / WHITEHALL</Kicker>
+    <Headline weight="Medium" as="h3">
+      {'A Standing Technical Commission, Quietly Proposed'}
+    </Headline>
+  </div>
+</ComponentDemo>
+
+## BodyText
+
+### One column
+
+<ComponentDemo
+  title="Single-column body"
+  code={[
+    '<BodyText>',
+    '  <p>',
+    '    The committee published its findings after six months of public hearings and regional consultation.',
+    '  </p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText>
+    <p>
+      {
+        'The committee published its findings after six months of public hearings and regional consultation. Its recommendations focus on transport, housing, and long-term regional investment.'
+      }
+    </p>
+  </BodyText>
+</ComponentDemo>
+
+### Three columns with a drop cap
+
+<ComponentDemo
+  title="Three-column body with drop cap"
+  code={[
+    '<BodyText columns={3} dropCap>',
+    '  <p>The morning session opened with a revised fiscal forecast.</p>',
+    '  <p>Regional leaders asked for clearer delivery milestones.</p>',
+    '  <p>The final report will return to parliament in September.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={3} dropCap>
+    <p>
+      {
+        'The morning session opened with a revised fiscal forecast and a sharper focus on regional infrastructure.'
+      }
+    </p>
+    <p>
+      {
+        'Regional leaders asked ministers to publish clearer delivery milestones before the autumn review.'
+      }
+    </p>
+    <p>The final report will return to parliament in September with costed recommendations.</p>
+  </BodyText>
+</ComponentDemo>
+
+### Two columns
+
+<ComponentDemo
+  title="Two-column body"
+  code={[
+    '<BodyText columns={2}>',
+    '  <p>Officials described the plan as a practical starting point.</p>',
+    '  <p>Independent reviewers welcomed the published timetable.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={2}>
+    <p>
+      {'Officials described the plan as a practical starting point rather than a final settlement.'}
+    </p>
+    <p>
+      {
+        'Independent reviewers welcomed the published timetable and asked for quarterly progress data.'
+      }
+    </p>
+  </BodyText>
+</ComponentDemo>
+
+## Quote
+
+<ComponentDemo
+  title="Block and inline quote"
+  code={[
+    '<Quote variant="block">',
+    '  We have lobbied for this kind of clarity for the better part of a decade.',
+    '</Quote>',
+    '',
+    '<BodyText>',
+    '  <p>',
+    '    One official called the assessment',
+    '    <Quote variant="inline">the most coherent blueprint in a generation</Quote>.',
+    '  </p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <div>
+    <Quote variant="block">
+      {'We have lobbied for this kind of clarity for the better part of a decade.'}
+    </Quote>
+    <BodyText>
+      <p>
+        {'One official called the assessment '}
+        <Quote variant="inline">{'the most coherent blueprint in a generation'}</Quote>
+        {'.'}
+      </p>
+    </BodyText>
+  </div>
+</ComponentDemo>
+
+## Byline / Dateline / Caption
+
+<ComponentDemo
+  title="Article metadata"
+  code={[
+    '<Byline>BY ELEANOR WHITCOMBE</Byline>',
+    '<BodyText>',
+    '  <p><Dateline>LONDON -</Dateline> The commission published its final report.</p>',
+    '</BodyText>',
+    '<figure>',
+    '  <img src="/newsroom.jpg" alt="Editors reviewing the morning edition" />',
+    '  <Caption credit="Photograph by Roman Kraft">',
+    '    Editors review the final morning edition before publication.',
+    '  </Caption>',
+    '</figure>',
+  ].join('\n')}
+>
+  <div>
+    <Byline>{'BY ELEANOR WHITCOMBE'}</Byline>
+    <BodyText>
+      <p>
+        <Dateline>{'LONDON -'}</Dateline>
+        {' The commission published its final report after six months of public hearings.'}
+      </p>
+    </BodyText>
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=900&h=420&fit=crop"
+        alt="Editors reviewing newspapers on a table"
+      />
+      <Caption credit="Photograph by Roman Kraft">
+        {'Editors review the final morning edition before publication.'}
+      </Caption>
+    </figure>
+  </div>
+</ComponentDemo>
+
+## Visual weight mapping
+
+All text component styles are driven by <code>visualWeights</code> data and stay synchronized when the theme changes.
+
+| Component | Visual weight | Font | Size | Weight | Line height |
+| -------- | ------ | -------- | ---- | ---- | ---- |
+| Headline | High   | Display  | 48px | 700  | 1.05 |
+| Headline | Medium | Headline | 32px | 700  | 1.15 |
+| Headline | Low    | Headline | 22px | 600  | 1.25 |
+| Subhead  | High   | Headline | 22px | 400  | 1.35 |
+| Subhead  | Medium | Headline | 18px | 400  | 1.4  |
+| BodyText | High   | Body     | 17px | 400  | 1.65 |
+| BodyText | Medium | Body     | 16px | 400  | 1.6  |
+| BodyText | Low    | Body     | 15px | 400  | 1.55 |

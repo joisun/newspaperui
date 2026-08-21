@@ -25,6 +25,6 @@ describe('Header', () => {
       'utf8',
     );
 
-    expect(source).toMatch(/<Link\s+href="\/"\s+prefetch={false}/);
+    expect(source).toMatch(/<Link\s+href={localizeHref\('\/'\)}\s+prefetch={false}/);
   });
 });

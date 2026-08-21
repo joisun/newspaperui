@@ -8,7 +8,7 @@ type PageProps = { params: Promise<{ slug?: string[] }> };
 
 export default async function Page(props: PageProps) {
   const params = await props.params;
-  const page = source.getPage(params.slug);
+  const page = source.getPage(params.slug, 'zh');
   if (!page) notFound();
 
   const MDX = page.data.body;
@@ -28,15 +28,21 @@ export default async function Page(props: PageProps) {
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
-  const page = source.getPage(params.slug);
+  const page = source.getPage(params.slug, 'zh');
   if (!page) notFound();
 
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: {
+      languages: {
+        'zh-CN': page.url,
+        en: `/en${page.url}`,
+      },
+    },
   };
 }
 
 export function generateStaticParams() {
-  return source.generateParams();
+  return source.getPages('zh').map((page: { slugs: string[] }) => ({ slug: page.slugs }));
 }

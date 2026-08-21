@@ -2,6 +2,7 @@
 
 import { Check, Code, Copy } from '@phosphor-icons/react';
 import { useId, useState } from 'react';
+import { useLocale } from './LocaleContext';
 import styles from './Demo.module.css';
 
 interface ComponentDemoProps {
@@ -14,6 +15,7 @@ interface ComponentDemoProps {
 type CopyState = 'idle' | 'copied' | 'error';
 
 export function ComponentDemo({ title, description, code, children }: ComponentDemoProps) {
+  const { messages } = useLocale();
   const sourceId = useId();
   const sourceLines = code.split('\n');
   const [sourceOpen, setSourceOpen] = useState(false);
@@ -34,10 +36,10 @@ export function ComponentDemo({ title, description, code, children }: ComponentD
   }
 
   return (
-    <section className={styles.frame} aria-label={`${title} demo`}>
+    <section className={styles.frame} aria-label={messages.demo.ariaLabel(title)}>
       <header className={styles.previewHeader}>
         <div>
-          <span className={styles.eyebrow}>Live preview</span>
+          <span className={styles.eyebrow}>{messages.demo.livePreview}</span>
           <strong className={styles.title}>{title}</strong>
         </div>
         {description && <p className={styles.description}>{description}</p>}
@@ -49,7 +51,7 @@ export function ComponentDemo({ title, description, code, children }: ComponentD
         <div className={styles.sourceHeader}>
           <span className={styles.sourceLabel}>
             <Code size={17} weight="bold" aria-hidden="true" />
-            <span>Source</span>
+            <span>{messages.demo.source}</span>
             <span className={styles.language}>TSX</span>
           </span>
           {sourceOpen && (
@@ -57,14 +59,14 @@ export function ComponentDemo({ title, description, code, children }: ComponentD
               type="button"
               className={styles.copyButton}
               onClick={copySource}
-              aria-label={copyState === 'copied' ? 'Source copied' : 'Copy source'}
+              aria-label={copyState === 'copied' ? messages.demo.sourceCopied : messages.demo.copySource}
             >
               {copyState === 'copied' ? (
                 <Check size={17} weight="bold" aria-hidden="true" />
               ) : (
                 <Copy size={17} weight="bold" aria-hidden="true" />
               )}
-              <span>{copyState === 'copied' ? 'Copied' : 'Copy'}</span>
+              <span>{copyState === 'copied' ? messages.demo.copied : messages.demo.copy}</span>
             </button>
           )}
         </div>
@@ -102,16 +104,16 @@ export function ComponentDemo({ title, description, code, children }: ComponentD
             aria-expanded={sourceOpen}
             aria-controls={sourceId}
           >
-            {sourceOpen ? 'Hide source' : 'View source'}
+            {sourceOpen ? messages.demo.hideSource : messages.demo.viewSource}
           </button>
         </div>
 
         <p className={styles.status} role="status" aria-live="polite">
-          {copyState === 'copied' ? 'Source copied to clipboard.' : ''}
+          {copyState === 'copied' ? messages.demo.copiedStatus : ''}
         </p>
         {copyState === 'error' && (
           <p className={styles.error} role="alert">
-            Copy failed. Select the source and copy it manually.
+            {messages.demo.copyFailed}
           </p>
         )}
       </div>

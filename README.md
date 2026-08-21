@@ -7,7 +7,8 @@
 <p align="center">Editorial React components for production newspaper layouts.</p>
 
 <p align="center">
-  <a href="https://joisun.github.io/newspaperui/">Live documentation</a> ·
+  <a href="https://joisun.github.io/newspaperui/">中文文档</a> ·
+  <a href="https://joisun.github.io/newspaperui/en/">English docs</a> ·
   <a href="https://joisun.github.io/newspaperui/blocks/">Browse blocks</a> ·
   <a href="https://joisun.github.io/newspaperui/create/">Create a theme</a>
 </p>
@@ -59,7 +60,7 @@ export function FrontPage() {
 
 ## Documentation
 
-Visit the [documentation](https://joisun.github.io/newspaperui/) for component APIs, layout guides, complete editions, and theming. The repository also includes an optional [NewspaperUI agent skill](SKILL.md) for coding assistants.
+Visit the documentation in [中文](https://joisun.github.io/newspaperui/) or [English](https://joisun.github.io/newspaperui/en/) for component APIs, layout guides, complete editions, and theming. Both languages use stable, shareable URLs and can be switched from the site header. The repository also includes an optional [NewspaperUI agent skill](SKILL.md) for coding assistants.
 
 ## Development
 

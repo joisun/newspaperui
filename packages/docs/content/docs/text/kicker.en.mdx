@@ -1,0 +1,23 @@
+---
+title: Kicker
+description: Editorial section label
+---
+
+## API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| children | ReactNode | — | Label text |
+
+<ComponentDemo
+  title="Editorial section kicker"
+  code={[
+    '<Kicker>POLITICS · WHITEHALL</Kicker>',
+    '<Headline weight="Low" as="h3">Committee Publishes the Final Evidence</Headline>',
+  ].join('\n')}
+>
+  <div>
+    <Kicker>POLITICS · WHITEHALL</Kicker>
+    <Headline weight="Low" as="h3">{'Committee Publishes the Final Evidence'}</Headline>
+  </div>
+</ComponentDemo>

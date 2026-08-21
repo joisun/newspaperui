@@ -1,0 +1,140 @@
+---
+title: Media Components
+description: Image、Figure、Video、PullQuote
+---
+
+## Image
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `src` | `string` | **Required** | Image URL. |
+| `alt` | `string` | **Required** | Alternative text. |
+| `span` | `number` | - | Column span. |
+
+<ComponentDemo
+  title="Responsive editorial image"
+  code={[
+    '<Image',
+    '  src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&h=675&fit=crop"',
+    '  alt="A printed newspaper open on a desk"',
+    '  aspectRatio="16/9"',
+    '/>',
+  ].join('\n')}
+>
+  <Image
+    src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&h=675&fit=crop"
+    alt="A printed newspaper open on a desk"
+    aspectRatio="16/9"
+  />
+</ComponentDemo>
+
+## Figure
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `src` | `string` | **Required** | Image URL. |
+| `alt` | `string` | **Required** | Alternative text. |
+| `caption` | `string` | - | Image caption. |
+| `credit` | `string` | - | Photographer or source, rendered in small caps. |
+| `span` | `number` | - | Column span. |
+
+<ComponentDemo
+  title="Figure with caption and credit"
+  code={[
+    '<Figure',
+    '  src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200&h=675&fit=crop"',
+    '  alt="Newspapers arranged on a newsroom table"',
+    '  caption="The morning editions arrive before the first editorial meeting."',
+    '  credit="Photograph by Roman Kraft / Unsplash"',
+    '  aspectRatio="16/9"',
+    '/>',
+  ].join('\n')}
+>
+  <Figure
+    src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200&h=675&fit=crop"
+    alt="Newspapers arranged on a newsroom table"
+    caption="The morning editions arrive before the first editorial meeting."
+    credit="Photograph by Roman Kraft / Unsplash"
+    aspectRatio="16/9"
+  />
+</ComponentDemo>
+
+## Video
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `src` | `string` | **Required** | Video URL. |
+| `poster` | `string` | - | Poster image URL. |
+| `caption` | `string` | - | Video caption. |
+| `credit` | `string` | - | Source. |
+| `controls` | `boolean` | `true` | Show playback controls. |
+| `span` | `number` | - | Column span. |
+
+<ComponentDemo
+  title="Video with editorial context"
+  code={[
+    '<Video',
+    '  src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"',
+    '  poster="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=1200&h=675&fit=crop"',
+    '  caption="A short field recording accompanies the weekend environment report."',
+    '  credit="CC0 video / MDN"',
+    '/>',
+  ].join('\n')}
+>
+  <Video
+    src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+    poster="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=1200&h=675&fit=crop"
+    caption="A short field recording accompanies the weekend environment report."
+    credit="CC0 video / MDN"
+  />
+</ComponentDemo>
+
+## PullQuote
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `weight` | `'High' \| 'Medium'` | `'High'` | Visual weight。 |
+| `span` | `number` | - | Column span within the Section grid. |
+| `spanAllColumns` | `boolean` | `false` | Span every column inside a multi-column BodyText. |
+| `author` | `string` | - | Quote attribution. |
+| `align` | `'left' \| 'center'` | `'left'` | Text alignment. |
+
+### Standalone usage
+
+<ComponentDemo
+  title="Standalone pull quote"
+  code={[
+    '<PullQuote author="Senior Cabinet Official">',
+    '  We have lobbied for this kind of clarity for the better part of a decade.',
+    '</PullQuote>',
+  ].join('\n')}
+>
+  <PullQuote author="Senior Cabinet Official">
+    {'We have lobbied for this kind of clarity for the better part of a decade.'}
+  </PullQuote>
+</ComponentDemo>
+
+### Spanning columns inside multi-column BodyText
+
+<ComponentDemo
+  title="Pull quote across text columns"
+  code={[
+    '<BodyText columns={3}>',
+    '  <p>After eleven consecutive days of negotiation, delegates announced a sweeping framework.</p>',
+    '  <PullQuote spanAllColumns author="Margarethe Lindqvist">A long argument that finally became a conversation.</PullQuote>',
+    '  <p>Markets reacted with measured optimism as the agreement moved toward ratification.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={3}>
+    <p>
+      {'After eleven consecutive days of negotiation, delegates announced a sweeping framework.'}
+    </p>
+    <PullQuote spanAllColumns author="Margarethe Lindqvist">
+      {'A long argument that finally became a conversation.'}
+    </PullQuote>
+    <p>
+      {'Markets reacted with measured optimism as the agreement moved toward ratification.'}
+    </p>
+  </BodyText>
+</ComponentDemo>

@@ -14,6 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import { InstallCommand } from '../components/InstallCommand';
+import { useLocale } from '../components/LocaleContext';
 import styles from './page.module.css';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -99,20 +100,21 @@ function normalizeDeck(swiper: SwiperInstance) {
 }
 
 export default function LandingPage() {
+  const { localizeHref, messages } = useLocale();
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(middleDeckStart);
   const activeIndex = getLogicalIndex(activeSlideIndex);
 
   return (
     <main className={styles.page}>
       <section className={styles.intro} aria-labelledby="home-title">
-        <h1 id="home-title">Editorial components for React.</h1>
+        <h1 id="home-title">{messages.home.title}</h1>
         <InstallCommand />
       </section>
 
       <section className={styles.gallery}>
         <Swiper
           className={styles.galleryViewport}
-          aria-label="NewspaperUI full newspaper demo gallery"
+          aria-label={messages.home.galleryLabel}
           aria-roledescription="carousel"
           modules={[EffectCoverflow, Keyboard, Mousewheel]}
           effect="coverflow"
@@ -175,17 +177,17 @@ export default function LandingPage() {
                   data-gallery-slide={item.id}
                   data-home-demo={isCanonical ? item.id : undefined}
                   role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${item.logicalIndex + 1} of ${galleryItems.length}: ${item.title}${isActive ? ', current demo' : ''}`}
+                  aria-roledescription={messages.home.slideDescription}
+                  aria-label={messages.home.slideLabel(item.logicalIndex + 1, galleryItems.length, item.title, isActive)}
                   aria-current={isActive ? 'true' : undefined}
                 >
                   <header className={styles.cardBar}>
                     <span>{item.title}</span>
                     {isActive ? (
                       <Link
-                        href={item.href}
+                        href={localizeHref(item.href)}
                         className={styles.openEdition}
-                        aria-label={`Open ${item.title} demo`}
+                        aria-label={messages.home.openDemo(item.title)}
                       >
                         <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
                       </Link>
@@ -201,7 +203,7 @@ export default function LandingPage() {
                   >
                     <Image
                       src={item.preview}
-                      alt={`${item.title} complete newspaper page preview`}
+                      alt={messages.home.previewAlt(item.title)}
                       width={item.width}
                       height={item.height}
                       sizes="(max-width: 767px) calc(100vw - 4rem), 48rem"
@@ -217,7 +219,7 @@ export default function LandingPage() {
         </Swiper>
         <p
           className={styles.galleryPosition}
-          aria-label={`Edition ${activeIndex + 1} of ${galleryItems.length}`}
+          aria-label={messages.home.editionLabel(activeIndex + 1, galleryItems.length)}
           aria-live="polite"
         >
           {String(activeIndex + 1).padStart(2, '0')}

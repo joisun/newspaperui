@@ -1,0 +1,126 @@
+---
+title: Spanning Layout Examples
+description: Five column-span combinations on the 24-column grid
+---
+
+## 8 + 16
+
+<ComponentDemo
+  title="Eight + sixteen"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1.5rem">',
+    '    <Article span={8}><Kicker>BRIEFING</Kicker><Headline weight="Low" as="h3">Cabinet meets at nine</Headline><BodyText weight="Low"><p>Ministers will review the regional timetable.</p></BodyText></Article>',
+    '    <Article span={16}><Kicker>LEAD</Kicker><Headline weight="Medium" as="h3">Infrastructure Review Reaches Parliament</Headline><BodyText columns={2}><p>The published programme sets milestones for rail, housing, and schools.</p></BodyText></Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1.5rem">
+      <Article span={8}>
+        <Kicker>BRIEFING</Kicker>
+        <Headline weight="Low" as="h3">{'Cabinet meets at nine'}</Headline>
+        <BodyText weight="Low"><p>{'Ministers will review the regional timetable.'}</p></BodyText>
+      </Article>
+      <Article span={16}>
+        <Kicker>LEAD</Kicker>
+        <Headline weight="Medium" as="h3">{'Infrastructure Review Reaches Parliament'}</Headline>
+        <BodyText columns={2}><p>{'The published programme sets milestones for rail, housing, and schools.'}</p></BodyText>
+      </Article>
+    </Section>
+  </Layout>
+</ComponentDemo>
+## 6 + 12 + 6
+
+<ComponentDemo
+  title="Six + twelve + six"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1rem">',
+    '    <Article span={6}><Kicker>WEATHER</Kicker><Headline weight="Low" as="h4">Clear after rain</Headline></Article>',
+    '    <Article span={12}><Kicker>ECONOMY</Kicker><Headline weight="Medium" as="h3">Chancellor Outlines Spending Envelope</Headline></Article>',
+    '    <Article span={6}><Kicker>MARKETS</Kicker><Headline weight="Low" as="h4">Sterling gains</Headline></Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1rem">
+      <Article span={6}><Kicker>WEATHER</Kicker><Headline weight="Low" as="h4">{'Clear after rain'}</Headline></Article>
+      <Article span={12}><Kicker>ECONOMY</Kicker><Headline weight="Medium" as="h3">{'Chancellor Outlines Spending Envelope'}</Headline></Article>
+      <Article span={6}><Kicker>MARKETS</Kicker><Headline weight="Low" as="h4">{'Sterling gains'}</Headline></Article>
+    </Section>
+  </Layout>
+</ComponentDemo>
+
+## 12 + 12
+
+<ComponentDemo
+  title="Twelve + twelve"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1.5rem" divider="top">',
+    '    <Article span={12}><Kicker>WESTMINSTER</Kicker><Headline weight="Low" as="h3">The case for a national standard</Headline><BodyText><p>Ministers argue that one framework will reduce delay.</p></BodyText></Article>',
+    '    <Article span={12}><Kicker>THE REGIONS</Kicker><Headline weight="Low" as="h3">The case for local control</Headline><BodyText><p>Mayors say delivery depends on local knowledge.</p></BodyText></Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1.5rem" divider="top">
+      <Article span={12}><Kicker>WESTMINSTER</Kicker><Headline weight="Low" as="h3">{'The case for a national standard'}</Headline><BodyText><p>{'Ministers argue that one framework will reduce delay.'}</p></BodyText></Article>
+      <Article span={12}><Kicker>THE REGIONS</Kicker><Headline weight="Low" as="h3">{'The case for local control'}</Headline><BodyText><p>{'Mayors say delivery depends on local knowledge.'}</p></BodyText></Article>
+    </Section>
+  </Layout>
+</ComponentDemo>
+
+## 4 + 16 + 4
+
+<ComponentDemo
+  title="Four + sixteen + four"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1rem">',
+    '    <Article span={4}><Kicker>EDITOR\'S NOTE</Kicker><BodyText weight="Low"><p>This analysis uses the revised figures.</p></BodyText></Article>',
+    '    <Article span={16}><Kicker>POLICY</Kicker><Headline weight="Medium" as="h3">A Standing Technical Commission</Headline><BodyText columns={2}><p>The proposal creates a permanent forum for independent review.</p></BodyText></Article>',
+    '    <Article span={4}><Kicker>READ NEXT</Kicker><BodyText weight="Low"><p>How the timetable will be measured.</p></BodyText></Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1rem">
+      <Article span={4}><Kicker>EDITOR'S NOTE</Kicker><BodyText weight="Low"><p>{'This analysis uses the revised figures.'}</p></BodyText></Article>
+      <Article span={16}><Kicker>POLICY</Kicker><Headline weight="Medium" as="h3">{'A Standing Technical Commission'}</Headline><BodyText columns={2}><p>{'The proposal creates a permanent forum for independent review.'}</p></BodyText></Article>
+      <Article span={4}><Kicker>READ NEXT</Kicker><BodyText weight="Low"><p>{'How the timetable will be measured.'}</p></BodyText></Article>
+    </Section>
+  </Layout>
+</ComponentDemo>
+
+## 24-column full width
+
+<ComponentDemo
+  title="Twenty-four full width"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24}>',
+    '    <Article span={24}>',
+    '      <Kicker>LONG READ</Kicker>',
+    '      <Headline weight="High" as="h3">The Quiet Revolution in Treasury Forecasting</Headline>',
+    '      <BodyText columns={4} dropCap><p>A new generation of models is changing how long-term public investment is assessed.</p></BodyText>',
+    '    </Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24}>
+      <Article span={24}>
+        <Kicker>LONG READ</Kicker>
+        <Headline weight="High" as="h3">{'The Quiet Revolution in Treasury Forecasting'}</Headline>
+        <BodyText columns={4} dropCap><p>{'A new generation of models is changing how long-term public investment is assessed.'}</p></BodyText>
+      </Article>
+    </Section>
+  </Layout>
+</ComponentDemo>

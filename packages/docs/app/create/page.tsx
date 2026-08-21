@@ -6,6 +6,7 @@ import {
   PullQuote, Footer,
 } from 'newspaperui';
 import styles from './create.module.css';
+import { useLocale } from '../../components/LocaleContext';
 
 // ─── Presets ────────────────────────────────────────────────────────────────
 
@@ -78,14 +79,14 @@ type ThemeVars = Record<string, string>;
 // ─── Controls ───────────────────────────────────────────────────────────────
 
 const CONTROLS = [
-  { label: 'Page Background', key: '--nui-bg-page', type: 'color' },
-  { label: 'Primary Text', key: '--nui-text-primary', type: 'color' },
-  { label: 'Body Text', key: '--nui-text-body', type: 'color' },
-  { label: 'Accent Color', key: '--nui-accent-primary', type: 'color' },
-  { label: 'Hairline Rule', key: '--nui-rule-hairline', type: 'color' },
-  { label: 'Gutter', key: '--nui-gutter', type: 'select', options: ['1rem', '1.25rem', '1.5rem', '2rem'] },
+  { labelKey: 'pageBackground', key: '--nui-bg-page', type: 'color' },
+  { labelKey: 'primaryText', key: '--nui-text-primary', type: 'color' },
+  { labelKey: 'bodyText', key: '--nui-text-body', type: 'color' },
+  { labelKey: 'accentColor', key: '--nui-accent-primary', type: 'color' },
+  { labelKey: 'hairlineRule', key: '--nui-rule-hairline', type: 'color' },
+  { labelKey: 'gutter', key: '--nui-gutter', type: 'select', options: ['1rem', '1.25rem', '1.5rem', '2rem'] },
   {
-    label: 'Masthead Font', key: '--font-family-masthead', type: 'select',
+    labelKey: 'mastheadFont', key: '--font-family-masthead', type: 'select',
     options: [
       '"Cormorant Garamond", Georgia, serif',
       '"Playfair Display", Georgia, serif',
@@ -95,7 +96,7 @@ const CONTROLS = [
     display: ['Cormorant Garamond', 'Playfair Display', 'UnifrakturMaguntia', 'Inter'],
   },
   {
-    label: 'Body Font', key: '--font-family-body', type: 'select',
+    labelKey: 'bodyFont', key: '--font-family-body', type: 'select',
     options: [
       '"Source Serif 4", Georgia, serif',
       '"Lora", Georgia, serif',
@@ -165,6 +166,7 @@ function ComponentPreview({ vars }: { vars: ThemeVars }) {
 // ─── Main Page ───────────────────────────────────────────────────────────────
 
 export default function CreatePage() {
+  const { messages } = useLocale();
   const [activePreset, setActivePreset] = useState<PresetName>('Classic NYT');
   const [vars, setVars] = useState<ThemeVars>({ ...PRESETS['Classic NYT'] });
   const [copied, setCopied] = useState(false);
@@ -212,7 +214,7 @@ export default function CreatePage() {
 
   return (
     <main className={styles.page} data-mobile-view={mobileView}>
-      <div className={styles.mobileTabs} role="tablist" aria-label="Theme creator view">
+      <div className={styles.mobileTabs} role="tablist" aria-label={messages.create.viewLabel}>
         <button
           id="editor-tab"
           type="button"
@@ -221,7 +223,7 @@ export default function CreatePage() {
           aria-selected={mobileView === 'editor'}
           onClick={() => setMobileView('editor')}
         >
-          Editor
+          {messages.create.editor}
         </button>
         <button
           id="preview-tab"
@@ -231,7 +233,7 @@ export default function CreatePage() {
           aria-selected={mobileView === 'preview'}
           onClick={() => setMobileView('preview')}
         >
-          Preview
+          {messages.create.preview}
         </button>
       </div>
 
@@ -245,16 +247,16 @@ export default function CreatePage() {
         {/* Header */}
         <div style={{ padding: '1.5rem 1.5rem 1rem', borderBottom: '1px solid var(--nui-rule-hairline)' }}>
           <div style={{ ...metaStyle, fontVariantCaps: 'small-caps', letterSpacing: '0.08em', color: 'var(--nui-accent-primary)', fontWeight: 600, marginBottom: '0.25rem' }}>
-            Create Theme
+            {messages.create.kicker}
           </div>
           <h1 style={{ fontFamily: 'var(--font-family-display)', fontSize: '20px', fontWeight: 600, margin: 0, color: 'var(--nui-text-primary)' }}>
-            Customize
+            {messages.create.title}
           </h1>
         </div>
 
         {/* Presets */}
         <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--nui-rule-hairline)' }}>
-          <div style={{ ...metaStyle, color: 'var(--nui-text-muted)', marginBottom: '0.75rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>Presets</div>
+          <div style={{ ...metaStyle, color: 'var(--nui-text-muted)', marginBottom: '0.75rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>{messages.create.presets}</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
             {(Object.keys(PRESETS) as PresetName[]).map(name => (
               <button
@@ -279,14 +281,14 @@ export default function CreatePage() {
 
         {/* Controls */}
         <div style={{ padding: '1rem 1.5rem', flex: 1 }}>
-          <div style={{ ...metaStyle, color: 'var(--nui-text-muted)', marginBottom: '0.75rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>Customize</div>
+          <div style={{ ...metaStyle, color: 'var(--nui-text-muted)', marginBottom: '0.75rem', fontVariantCaps: 'small-caps', letterSpacing: '0.06em' }}>{messages.create.customize}</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {CONTROLS.map(ctrl => {
               const controlId = `theme-${ctrl.key.slice(2)}`;
               return (
               <div key={ctrl.key}>
                 <label htmlFor={controlId} style={{ ...metaStyle, color: 'var(--nui-text-secondary)', display: 'block', marginBottom: '0.35rem' }}>
-                  {ctrl.label}
+                  {messages.create.controls[ctrl.labelKey]}
                 </label>
                 {ctrl.type === 'color' ? (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -346,7 +348,7 @@ export default function CreatePage() {
               letterSpacing: '0.06em',
             }}
           >
-            {copied ? '✓ Copied!' : 'Copy CSS'}
+            {copied ? messages.create.copied : messages.create.copyCss}
           </button>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button
@@ -361,7 +363,7 @@ export default function CreatePage() {
                 border: '1px solid var(--nui-rule-hairline)',
                 cursor: 'pointer',
               }}
-            >Download CSS</button>
+            >{messages.create.downloadCss}</button>
             <button
               type="button"
               onClick={downloadJSON}
@@ -374,7 +376,7 @@ export default function CreatePage() {
                 border: '1px solid var(--nui-rule-hairline)',
                 cursor: 'pointer',
               }}
-            >Download JSON</button>
+            >{messages.create.downloadJson}</button>
           </div>
         </div>
       </aside>

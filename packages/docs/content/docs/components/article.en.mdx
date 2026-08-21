@@ -1,0 +1,108 @@
+---
+title: Article + Layer
+description: Grid articles and positioned layers
+---
+
+## Article
+
+### Article API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `span` | `number` | - | Number of columns to span (≤ Section.columns). Defaults to full width. |
+| `breakable` | `boolean` | `true` | Allow page breaks when printing. |
+| `className` | `string` | - | Custom CSS class name. |
+| `style` | `CSSProperties` | - | Custom inline styles. |
+| `children` | `ReactNode` | **Required** | Article content. |
+
+### Spanning example
+
+<ComponentDemo
+  title="Briefing and lead article"
+  code={[
+    '<Layout columns={24} maxWidth="none" padding="0">',
+    '  <Section columns={24} gap="1.5rem">',
+    '    <Article span={8}>',
+    '      <Headline weight="Low" as="h3">Morning briefing</Headline>',
+    '      <BodyText><p>Three decisions expected before noon.</p></BodyText>',
+    '    </Article>',
+    '    <Article span={16}>',
+    '      <Headline weight="Medium" as="h3">Transit Review Sets Out a Ten-Year Programme</Headline>',
+    '      <BodyText columns={2}><p>The report prioritizes reliability, access, and regional connections.</p></BodyText>',
+    '    </Article>',
+    '  </Section>',
+    '</Layout>',
+  ].join('\n')}
+>
+  <Layout columns={24} maxWidth="none" padding="0">
+    <Section columns={24} gap="1.5rem">
+      <Article span={8}>
+        <Headline weight="Low" as="h3">{'Morning briefing'}</Headline>
+        <BodyText>
+          <p>{'Three decisions expected before noon.'}</p>
+        </BodyText>
+      </Article>
+      <Article span={16}>
+        <Headline weight="Medium" as="h3">
+          {'Transit Review Sets Out a Ten-Year Programme'}
+        </Headline>
+        <BodyText columns={2}>
+          <p>{'The report prioritizes reliability, access, and regional connections.'}</p>
+        </BodyText>
+      </Article>
+    </Section>
+  </Layout>
+</ComponentDemo>
+
+## Layer
+
+### Layer API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `position` | `'absolute' \| 'fixed' \| 'sticky'` | `'absolute'` | CSS position property. |
+| `top` | `string \| number` | - | Distance from the top. |
+| `left` | `string \| number` | - | Distance from the left. |
+| `right` | `string \| number` | - | Distance from the right. |
+| `bottom` | `string \| number` | - | Distance from the bottom. |
+| `zIndex` | `number` | - | z-index layer. |
+| `children` | `ReactNode` | **Required** | Floating layer content. |
+
+### Floating pull quote with Layer
+
+The parent container needs `position: relative`.
+
+<ComponentDemo
+  title="Layered pullout note"
+  code={[
+    '<div style={{ position: "relative", minHeight: "13rem", paddingRight: "10rem" }}>',
+    '  <Article>',
+    '    <Headline weight="Low" as="h3">The Archive Reopens</Headline>',
+    '    <BodyText><p>Researchers can now consult the restored municipal collection.</p></BodyText>',
+    '  </Article>',
+    '  <Layer position="absolute" top="0" right="0">',
+    '    <aside style={{ width: "8rem", padding: "1rem", borderTop: "3px solid var(--nui-accent-primary)" }}>12,400 records digitized</aside>',
+    '  </Layer>',
+    '</div>',
+  ].join('\n')}
+>
+  <div style={{ position: 'relative', minHeight: '13rem', paddingRight: '10rem' }}>
+    <Article>
+      <Headline weight="Low" as="h3">{'The Archive Reopens'}</Headline>
+      <BodyText>
+        <p>{'Researchers can now consult the restored municipal collection.'}</p>
+      </BodyText>
+    </Article>
+    <Layer position="absolute" top="0" right="0">
+      <aside
+        style={{
+          width: '8rem',
+          padding: '1rem',
+          borderTop: '3px solid var(--nui-accent-primary)',
+        }}
+      >
+        12,400 records digitized
+      </aside>
+    </Layer>
+  </div>
+</ComponentDemo>

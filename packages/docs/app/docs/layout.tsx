@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <DocsLayout
-      tree={source.pageTree}
+      tree={source.getPageTree('zh')}
       disableThemeSwitch
       nav={{ enabled: false }}
       sidebar={{

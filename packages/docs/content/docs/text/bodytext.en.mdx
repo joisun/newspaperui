@@ -1,0 +1,61 @@
+---
+title: BodyText
+description: Multi-column body text and drop caps
+---
+
+## API
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| weight | "High" \| "Medium" \| "Low" | "Medium" | Visual weight |
+| columns | 1 \| 2 \| 3 \| 4 | 1 | Multi-column text flow |
+| columnWidth | string | — | Target column width |
+| columnFill | "auto" \| "balance" | "balance" | Column fill mode |
+| dropCap | boolean | false | Drop caps |
+| span | number | — | Column span |
+
+## Multi-column text flow
+
+<ComponentDemo
+  title="Balanced three-column body"
+  code={[
+    '<BodyText columns={3}>',
+    '  <p>The first phase reconnects the station with the civic quarter.</p>',
+    '  <p>A second route will serve the university and western suburbs.</p>',
+    '  <p>Independent reviewers will publish annual delivery reports.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={3}>
+    <p>{'The first phase reconnects the station with the civic quarter.'}</p>
+    <p>{'A second route will serve the university and western suburbs.'}</p>
+    <p>{'Independent reviewers will publish annual delivery reports.'}</p>
+  </BodyText>
+</ComponentDemo>
+
+## Drop caps
+
+<ComponentDemo
+  title="Two-column opening with drop cap"
+  code={[
+    '<BodyText columns={2} dropCap>',
+    '  <p>Before sunrise, the first engineering team entered the restored market hall.</p>',
+    '  <p>The public entrance will reopen after a final safety inspection.</p>',
+    '  <p>Stallholders return next week under a new long-term lease.</p>',
+    '</BodyText>',
+  ].join('\n')}
+>
+  <BodyText columns={2} dropCap>
+    <p>{'Before sunrise, the first engineering team entered the restored market hall.'}</p>
+    <p>{'The public entrance will reopen after a final safety inspection.'}</p>
+    <p>{'Stallholders return next week under a new long-term lease.'}</p>
+  </BodyText>
+</ComponentDemo>
+
+## Typography details
+
+Enabled by default:
+- No space between paragraphs, with a 1em first-line indent from the second paragraph
+- Old-style figures, with descenders on 3/5/7
+- Hanging punctuation for quotation marks
+- Column rules using a hairline divider

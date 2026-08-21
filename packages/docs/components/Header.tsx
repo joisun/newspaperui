@@ -4,19 +4,21 @@ import { List, Moon, Sun, X } from '@phosphor-icons/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useLocale } from './LocaleContext';
 import styles from './Header.module.css';
 
 const navItems = [
-  { label: 'Docs', href: '/docs/grid-system' },
-  { label: 'Components', href: '/docs/components/article' },
-  { label: 'Blocks', href: '/blocks' },
-  { label: 'Create', href: '/create' },
-];
+  { label: 'docs', href: '/docs/grid-system' },
+  { label: 'components', href: '/docs/components/article' },
+  { label: 'blocks', href: '/blocks' },
+  { label: 'create', href: '/create' },
+] as const;
 
 const STORAGE_KEY = 'nui-theme';
 
 export function Header() {
   const pathname = usePathname();
+  const { localizeHref, messages, switchLocale } = useLocale();
   const [dark, setDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -35,36 +37,48 @@ export function Header() {
     return pathname === href || pathname.startsWith(href);
   }
 
-  const navigationLinks = (closeAfterNavigation = false) => navItems.map((item) => (
-    <Link
-      key={item.href}
-      href={item.href}
-      className={isActive(item.href) ? styles.activeLink : styles.navLink}
-      aria-current={isActive(item.href) ? 'page' : undefined}
-      onClick={closeAfterNavigation ? () => setMenuOpen(false) : undefined}
-    >
-      {item.label}
-    </Link>
-  ));
+  const navigationLinks = (closeAfterNavigation = false) => navItems.map((item) => {
+    const href = localizeHref(item.href);
+
+    return (
+      <Link
+        key={item.href}
+        href={href}
+        className={isActive(href) ? styles.activeLink : styles.navLink}
+        aria-current={isActive(href) ? 'page' : undefined}
+        onClick={closeAfterNavigation ? () => setMenuOpen(false) : undefined}
+      >
+        {messages.nav[item.label]}
+      </Link>
+    );
+  });
+
+  function changeLocale() {
+    setMenuOpen(false);
+    switchLocale();
+  }
 
   return (
     <header className={styles.header}>
       <div className={styles.bar}>
-        <Link href="/" prefetch={false} className={styles.brand} aria-label="NewspaperUI home">NewspaperUI</Link>
+        <Link href={localizeHref('/')} prefetch={false} className={styles.brand} aria-label={messages.nav.home}>NewspaperUI</Link>
 
-        <nav className={styles.desktopNav} aria-label="Primary navigation">
+        <nav className={styles.desktopNav} aria-label={messages.nav.primary}>
           {navigationLinks()}
           <a className={styles.navLink} href="https://github.com/joisun/newspaperui" target="_blank" rel="noreferrer">GitHub</a>
           <button type="button" onClick={toggleTheme} className={styles.themeButton}>
             {dark ? <Sun size={18} weight="bold" aria-hidden="true" /> : <Moon size={18} weight="bold" aria-hidden="true" />}
-            <span>{dark ? 'Light' : 'Dark'}</span>
+            <span>{dark ? messages.nav.light : messages.nav.dark}</span>
+          </button>
+          <button type="button" onClick={changeLocale} className={styles.localeButton} aria-label={messages.switchLocale}>
+            {messages.localeName}
           </button>
         </nav>
 
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={menuOpen ? messages.nav.closeMenu : messages.nav.openMenu}
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
           className={styles.menuButton}
@@ -74,12 +88,15 @@ export function Header() {
       </div>
 
       {menuOpen && (
-        <nav id="mobile-navigation" className={styles.mobileNav} aria-label="Mobile navigation">
+        <nav id="mobile-navigation" className={styles.mobileNav} aria-label={messages.nav.mobile}>
           {navigationLinks(true)}
           <a className={styles.navLink} href="https://github.com/joisun/newspaperui" target="_blank" rel="noreferrer">GitHub</a>
           <button type="button" onClick={toggleTheme} className={styles.mobileThemeButton}>
             {dark ? <Sun size={18} weight="bold" aria-hidden="true" /> : <Moon size={18} weight="bold" aria-hidden="true" />}
-            <span>{dark ? 'Light' : 'Dark'}</span>
+            <span>{dark ? messages.nav.light : messages.nav.dark}</span>
+          </button>
+          <button type="button" onClick={changeLocale} className={styles.mobileLocaleButton} aria-label={messages.switchLocale}>
+            {messages.localeName}
           </button>
         </nav>
       )}

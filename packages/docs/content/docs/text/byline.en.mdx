@@ -1,0 +1,105 @@
+---
+title: Byline · Dateline · Caption
+description: Bylines, datelines, captions, and author information
+---
+
+## Byline
+
+| Property | Type | Description |
+|---|---|---|
+| children | ReactNode | For example, "By Alice Smith" |
+
+## Dateline
+
+| Property | Type | Description |
+|---|---|---|
+| children | ReactNode | For example, "LONDON —" |
+
+## Caption
+
+| Property | Type | Description |
+|---|---|---|
+| credit | string | Photographer credit, rendered in small caps |
+| children | ReactNode | Caption text |
+
+## AuthorCard
+
+| Property | Type | Description |
+|---|---|---|
+| name | string | Name |
+| role | string | Role |
+| bio | string | Biography |
+| avatar | string | Avatar URL |
+| email | string | Email |
+
+## JumpLine
+
+| Property | Type | Description |
+|---|---|---|
+| direction | "to" \| "from" | Direction |
+| page | string | Destination page, such as "A6" |
+
+## Attribution stack
+
+<ComponentDemo
+  title="Byline, dateline, and caption"
+  code={[
+    '<Byline>BY ELEANOR WHITCOMBE</Byline>',
+    '<BodyText><p><Dateline>BRUSSELS —</Dateline> Delegates published the final text shortly after midnight.</p></BodyText>',
+    '<figure>',
+    '  <img',
+    '    src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80"',
+    '    alt="Delegates gathering in the chamber before the final session"',
+    '    style={{ width: "100%", aspectRatio: "16/5", objectFit: "cover", display: "block" }}',
+    '  />',
+    '  <Caption credit="Photograph by the Chronicle photo desk">The chamber before the final session.</Caption>',
+    '</figure>',
+  ].join('\n')}
+>
+  <div>
+    <Byline>BY ELEANOR WHITCOMBE</Byline>
+    <BodyText>
+      <p>
+        <Dateline>BRUSSELS —</Dateline>
+        {' Delegates published the final text shortly after midnight.'}
+      </p>
+    </BodyText>
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80"
+        alt="Delegates gathering in the chamber before the final session"
+        style={{ width: '100%', aspectRatio: '16/5', objectFit: 'cover', display: 'block' }}
+      />
+      <Caption credit="Photograph by the Chronicle photo desk">
+        {'The chamber before the final session.'}
+      </Caption>
+    </figure>
+  </div>
+</ComponentDemo>
+
+## Author and continuation
+
+<ComponentDemo
+  title="Author card with jump lines"
+  code={[
+    '<JumpLine direction="from" page="A1" />',
+    '<AuthorCard',
+    '  name="Eleanor Whitcombe"',
+    '  role="Senior Correspondent"',
+    '  bio="Reports on public institutions, cities, and regional policy."',
+    '  email="eleanor@example.com"',
+    '/>',
+    '<JumpLine direction="to" page="A6" />',
+  ].join('\n')}
+>
+  <div>
+    <JumpLine direction="from" page="A1" />
+    <AuthorCard
+      name="Eleanor Whitcombe"
+      role="Senior Correspondent"
+      bio="Reports on public institutions, cities, and regional policy."
+      email="eleanor@example.com"
+    />
+    <JumpLine direction="to" page="A6" />
+  </div>
+</ComponentDemo>
