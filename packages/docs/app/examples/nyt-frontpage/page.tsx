@@ -8,8 +8,7 @@ import {
 
 export default function FrontPage() {
   return (
-    <main>
-      <Layout columns={24} maxWidth="1200px" padding="2rem 1.5rem">
+    <Layout columns={24} maxWidth="1200px" padding="2rem 1.5rem">
       <Masthead
         variant="classic"
         kicker="Late City Edition"
@@ -273,7 +272,6 @@ export default function FrontPage() {
           </BodyText>
         </Article>
       </Section>
-      </Layout>
-    </main>
+    </Layout>
   );
 }
