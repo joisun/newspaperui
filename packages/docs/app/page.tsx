@@ -1,108 +1,94 @@
 'use client';
 
-import { useState } from 'react';
-import { ArrowUpRight } from '@phosphor-icons/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import {
-  EffectCoverflow,
-  Keyboard,
-  Mousewheel,
-} from 'swiper/modules';
-import type { Swiper as SwiperInstance } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
+import { useEffect, useState } from 'react';
 import { InstallCommand } from '../components/InstallCommand';
 import { useLocale } from '../components/LocaleContext';
+import EnFeature from './blocks/en-feature/page';
+import JpHorizontal from './blocks/jp-horizontal/page';
+import JpVertical from './blocks/jp-vertical/page';
+import ZhEditorial from './blocks/zh-editorial/page';
+import ZhFeature from './blocks/zh-feature/page';
+import ZhFrontPage from './blocks/zh-frontpage/page';
+import NytFrontPage from './examples/nyt-frontpage/page';
 import styles from './page.module.css';
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const autoplayDelay = 4_500;
+const mobileListQuery = '(max-width: 767px)';
 
 const galleryItems = [
   {
     id: 'zh-frontpage',
     title: '人民周报',
-    href: '/blocks/zh-frontpage',
-    preview: `${basePath}/gallery/zh-frontpage.jpg`,
-    width: 1280,
-    height: 2394,
+    Preview: ZhFrontPage,
   },
   {
     id: 'zh-feature',
     title: '文化副刊',
-    href: '/blocks/zh-feature',
-    preview: `${basePath}/gallery/zh-feature.jpg`,
-    width: 1200,
-    height: 1679,
+    Preview: ZhFeature,
   },
   {
     id: 'en-feature',
     title: 'Daily Chronicle',
-    href: '/blocks/en-feature',
-    preview: `${basePath}/gallery/en-feature.jpg`,
-    width: 750,
-    height: 3134,
+    Preview: EnFeature,
   },
   {
     id: 'jp-horizontal',
     title: '朝日新聞 横組み',
-    href: '/blocks/jp-horizontal',
-    preview: `${basePath}/gallery/jp-horizontal.jpg`,
-    width: 1280,
-    height: 2044,
+    Preview: JpHorizontal,
   },
   {
     id: 'jp-vertical',
     title: '朝日新聞 縦組み',
-    href: '/blocks/jp-vertical',
-    preview: `${basePath}/gallery/jp-vertical.jpg`,
-    width: 1440,
-    height: 1000,
+    Preview: JpVertical,
   },
   {
     id: 'zh-editorial',
     title: '社论',
-    href: '/blocks/zh-editorial',
-    preview: `${basePath}/gallery/zh-editorial.jpg`,
-    width: 1200,
-    height: 1327,
+    Preview: ZhEditorial,
   },
   {
     id: 'nyt-frontpage',
     title: 'New York Times',
-    href: '/examples/nyt-frontpage',
-    preview: `${basePath}/gallery/nyt-frontpage.jpg`,
-    width: 1440,
-    height: 5203,
+    Preview: NytFrontPage,
   },
 ] as const;
 
-const deckLength = galleryItems.length;
-const middleDeckStart = deckLength;
-const gallerySlides = [-1, 0, 1].flatMap((cycle) => galleryItems.map((item, logicalIndex) => ({
-  ...item,
-  cycle,
-  key: `${cycle}:${item.id}`,
-  logicalIndex,
-})));
-
-function getLogicalIndex(index: number) {
-  return ((index % deckLength) + deckLength) % deckLength;
-}
-
-function normalizeDeck(swiper: SwiperInstance) {
-  if (swiper.activeIndex < middleDeckStart) {
-    swiper.slideTo(swiper.activeIndex + deckLength, 0, false);
-  } else if (swiper.activeIndex >= middleDeckStart + deckLength) {
-    swiper.slideTo(swiper.activeIndex - deckLength, 0, false);
-  }
+function wrapIndex(index: number) {
+  return (index + galleryItems.length) % galleryItems.length;
 }
 
 export default function LandingPage() {
-  const { localizeHref, messages } = useLocale();
-  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(middleDeckStart);
-  const activeIndex = getLogicalIndex(activeSlideIndex);
+  const { messages } = useLocale();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isMobileList, setIsMobileList] = useState(false);
+  const [autoplayRevision, setAutoplayRevision] = useState(0);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(mobileListQuery);
+    const updateLayout = () => setIsMobileList(mediaQuery.matches);
+
+    updateLayout();
+    mediaQuery.addEventListener('change', updateLayout);
+
+    return () => mediaQuery.removeEventListener('change', updateLayout);
+  }, []);
+
+  useEffect(() => {
+    if (isMobileList || isHovered || window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((index) => wrapIndex(index + 1));
+    }, autoplayDelay);
+
+    return () => window.clearInterval(timer);
+  }, [autoplayRevision, isHovered, isMobileList]);
+
+  function showPreview(index: number) {
+    setActiveIndex(wrapIndex(index));
+    setAutoplayRevision((revision) => revision + 1);
+  }
 
   return (
     <main className={styles.page}>
@@ -111,122 +97,108 @@ export default function LandingPage() {
         <InstallCommand />
       </section>
 
-      <section className={styles.gallery}>
-        <Swiper
-          className={styles.galleryViewport}
+      <section className={styles.galleryWrap}>
+        <div
+          className={styles.gallery}
+          role="region"
           aria-label={messages.home.galleryLabel}
-          aria-roledescription="carousel"
-          modules={[EffectCoverflow, Keyboard, Mousewheel]}
-          effect="coverflow"
-          centeredSlides
-          slidesPerView="auto"
-          slidesPerGroup={1}
-          initialSlide={middleDeckStart}
-          slideToClickedSlide
-          grabCursor
-          speed={120}
-          threshold={8}
-          touchAngle={35}
-          watchSlidesProgress
-          keyboard={{
-            enabled: true,
-            onlyInViewport: true,
-          }}
-          mousewheel={{
-            forceToAxis: true,
-            releaseOnEdges: false,
-            thresholdDelta: 4,
-          }}
-          coverflowEffect={{
-            rotate: -8,
-            stretch: '20%',
-            depth: 80,
-            scale: 0.94,
-            modifier: 1,
-            slideShadows: false,
-          }}
-          breakpoints={{
-            768: {
-              coverflowEffect: {
-                rotate: -4,
-                stretch: '60%',
-                depth: 140,
-                scale: 0.94,
-                modifier: 1,
-                slideShadows: false,
-              },
-            },
-          }}
-          onSlideChange={(swiper) => setActiveSlideIndex(swiper.activeIndex)}
-          onTransitionEnd={normalizeDeck}
+          aria-roledescription={isMobileList ? undefined : 'carousel'}
+          data-layout={isMobileList ? 'list' : 'carousel'}
+          data-page-flow={isMobileList ? 'document' : undefined}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          {gallerySlides.map((item, slideIndex) => {
-            const isActive = slideIndex === activeSlideIndex;
-            const isCanonical = item.cycle === 0;
+          <div className={styles.galleryTrack}>
+            {galleryItems.map((item, index) => {
+              const isActive = index === activeIndex;
+              const Preview = item.Preview;
 
-            return (
-              <SwiperSlide
-                key={item.key}
-                className={styles.gallerySlide}
-                aria-hidden={isActive ? undefined : true}
-                data-gallery-index={item.logicalIndex}
-              >
+              return (
                 <article
-                  className={styles.galleryCard}
+                  key={item.id}
+                  aria-hidden={isMobileList ? false : !isActive}
+                  className={styles.gallerySlide}
                   data-active={isActive ? 'true' : undefined}
-                  data-gallery-slide={item.id}
-                  data-home-demo={isCanonical ? item.id : undefined}
-                  role="group"
-                  aria-roledescription={messages.home.slideDescription}
-                  aria-label={messages.home.slideLabel(item.logicalIndex + 1, galleryItems.length, item.title, isActive)}
-                  aria-current={isActive ? 'true' : undefined}
+                  data-showcase-slide={item.id}
                 >
-                  <header className={styles.cardBar}>
-                    <span>{item.title}</span>
-                    {isActive ? (
-                      <Link
-                        href={localizeHref(item.href)}
-                        className={styles.openEdition}
-                        aria-label={messages.home.openDemo(item.title)}
-                      >
-                        <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
-                      </Link>
-                    ) : (
-                      <span className={styles.openEditionVisual} aria-hidden="true">
-                        <ArrowUpRight size={14} weight="bold" />
-                      </span>
-                    )}
-                  </header>
+                  <h2 className={styles.galleryItemTitle}>{item.title}</h2>
                   <div
-                    className={styles.cardCanvas}
-                    data-scrollable={isActive ? 'true' : undefined}
+                    className={styles.galleryPage}
+                    role="document"
+                    aria-label={messages.home.previewLabel(item.title)}
+                    data-scrollable={!isMobileList && isActive ? 'true' : undefined}
+                    tabIndex={isMobileList ? undefined : isActive ? 0 : -1}
                   >
-                    <Image
-                      src={item.preview}
-                      alt={messages.home.previewAlt(item.title)}
-                      width={item.width}
-                      height={item.height}
-                      sizes="(max-width: 767px) calc(100vw - 4rem), 48rem"
-                      priority={item.logicalIndex === 0}
-                      draggable={false}
-                      className={styles.editionPreview}
-                    />
+                    <Preview />
                   </div>
                 </article>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-        <p
-          className={styles.galleryPosition}
-          aria-label={messages.home.editionLabel(activeIndex + 1, galleryItems.length)}
-          aria-live="polite"
-        >
-          {String(activeIndex + 1).padStart(2, '0')}
-          <span aria-hidden="true"> / </span>
-          {String(galleryItems.length).padStart(2, '0')}
-        </p>
-        <p className={styles.srOnly} aria-live="polite">{galleryItems[activeIndex].title}</p>
+              );
+            })}
+          </div>
+
+          {!isMobileList && (
+            <>
+              <button
+                type="button"
+                className={`${styles.galleryNav} ${styles.galleryPrevious}`}
+                aria-label={messages.home.previousPreview}
+                onClick={() => showPreview(activeIndex - 1)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M15 6l-6 6 6 6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className={`${styles.galleryNav} ${styles.galleryNext}`}
+                aria-label={messages.home.nextPreview}
+                onClick={() => showPreview(activeIndex + 1)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M9 6l6 6-6 6" />
+                </svg>
+              </button>
+
+              <div className={styles.galleryDots} aria-label={messages.home.choosePreview}>
+                {galleryItems.map((item, index) => {
+                  const isActive = index === activeIndex;
+
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className={styles.galleryDot}
+                      data-active={isActive ? 'true' : undefined}
+                      aria-current={isActive ? 'true' : undefined}
+                      aria-label={messages.home.showPreview(
+                        index + 1,
+                        galleryItems.length,
+                        item.title,
+                      )}
+                      onClick={() => showPreview(index)}
+                    />
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </div>
       </section>
     </main>
   );

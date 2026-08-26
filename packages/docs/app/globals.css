@@ -299,4 +299,23 @@ a[href^='#'] {
   .nui-viewport-card[data-demo-viewport='desktop'] {
     grid-column: auto;
   }
+
+  .nui-section > * {
+    min-width: 0;
+  }
+
+  .nui-headline {
+    overflow-wrap: anywhere;
+  }
+
+  .nui-jp-vertical-page {
+    min-height: auto !important;
+    padding: 1rem !important;
+  }
+
+  .nui-jp-vertical-flow {
+    height: auto !important;
+    overflow: visible !important;
+    writing-mode: horizontal-tb !important;
+  }
 }

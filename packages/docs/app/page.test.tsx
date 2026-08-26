@@ -1,102 +1,20 @@
-import type { ReactNode } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
-
-const carouselMock = vi.hoisted(() => {
-  type MockApi = {
-    activeIndex: number;
-    slideTo: (index: number, speed?: number, runCallbacks?: boolean) => void;
-  };
-
-  let onSlideChange: ((api: MockApi) => void) | undefined;
-  let onTransitionEnd: ((api: MockApi) => void) | undefined;
-  let swiperProps: Record<string, unknown> | undefined;
-  const api = {
-    activeIndex: 7,
-    slideTo: vi.fn((index: number) => {
-      api.activeIndex = index;
-      onSlideChange?.(api);
-    }),
-  };
-
-  return {
-    api,
-    capture(props: Record<string, unknown>) {
-      swiperProps = props;
-      onSlideChange = props.onSlideChange as typeof onSlideChange;
-      onTransitionEnd = props.onTransitionEnd as typeof onTransitionEnd;
-    },
-    get props() {
-      return swiperProps;
-    },
-    select(index: number) {
-      api.activeIndex = index;
-      onSlideChange?.(api);
-    },
-    settle() {
-      onTransitionEnd?.(api);
-    },
-    reset() {
-      api.activeIndex = 7;
-      api.slideTo.mockClear();
-      onSlideChange = undefined;
-      onTransitionEnd = undefined;
-      swiperProps = undefined;
-    },
-  };
-});
-
-vi.mock('swiper/modules', () => ({
-  A11y: 'A11y',
-  EffectCoverflow: 'EffectCoverflow',
-  Keyboard: 'Keyboard',
-  Mousewheel: 'Mousewheel',
-}));
-
-vi.mock('swiper/react', async () => {
-  const React = await import('react');
-
-  return {
-    Swiper: ({
-      children,
-      className,
-      'aria-label': ariaLabel,
-      'aria-roledescription': ariaRoleDescription,
-      ...props
-    }: Record<string, unknown>) => {
-      carouselMock.capture(props);
-      return React.createElement(
-        'div',
-        {
-          className,
-          'aria-label': ariaLabel,
-          'aria-roledescription': ariaRoleDescription,
-        },
-        children as ReactNode,
-      );
-    },
-    SwiperSlide: ({
-      children,
-      className,
-    }: Record<string, unknown>) => React.createElement(
-      'div',
-      { className },
-      children as ReactNode,
-    ),
-  };
-});
 
 import LandingPage from './page';
 
 describe('LandingPage', () => {
-  beforeEach(() => {
-    carouselMock.reset();
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
   });
 
   test('exposes one primary landmark with one page title', () => {
     const { container } = render(<LandingPage />);
 
     expect(container.querySelectorAll('main')).toHaveLength(1);
-    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(container.querySelector('[aria-labelledby="home-title"] h1')).toHaveTextContent(
+      'Editorial components for React.',
+    );
   });
 
   test('makes the public installation command visible', () => {
@@ -105,75 +23,117 @@ describe('LandingPage', () => {
     expect(screen.getByText('pnpm add newspaperui')).toBeVisible();
   });
 
-  test('shows a demo-first overview of the component system', () => {
+  test('renders the seven previews as scrollable live components', () => {
     const { container } = render(<LandingPage />);
 
     expect(screen.getByRole('heading', { name: 'Editorial components for React.' })).toBeVisible();
-    expect(container.querySelectorAll('[data-home-demo]')).toHaveLength(7);
-    expect(container.querySelectorAll('[data-gallery-slide]')).toHaveLength(21);
-    expect(screen.getByRole('link', { name: 'Open 人民周报 demo' })).toHaveAttribute('href', '/blocks/zh-frontpage');
-    expect(screen.queryByRole('button', { name: /^Show / })).not.toBeInTheDocument();
-    expect(screen.getByLabelText('Edition 1 of 7')).toHaveTextContent('01 / 07');
+    expect(
+      screen.getByRole('region', { name: 'NewspaperUI full newspaper demo gallery' }),
+    ).toBeVisible();
+    expect(container.querySelectorAll('[data-showcase-slide]')).toHaveLength(7);
+    expect(container.querySelectorAll('[data-showcase-slide][data-active="true"]')).toHaveLength(1);
+    const activeSlide = container.querySelector('[data-showcase-slide][data-active="true"]');
+    expect(activeSlide).toContainElement(screen.getByText('历史性贸易协定昨日签署'));
+    expect(activeSlide?.querySelector('[data-scrollable="true"]')).toBeInTheDocument();
+    expect(
+      screen.queryByAltText('人民周报 complete newspaper page preview'),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /demo/i })).not.toBeInTheDocument();
   });
 
-  test('lets Swiper own the coverflow geometry, loop and one-slide navigation', () => {
-    render(<LandingPage />);
+  test('wraps through previews with arrow and dot controls', () => {
+    const { container } = render(<LandingPage />);
+    const activeSlide = () => container.querySelector('[data-showcase-slide][data-active="true"]');
 
-    expect(carouselMock.props).toEqual(expect.objectContaining({
-      centeredSlides: true,
-      effect: 'coverflow',
-      initialSlide: 7,
-      slideToClickedSlide: true,
-      slidesPerGroup: 1,
-      slidesPerView: 'auto',
-      speed: 120,
-    }));
-    expect(carouselMock.props).not.toHaveProperty('loop');
-    expect(carouselMock.props?.coverflowEffect).toEqual(expect.objectContaining({
-      depth: 80,
-      rotate: -8,
-      scale: 0.94,
-      stretch: '20%',
-      slideShadows: false,
-    }));
-    expect(carouselMock.props?.breakpoints).toEqual(expect.objectContaining({
-      768: expect.objectContaining({
-        coverflowEffect: expect.objectContaining({
-          depth: 140,
-          rotate: -4,
-          stretch: '60%',
-        }),
-      }),
-    }));
-    expect(carouselMock.props?.mousewheel).toEqual(expect.objectContaining({
-      forceToAxis: true,
-      thresholdDelta: 4,
-    }));
-    expect(carouselMock.props?.mousewheel).not.toHaveProperty('thresholdTime');
+    fireEvent.click(screen.getByRole('button', { name: 'Previous preview' }));
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'nyt-frontpage');
 
-    act(() => carouselMock.select(8));
-    expect(screen.getByRole('group', { name: /文化副刊, current demo/ })).toHaveAttribute('aria-current', 'true');
-    expect(screen.getByRole('link', { name: 'Open 文化副刊 demo' })).toHaveAttribute('href', '/blocks/zh-feature');
-    expect(screen.getByLabelText('Edition 2 of 7')).toHaveTextContent('02 / 07');
+    fireEvent.click(screen.getByRole('button', { name: 'Next preview' }));
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-frontpage');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Show preview 4 of 7: 朝日新聞 横組み' }));
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'jp-horizontal');
+    expect(activeSlide()).toHaveTextContent(/歴史的通商協定が成立\s+23カ国が署名/u);
+    expect(
+      screen.getByRole('button', { name: 'Show preview 4 of 7: 朝日新聞 横組み' }),
+    ).toHaveAttribute('aria-current', 'true');
   });
 
-  test('normalizes an identical outer deck without reordering slides', () => {
+  test('advances every 4.5 seconds and pauses while hovered', () => {
+    vi.useFakeTimers();
+    const { container } = render(<LandingPage />);
+    const gallery = screen.getByRole('region', { name: 'NewspaperUI full newspaper demo gallery' });
+    const activeSlide = () => container.querySelector('[data-showcase-slide][data-active="true"]');
+
+    act(() => vi.advanceTimersByTime(4_499));
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-frontpage');
+
+    act(() => vi.advanceTimersByTime(1));
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-feature');
+
+    fireEvent.mouseEnter(gallery);
+    act(() => vi.advanceTimersByTime(4_500));
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-feature');
+
+    fireEvent.mouseLeave(gallery);
+    act(() => vi.advanceTimersByTime(4_500));
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'en-feature');
+  });
+
+  test('flows every mobile preview through document scrolling', () => {
+    vi.useFakeTimers();
+    vi.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+      matches: query === '(max-width: 767px)',
+      media: query,
+      onchange: null,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+      addListener: () => undefined,
+      removeListener: () => undefined,
+      dispatchEvent: () => false,
+    }));
+    const { container } = render(<LandingPage />);
+    const gallery = screen.getByRole('region', {
+      name: 'NewspaperUI full newspaper demo gallery',
+    });
+
+    expect(gallery).toHaveAttribute('data-layout', 'list');
+    expect(gallery).toHaveAttribute('data-page-flow', 'document');
+    expect(gallery).not.toHaveAttribute('aria-roledescription', 'carousel');
+    expect(container.querySelectorAll('[data-showcase-slide][aria-hidden="false"]')).toHaveLength(
+      7,
+    );
+    expect(container.querySelectorAll('[data-scrollable="true"]')).toHaveLength(0);
+    expect(screen.queryByRole('button', { name: 'Previous preview' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Next preview' })).not.toBeInTheDocument();
+
+    act(() => vi.advanceTimersByTime(9_000));
+    expect(container.querySelector('[data-showcase-slide][data-active="true"]')).toHaveAttribute(
+      'data-showcase-slide',
+      'zh-frontpage',
+    );
+  });
+
+  test('does not autoplay when reduced motion is requested', () => {
+    vi.useFakeTimers();
+    vi.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+      matches: query === '(prefers-reduced-motion: reduce)',
+      media: query,
+      onchange: null,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+      addListener: () => undefined,
+      removeListener: () => undefined,
+      dispatchEvent: () => false,
+    }));
     const { container } = render(<LandingPage />);
 
-    act(() => carouselMock.select(14));
-    act(() => carouselMock.settle());
+    act(() => vi.advanceTimersByTime(9_000));
 
-    expect(carouselMock.api.slideTo).toHaveBeenCalledWith(7, 0, false);
-    expect(container.querySelectorAll('[data-gallery-slide]')).toHaveLength(21);
-    expect(screen.getByLabelText('Edition 1 of 7')).toHaveTextContent('01 / 07');
-  });
-
-  test('keeps the active paper scrollable without making its canvas a link', () => {
-    render(<LandingPage />);
-    const activePaper = screen.getByRole('group', { name: /人民周报, current demo/ });
-
-    expect(activePaper.querySelector('[data-scrollable="true"]')).toBeInTheDocument();
-    expect(activePaper.querySelectorAll('a')).toHaveLength(1);
+    expect(container.querySelector('[data-showcase-slide][data-active="true"]')).toHaveAttribute(
+      'data-showcase-slide',
+      'zh-frontpage',
+    );
   });
 
   test('confirms when the installation command is copied', async () => {

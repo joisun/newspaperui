@@ -1,8 +1,8 @@
 .command {
   position: relative;
   display: flex;
-  width: min(100%, 34rem);
-  min-height: 52px;
+  width: min(100%, 24rem);
+  min-height: 44px;
   align-items: center;
   margin-top: 0.25rem;
   overflow: hidden;
@@ -10,7 +10,7 @@
   border-radius: 0.75rem;
   background: var(--nui-bg-surface);
 }
-.command code { flex: 1; padding: 0.9rem 1rem; overflow-x: auto; color: var(--nui-text-primary); font: 600 0.85rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
-.command button { min-width: 76px; min-height: 50px; padding: 0 1rem; color: var(--nui-text-primary); background: color-mix(in srgb, var(--nui-bg-surface) 82%, var(--nui-rule-hairline)); border: 0; border-left: 1px solid var(--nui-rule-hairline); cursor: pointer; font: 700 0.7rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
+.command code { flex: 1; padding: 0.7rem 0.8rem; overflow-x: auto; color: var(--nui-text-primary); font: 600 0.72rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+.command button { min-width: 60px; min-height: 44px; padding: 0 0.65rem; color: var(--nui-text-primary); background: color-mix(in srgb, var(--nui-bg-surface) 82%, var(--nui-rule-hairline)); border: 0; border-left: 1px solid var(--nui-rule-hairline); cursor: pointer; font: 700 0.6rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
 .command button:hover { color: var(--nui-text-primary); background: color-mix(in srgb, var(--nui-bg-surface) 66%, var(--nui-rule-hairline)); }
 .status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

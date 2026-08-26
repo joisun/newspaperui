@@ -6,19 +6,25 @@ const jpAccent = { color: 'var(--nui-accent-ink-blue)' };
 
 export default function JpVertical() {
   return (
-    <div style={{
-      background: 'var(--nui-bg-page)',
-      color: 'var(--nui-text-body)',
-      padding: '2rem',
-      minHeight: '100vh',
-    }}>
+    <div
+      className="nui-jp-vertical-page"
+      style={{
+        background: 'var(--nui-bg-page)',
+        color: 'var(--nui-text-body)',
+        padding: '2rem',
+        minHeight: '100vh',
+      }}
+    >
       {/* 竖排容器 */}
-      <div style={{
-        writingMode: 'vertical-rl',
-        ...jp,
-        height: '85vh',
-        overflow: 'hidden',
-      }}>
+      <div
+        className="nui-jp-vertical-flow"
+        style={{
+          writingMode: 'vertical-rl',
+          ...jp,
+          height: '85vh',
+          overflow: 'hidden',
+        }}
+      >
         {/* 報頭（竖排中在最右侧） */}
         <div style={{
           borderLeft: '3px solid var(--nui-text-primary)',

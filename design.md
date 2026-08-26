@@ -180,7 +180,7 @@ Dark（暖深棕黑，非冷黑）：
 - 技术栈：Next.js + Tailwind + MDX
 - 页面：所有 demo 用真实组件渲染，非 mockup
 - 路由结构：
-  1. `/` 首页 = 极简产品入口（一句话价值主张 + 安装指令 + 7 份完整报纸的循环 3D Demo 画廊）；Swiper `EffectCoverflow` 统一负责连续透视、鼠标/触控 snap、trackpad、键盘与相邻卡片点击，三组静态同内容 deck 在边界零时长归一化，避免 Swiper loop 搬移 DOM；slide 与报纸同宽，使用 Coverflow `stretch` 控制重叠，保持中心最高且层级向两侧单调递减
+  1. `/` 首页 = 极简产品入口（一句话价值主张 + 安装指令 + 7 份完整报纸的响应式 Demo 展示区）；桌面端锁定为扣除 Header 的 `100vh` 布局且外层不滚动，使用无圆角、无阴影、轻边框的聚焦轮播，直接渲染可独立滚动的真实页面组件，4.5 秒循环淡入并带轻微缩放，hover 暂停，支持首尾循环的左右箭头与直接跳转圆点；移动端关闭轮播与自动播放，7 个真实页面在 document flow 中完整展开，不设置局部滚动区，统一由 `html/body` 滚动；`prefers-reduced-motion` 下停用自动播放并简化过渡
   2. `/examples/nyt-frontpage` NYT 派完整报纸头版（Masthead + Briefs + Lead Story 含 hero image + 3 栏 BodyText + drop cap + PullQuote + Secondary + Third Story 4 栏）
   3. `/docs/grid-system` 栅格系统与 Layout/Section/Article/Layer 说明
   4. `/docs/components/masthead` Masthead 三种 variant 对照
@@ -203,7 +203,7 @@ Dark（暖深棕黑，非冷黑）：
 3. 实现 utils（`validateSpan` / `clampSpan` / `cx`）
 4. 实现 components 三层（layout / text / media）；统一 grid-column span 跨栏机制；BodyText 接入 CSS multi-column
 5. 测试生产级头版：跨栏、多栏文字流、首字下沉、栏间 hairline、真小帽、Pull Quote 跨栏、breakable、响应式
-6. 构建文档网站，首页以 Swiper Coverflow 驱动的循环 3D 画廊展示完整多语言报纸，`/examples/nyt-frontpage` 作为 NYT 派生产级标杆，章节页用真实组件 demo
+6. 构建文档网站，首页桌面端在固定视口内展示聚焦轮播，移动端在 document flow 中纵向完整展开多语言报纸组件并由页面统一滚动，`/examples/nyt-frontpage` 作为 NYT 派生产级标杆，章节页用真实组件 demo
 7. 验收：视觉与传统报纸排版（NYT / The Times / FAZ）一致；自动化构建/测试通过；Design Agent 复评 ≥ 9/10
 
 ---

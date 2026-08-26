@@ -54,13 +54,12 @@ export const messages = {
     home: {
       title: '为 React 打造的编辑排版组件。',
       galleryLabel: 'NewspaperUI 完整报纸 Demo 图库',
-      slideDescription: '幻灯片',
-      currentDemo: '当前 Demo',
-      openDemo: (title: string) => `打开 ${title} Demo`,
-      previewAlt: (title: string) => `${title} 完整报纸页面预览`,
-      slideLabel: (index: number, total: number, title: string, current: boolean) =>
-        `${index} / ${total}：${title}${current ? '，当前 Demo' : ''}`,
-      editionLabel: (index: number, total: number) => `第 ${index} 版，共 ${total} 版`,
+      previewLabel: (title: string) => `${title} 完整报纸页面`,
+      previousPreview: '上一张预览',
+      nextPreview: '下一张预览',
+      choosePreview: '选择报纸预览',
+      showPreview: (index: number, total: number, title: string) =>
+        `显示第 ${index} 张预览，共 ${total} 张：${title}`,
     },
     install: {
       copy: '复制',
@@ -161,13 +160,12 @@ export const messages = {
     home: {
       title: 'Editorial components for React.',
       galleryLabel: 'NewspaperUI full newspaper demo gallery',
-      slideDescription: 'slide',
-      currentDemo: 'current demo',
-      openDemo: (title: string) => `Open ${title} demo`,
-      previewAlt: (title: string) => `${title} complete newspaper page preview`,
-      slideLabel: (index: number, total: number, title: string, current: boolean) =>
-        `${index} of ${total}: ${title}${current ? ', current demo' : ''}`,
-      editionLabel: (index: number, total: number) => `Edition ${index} of ${total}`,
+      previewLabel: (title: string) => `${title} complete newspaper page`,
+      previousPreview: 'Previous preview',
+      nextPreview: 'Next preview',
+      choosePreview: 'Choose newspaper preview',
+      showPreview: (index: number, total: number, title: string) =>
+        `Show preview ${index} of ${total}: ${title}`,
     },
     install: {
       copy: 'Copy',

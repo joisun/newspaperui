@@ -15,7 +15,7 @@
 
 <p align="center">
   <a href="https://joisun.github.io/newspaperui/">
-    <img src=".github/assets/newspaperui-homepage.png" width="1200" alt="NewspaperUI homepage with an interactive 3D gallery of complete newspaper editions">
+    <img src=".github/assets/newspaperui-homepage.png" width="1200" alt="NewspaperUI responsive showcase with a desktop carousel and document-flow mobile list of live newspaper components">
   </a>
 </p>
 
