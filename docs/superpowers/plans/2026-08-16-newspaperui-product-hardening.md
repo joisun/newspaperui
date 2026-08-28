@@ -26,7 +26,7 @@
 1. Replace the broken root glob lint with recursive package linting.
 2. Replace deprecated docs `next lint` with TypeScript validation.
 3. Gate Pages build on lint, unit tests, forced build, and package smoke.
-4. Add an explicit release workflow that requires an npm environment secret and never runs on an ordinary push.
+4. Add a release workflow that uses the protected npm environment with OIDC trusted publishing and only publishes versioned release commits.
 5. Verify workflow YAML and local command parity.
 
 ## Task 3: Rebuild the landing experience

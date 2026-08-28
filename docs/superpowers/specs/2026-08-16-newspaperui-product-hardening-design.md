@@ -64,7 +64,7 @@ Every visible field label is associated through `htmlFor` and a stable `id`. Col
 
 ## Release and documentation
 
-README, package manifests, contributor guidance, and release instructions use the single-package contract and the verified component count. Changesets remains the versioning mechanism. A release workflow may publish on an explicit release trigger using `NPM_TOKEN`; normal pushes never publish.
+README, package manifests, contributor guidance, and release instructions use the single-package contract and the verified component count. Changesets remains the versioning mechanism. The release workflow uses the protected npm environment and OIDC trusted publishing; ordinary feature pushes only create or update the Changesets release PR.
 
 GitHub Pages deployment depends on quality checks and continues to build with `NEXT_PUBLIC_BASE_PATH=/newspaperui`. Metadata supplies a useful product title, description, canonical path, and social preview configuration that works under the Pages base path.
 

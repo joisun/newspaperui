@@ -5,8 +5,8 @@ NewspaperUI publishes one public npm package: `newspaperui`. The theme and utili
 ## Prerequisites
 
 - The npm account or organization must own the `newspaperui` package name.
-- The GitHub `npm` environment must contain an `NPM_TOKEN` secret with publish permission.
-- npm trusted publishing or token policy must allow provenance from this repository.
+- npm must trust the GitHub Actions publisher for `joisun/newspaperui`, workflow `release.yml`, environment `npm`, with `npm publish` allowed.
+- The release workflow uses Node.js 24 and npm OIDC trusted publishing; it does not require a long-lived `NPM_TOKEN`.
 - The `main` branch and release environment should require the desired reviews.
 
 ## Local dry run
