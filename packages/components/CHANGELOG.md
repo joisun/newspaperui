@@ -1,5 +1,11 @@
 # newspaperui
 
+## 0.2.1
+
+### Patch Changes
+
+- 3f4551a: Allow projects using React 18 or later to install NewspaperUI without peer dependency warnings, and include the package README in npm releases.
+
 ## 0.2.0
 
 ### Minor Changes
