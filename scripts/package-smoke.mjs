@@ -19,9 +19,7 @@ try {
   const tarball = join(scratch, tarballs[0]);
   assert(existsSync(tarball), 'pnpm pack must create the newspaperui tarball');
 
-  const entries = execFileSync('tar', ['-tf', tarball], { encoding: 'utf8' })
-    .trim()
-    .split('\n');
+  const entries = execFileSync('tar', ['-tf', tarball], { encoding: 'utf8' }).trim().split('\n');
   for (const required of [
     'package/dist/index.js',
     'package/dist/index.cjs',
@@ -41,39 +39,48 @@ try {
   assert.equal(packedManifest.dependencies?.['newspaperui-theme'], undefined);
   assert.equal(packedManifest.dependencies?.['newspaperui-utils'], undefined);
 
-  const consumer = join(scratch, 'consumer');
-  execFileSync('mkdir', ['-p', consumer]);
-  writeFileSync(
-    join(consumer, 'package.json'),
-    JSON.stringify({
-      private: true,
-      type: 'module',
-      dependencies: {
-        newspaperui: `file:${tarball}`,
-        react: '18.3.1',
-        'react-dom': '18.3.1',
-      },
-    }),
-  );
-  execFileSync('pnpm', ['install', '--ignore-workspace'], {
-    cwd: consumer,
-    stdio: 'pipe',
-  });
+  for (const reactVersion of ['18.0.0', '19.2.8']) {
+    const consumer = join(scratch, `consumer-react-${reactVersion.split('.')[0]}`);
+    execFileSync('mkdir', ['-p', consumer]);
+    writeFileSync(
+      join(consumer, 'package.json'),
+      JSON.stringify({
+        private: true,
+        type: 'module',
+        dependencies: {
+          newspaperui: `file:${tarball}`,
+          react: reactVersion,
+          'react-dom': reactVersion,
+        },
+      }),
+    );
+    execFileSync('pnpm', ['install', '--ignore-workspace', '--strict-peer-dependencies'], {
+      cwd: consumer,
+      stdio: 'pipe',
+    });
 
-  const esm = execFileSync(
-    'node',
-    ['--input-type=module', '-e', "import { Layout } from 'newspaperui'; if (!Layout) process.exit(1)"],
-    { cwd: consumer, encoding: 'utf8' },
-  );
-  assert.equal(esm, '');
-  execFileSync(
-    'node',
-    ['-e', "const { Layout } = require('newspaperui'); if (!Layout) process.exit(1)"],
-    { cwd: consumer, stdio: 'pipe' },
-  );
+    const esm = execFileSync(
+      'node',
+      [
+        '--input-type=module',
+        '-e',
+        "import { createElement } from 'react'; import { renderToStaticMarkup } from 'react-dom/server'; import { Layout } from 'newspaperui'; const html = renderToStaticMarkup(createElement(Layout, null, 'ok')); if (!html.includes('ok')) process.exit(1)",
+      ],
+      { cwd: consumer, encoding: 'utf8' },
+    );
+    assert.equal(esm, '');
+    execFileSync(
+      'node',
+      [
+        '-e',
+        "const { createElement } = require('react'); const { renderToStaticMarkup } = require('react-dom/server'); const { Layout } = require('newspaperui'); const html = renderToStaticMarkup(createElement(Layout, null, 'ok')); if (!html.includes('ok')) process.exit(1)",
+      ],
+      { cwd: consumer, stdio: 'pipe' },
+    );
 
-  const installedCss = join(consumer, 'node_modules/newspaperui/dist/style.css');
-  assert(readFileSync(installedCss, 'utf8').includes('--nui-bg-page'));
+    const installedCss = join(consumer, 'node_modules/newspaperui/dist/style.css');
+    assert(readFileSync(installedCss, 'utf8').includes('--nui-bg-page'));
+  }
   process.stdout.write(`Package smoke passed: ${basename(tarball)}\n`);
 } finally {
   rmSync(scratch, { recursive: true, force: true });
