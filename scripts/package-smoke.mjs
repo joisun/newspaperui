@@ -25,6 +25,7 @@ try {
     'package/dist/index.cjs',
     'package/dist/index.d.ts',
     'package/dist/style.css',
+    'package/README.md',
   ]) {
     assert(entries.includes(required), `tarball is missing ${required}`);
   }
@@ -36,6 +37,10 @@ try {
   const packedManifest = JSON.parse(
     execFileSync('tar', ['-xOf', tarball, 'package/package.json'], { encoding: 'utf8' }),
   );
+  const packedReadme = execFileSync('tar', ['-xOf', tarball, 'package/README.md'], {
+    encoding: 'utf8',
+  });
+  assert(packedReadme.includes('pnpm add newspaperui'));
   assert.equal(packedManifest.dependencies?.['newspaperui-theme'], undefined);
   assert.equal(packedManifest.dependencies?.['newspaperui-utils'], undefined);
 
