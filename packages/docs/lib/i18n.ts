@@ -37,6 +37,7 @@ export function localizeHref(href: string, locale: Locale): string {
 export const messages = {
   zh: {
     localeName: '中文',
+    localeShort: 'EN',
     switchLocale: '切换到 English',
     nav: {
       docs: '文档',
@@ -154,6 +155,7 @@ export const messages = {
   },
   en: {
     localeName: 'English',
+    localeShort: 'ZH',
     switchLocale: 'Switch to 中文',
     nav: {
       docs: 'Docs',

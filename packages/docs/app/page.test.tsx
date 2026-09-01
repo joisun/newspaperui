@@ -8,13 +8,10 @@ describe('LandingPage', () => {
     vi.restoreAllMocks();
   });
 
-  test('exposes one primary landmark with one page title', () => {
+  test('exposes one primary landmark', () => {
     const { container } = render(<LandingPage />);
 
     expect(container.querySelectorAll('main')).toHaveLength(1);
-    expect(container.querySelector('h1#home-title')).toHaveTextContent(
-      'Editorial components for React.',
-    );
   });
 
   test('makes the public installation command visible', () => {
@@ -26,7 +23,6 @@ describe('LandingPage', () => {
   test('renders the seven previews as scrollable live components', () => {
     const { container } = render(<LandingPage />);
 
-    expect(screen.getByRole('heading', { name: 'Editorial components for React.' })).toBeVisible();
     expect(
       screen.getByRole('region', { name: 'NewspaperUI full newspaper demo gallery' }),
     ).toBeVisible();

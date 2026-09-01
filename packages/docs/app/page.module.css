@@ -1,92 +1,25 @@
 .page {
   display: grid;
-  min-height: calc(100vh - 69px);
-  min-height: calc(100dvh - 69px);
-  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  height: calc(100vh - 69px);
+  height: calc(100dvh - 69px);
+  grid-template-rows: auto minmax(0, 1fr);
   color: var(--nui-text-primary);
   background: var(--nui-bg-page);
 }
 
-/* —— 报头区 —— */
-.masthead {
-  border-top: 3px solid var(--nui-text-primary);
-  border-bottom: 1px solid var(--nui-rule-hairline);
-  padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1.25rem, 5vw, 4rem) clamp(0.75rem, 1.5vw, 1.25rem);
-}
-
-.mastheadInner {
-  width: min(100%, 96rem);
-  margin: 0 auto;
-  text-align: center;
-}
-
-.mastheadKicker {
-  font-family: var(--font-family-meta);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--nui-text-muted);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.mastheadTitle {
-  font-family: var(--font-family-display);
-  font-size: clamp(2.75rem, 6vw, 5rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  color: var(--nui-text-primary);
-  margin: 0 0 0.75rem;
-  text-wrap: balance;
-}
-
-.mastheadMeta {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  font-family: var(--font-family-meta);
-  font-size: 11px;
-  color: var(--nui-text-muted);
-  letter-spacing: 0.08em;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--nui-rule-hairline);
-}
-
-/* —— 导语区 —— */
-.intro {
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 5vw, 4rem);
-  border-bottom: 1px solid var(--nui-rule-hairline);
-}
-
-.introContent {
-  width: min(100%, 96rem);
-  margin: 0 auto;
+/* —— 安装命令区 —— */
+.install {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
-  gap: clamp(2rem, 6vw, 6rem);
-  align-items: end;
+  place-items: center;
+  padding: 2rem clamp(1rem, 5vw, 4rem) 1.5rem;
 }
 
-.introLede {
-  font-family: var(--font-family-body);
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
-  font-weight: 400;
-  line-height: 1.7;
-  color: var(--nui-text-body);
-  margin: 0;
-  max-width: 52ch;
-}
-
-.introInstall {
-  justify-self: end;
-}
-
-/* —— 分隔线 —— */
-.rule {
-  height: 1px;
-  background: var(--nui-rule-hairline);
-  margin: 0 clamp(1.25rem, 5vw, 4rem);
+.install :global(code) {
+  font-family: var(--font-family-meta);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 80px;
+  color: var(--nui-text-primary);
 }
 
 /* —— 版面预览区 —— */
@@ -95,21 +28,19 @@
   display: grid;
   width: 100%;
   min-height: 0;
-  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2rem);
+  padding: 0 clamp(1rem, 3vw, 3rem) 1.5rem;
   place-items: center;
+  overflow: hidden;
 }
 
 .gallery {
   position: relative;
-  width: min(85vw, 100%);
+  width: min(90vw, 100%);
   height: 100%;
   max-height: 100%;
   overflow: hidden;
-  aspect-ratio: auto;
   border: 1px solid var(--nui-rule-hairline);
-  border-radius: 0;
   background: var(--nui-bg-surface);
-  box-shadow: none;
 }
 
 .galleryTrack {
@@ -270,28 +201,6 @@
   outline-offset: 2px;
 }
 
-/* —— 页脚 —— */
-.footer {
-  border-top: 1px solid var(--nui-rule-hairline);
-  padding: 0.75rem clamp(1.25rem, 5vw, 4rem);
-}
-
-.footerInner {
-  width: min(100%, 96rem);
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-family-meta);
-  font-size: 11px;
-  color: var(--nui-text-muted);
-  letter-spacing: 0.05em;
-}
-
-.footerPage {
-  font-variant-numeric: tabular-nums;
-}
-
 /* —— 深色模式 —— */
 :global([data-theme='dark']) .gallery {
   background: var(--nui-bg-surface);
@@ -300,49 +209,26 @@
 /* —— 移动端 —— */
 @media (max-width: 767px) {
   .page {
-    grid-template-rows: auto auto auto auto auto;
+    height: auto;
+    min-height: calc(100vh - 65px);
+    min-height: calc(100dvh - 65px);
+    grid-template-rows: auto auto;
   }
 
-  .masthead {
-    padding: 1rem 1rem 0.75rem;
+  .install {
+    padding: 1.5rem 1rem 1rem;
   }
 
-  .mastheadTitle {
-    font-size: clamp(2rem, 9vw, 2.75rem);
-  }
-
-  .mastheadMeta {
-    flex-direction: column;
-    gap: 0.25rem;
-    text-align: center;
-  }
-
-  .intro {
-    padding: 1.25rem 1rem;
-  }
-
-  .introContent {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .introLede {
-    font-size: 0.9375rem;
-  }
-
-  .introInstall {
-    justify-self: start;
-    width: 100%;
-  }
-
-  .rule {
-    margin: 0 1rem;
+  .install :global(code) {
+    font-size: 1rem;
+    line-height: 60px;
   }
 
   .galleryWrap {
     container-type: normal;
     display: block;
-    padding: 1rem;
+    padding: 0 1rem 1.25rem;
+    overflow: visible;
   }
 
   .gallery {
@@ -404,16 +290,6 @@
   .galleryNav,
   .galleryDots {
     display: none;
-  }
-
-  .footer {
-    padding: 0.75rem 1rem;
-  }
-
-  .footerInner {
-    flex-direction: column;
-    gap: 0.25rem;
-    text-align: center;
   }
 }
 

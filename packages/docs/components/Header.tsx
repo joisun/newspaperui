@@ -1,6 +1,6 @@
 'use client';
 
-import { List, Moon, Sun, X } from '@phosphor-icons/react';
+import { List, X } from '@phosphor-icons/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -8,7 +8,6 @@ import { useLocale } from './LocaleContext';
 import styles from './Header.module.css';
 
 const navItems = [
-  { label: 'docs', href: '/docs/grid-system' },
   { label: 'components', href: '/docs/components/article' },
   { label: 'blocks', href: '/blocks' },
   { label: 'create', href: '/create' },
@@ -66,12 +65,11 @@ export function Header() {
         <nav className={styles.desktopNav} aria-label={messages.nav.primary}>
           {navigationLinks()}
           <a className={styles.navLink} href="https://github.com/joisun/newspaperui" target="_blank" rel="noreferrer">GitHub</a>
-          <button type="button" onClick={toggleTheme} className={styles.themeButton}>
-            {dark ? <Sun size={18} weight="bold" aria-hidden="true" /> : <Moon size={18} weight="bold" aria-hidden="true" />}
-            <span>{dark ? messages.nav.light : messages.nav.dark}</span>
+          <button type="button" onClick={toggleTheme} className={styles.themeButton} aria-label={dark ? messages.nav.light : messages.nav.dark}>
+            <span className={styles.themeDot} data-theme={dark ? 'dark' : 'light'} aria-hidden="true" />
           </button>
           <button type="button" onClick={changeLocale} className={styles.localeButton} aria-label={messages.switchLocale}>
-            {messages.localeName}
+            {messages.localeShort}
           </button>
         </nav>
 
@@ -91,12 +89,11 @@ export function Header() {
         <nav id="mobile-navigation" className={styles.mobileNav} aria-label={messages.nav.mobile}>
           {navigationLinks(true)}
           <a className={styles.navLink} href="https://github.com/joisun/newspaperui" target="_blank" rel="noreferrer">GitHub</a>
-          <button type="button" onClick={toggleTheme} className={styles.mobileThemeButton}>
-            {dark ? <Sun size={18} weight="bold" aria-hidden="true" /> : <Moon size={18} weight="bold" aria-hidden="true" />}
-            <span>{dark ? messages.nav.light : messages.nav.dark}</span>
+          <button type="button" onClick={toggleTheme} className={styles.mobileThemeButton} aria-label={dark ? messages.nav.light : messages.nav.dark}>
+            <span className={styles.themeDot} data-theme={dark ? 'dark' : 'light'} aria-hidden="true" />
           </button>
           <button type="button" onClick={changeLocale} className={styles.mobileLocaleButton} aria-label={messages.switchLocale}>
-            {messages.localeName}
+            {messages.localeShort}
           </button>
         </nav>
       )}

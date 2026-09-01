@@ -92,35 +92,10 @@ export default function LandingPage() {
 
   return (
     <main className={styles.page}>
-      {/* 报头区 */}
-      <header className={styles.masthead}>
-        <div className={styles.mastheadInner}>
-          <div className={styles.mastheadKicker}>
-            {messages.home.kicker}
-          </div>
-          <h1 className={styles.mastheadTitle} id="home-title">
-            {messages.home.title}
-          </h1>
-          <div className={styles.mastheadMeta}>
-            <span>{messages.home.date}</span>
-            <span>{messages.home.edition}</span>
-            <span>{messages.home.price}</span>
-          </div>
-        </div>
-      </header>
-
-      {/* 导语 + 安装命令区 */}
-      <section className={styles.intro}>
-        <div className={styles.introContent}>
-          <p className={styles.introLede}>{messages.home.lede}</p>
-          <div className={styles.introInstall}>
-            <InstallCommand />
-          </div>
-        </div>
+      {/* 安装命令区 */}
+      <section className={styles.install}>
+        <InstallCommand />
       </section>
-
-      {/* 分隔线 */}
-      <div className={styles.rule} aria-hidden="true" />
 
       {/* 版面预览区 */}
       <section className={styles.galleryWrap}>
@@ -227,13 +202,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 页脚 */}
-      <footer className={styles.footer}>
-        <div className={styles.footerInner}>
-          <span>{messages.home.footerText}</span>
-          <span className={styles.footerPage}>{messages.home.footerPage}</span>
-        </div>
-      </footer>
     </main>
   );
 }

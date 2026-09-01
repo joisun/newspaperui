@@ -14,7 +14,9 @@
 .activeLink { color: var(--nui-accent-primary); }
 .navLink:hover, .activeLink:hover { color: var(--nui-accent-primary); }
 .themeButton, .mobileThemeButton, .localeButton, .mobileLocaleButton { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: 0.4rem; padding: 0 0.45rem; color: var(--nui-text-secondary); background: transparent; border: 0; border-radius: 0; cursor: pointer; font: 650 0.7rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
-.localeButton, .mobileLocaleButton { border-left: 1px solid var(--nui-rule-hairline); }
+.themeDot { display: inline-block; width: 12px; height: 12px; border-radius: 999px; }
+.themeDot[data-theme='light'] { background: #000; }
+.themeDot[data-theme='dark'] { background: #fff; }
 .themeButton:hover, .mobileThemeButton:hover, .localeButton:hover, .mobileLocaleButton:hover { color: var(--nui-text-primary); }
 .menuButton { display: none; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; padding: 0; color: var(--nui-text-primary); background: transparent; border: 0; cursor: pointer; }
 .mobileNav { display: grid; padding: 0.75rem 1rem 1.25rem; background: var(--nui-bg-page); border-top: 1px solid var(--nui-rule-hairline); }
