@@ -57,21 +57,50 @@ export function Header() {
     switchLocale();
   }
 
+  const themeToggle = (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className={styles.themeToggle}
+      aria-label={dark ? messages.nav.light : messages.nav.dark}
+      aria-pressed={dark}
+    >
+      <span className={styles.themeTrack} aria-hidden="true">
+        <span className={styles.themeThumb} data-theme={dark ? 'dark' : 'light'} />
+      </span>
+    </button>
+  );
+
+  const localeToggle = (
+    <button
+      type="button"
+      onClick={changeLocale}
+      className={styles.localeButton}
+      aria-label={messages.switchLocale}
+    >
+      {messages.localeShort}
+    </button>
+  );
+
   return (
     <header className={styles.header}>
       <div className={styles.bar}>
-        <Link href={localizeHref('/')} prefetch={false} className={styles.brand} aria-label={messages.nav.home}>NewspaperUI</Link>
+        <div className={styles.brandGroup}>
+          <Link href={localizeHref('/')} prefetch={false} className={styles.brand} aria-label={messages.nav.home}>
+            NewspaperUI
+          </Link>
+          <span className={styles.brandDot} aria-hidden="true" />
+          {localeToggle}
+        </div>
 
         <nav className={styles.desktopNav} aria-label={messages.nav.primary}>
           {navigationLinks()}
           <a className={styles.navLink} href="https://github.com/joisun/newspaperui" target="_blank" rel="noreferrer">GitHub</a>
-          <button type="button" onClick={toggleTheme} className={styles.themeButton} aria-label={dark ? messages.nav.light : messages.nav.dark}>
-            <span className={styles.themeDot} data-theme={dark ? 'dark' : 'light'} aria-hidden="true" />
-          </button>
-          <button type="button" onClick={changeLocale} className={styles.localeButton} aria-label={messages.switchLocale}>
-            {messages.localeShort}
-          </button>
         </nav>
+
+        <div className={styles.actions}>
+          {themeToggle}
+        </div>
 
         <button
           type="button"
@@ -89,12 +118,10 @@ export function Header() {
         <nav id="mobile-navigation" className={styles.mobileNav} aria-label={messages.nav.mobile}>
           {navigationLinks(true)}
           <a className={styles.navLink} href="https://github.com/joisun/newspaperui" target="_blank" rel="noreferrer">GitHub</a>
-          <button type="button" onClick={toggleTheme} className={styles.mobileThemeButton} aria-label={dark ? messages.nav.light : messages.nav.dark}>
-            <span className={styles.themeDot} data-theme={dark ? 'dark' : 'light'} aria-hidden="true" />
-          </button>
-          <button type="button" onClick={changeLocale} className={styles.mobileLocaleButton} aria-label={messages.switchLocale}>
-            {messages.localeShort}
-          </button>
+          <div className={styles.mobileActions}>
+            {themeToggle}
+            {localeToggle}
+          </div>
         </nav>
       )}
     </header>

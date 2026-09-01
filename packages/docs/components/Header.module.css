@@ -8,26 +8,48 @@
   backdrop-filter: blur(18px) saturate(135%);
 }
 .bar { display: flex; min-height: 68px; max-width: 1600px; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 4.75rem); }
+
+/* Brand group: NewspaperUI · EN */
+.brandGroup { display: flex; align-items: center; gap: 0.6rem; }
 .brand { display: inline-flex; min-height: 44px; align-items: center; color: var(--nui-text-primary); font: 750 1.05rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; letter-spacing: -0.045em; text-decoration: none; }
+.brandDot { width: 4px; height: 4px; border-radius: 999px; background: var(--nui-text-muted); flex-shrink: 0; }
+
+/* Desktop nav */
 .desktopNav { display: flex; align-items: center; gap: 0.45rem; }
 .navLink, .activeLink { display: inline-flex; min-height: 44px; align-items: center; padding: 0 0.7rem; color: var(--nui-text-secondary); font: 650 0.78rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; text-decoration: none; }
 .activeLink { color: var(--nui-accent-primary); }
 .navLink:hover, .activeLink:hover { color: var(--nui-accent-primary); }
-.themeButton, .mobileThemeButton, .localeButton, .mobileLocaleButton { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: 0.4rem; padding: 0 0.45rem; color: var(--nui-text-secondary); background: transparent; border: 0; border-radius: 0; cursor: pointer; font: 650 0.7rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
-.themeDot { display: inline-block; width: 12px; height: 12px; border-radius: 999px; }
-.themeDot[data-theme='light'] { background: #000; }
-.themeDot[data-theme='dark'] { background: #fff; }
-.themeButton:hover, .mobileThemeButton:hover, .localeButton:hover, .mobileLocaleButton:hover { color: var(--nui-text-primary); }
+
+/* Actions group (right-aligned) */
+.actions { display: flex; align-items: center; gap: 0.45rem; }
+
+/* Theme toggle: sliding dot animation */
+.themeToggle { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; padding: 0; background: transparent; border: 0; cursor: pointer; }
+.themeTrack { position: relative; width: 40px; height: 22px; border-radius: 999px; background: var(--nui-rule-hairline); transition: background 250ms ease; }
+.themeThumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 999px; background: var(--nui-bg-surface); transition: transform 250ms ease, background 250ms ease; }
+.themeThumb[data-theme='dark'] { transform: translateX(18px); background: var(--nui-text-primary); }
+.themeToggle:hover .themeTrack { background: var(--nui-text-muted); }
+.themeToggle:hover .themeThumb[data-theme='dark'] { background: var(--nui-text-primary); }
+.themeToggle:focus-visible { outline: 2px solid var(--nui-text-primary); outline-offset: 2px; }
+
+/* Locale button */
+.localeButton { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; padding: 0 0.45rem; color: var(--nui-text-secondary); background: transparent; border: 0; border-radius: 0; cursor: pointer; font: 650 0.7rem/1 "Helvetica Neue", "Arial Nova", Arial, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
+.localeButton:hover { color: var(--nui-text-primary); }
+
+/* Mobile */
 .menuButton { display: none; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; padding: 0; color: var(--nui-text-primary); background: transparent; border: 0; cursor: pointer; }
 .mobileNav { display: grid; padding: 0.75rem 1rem 1.25rem; background: var(--nui-bg-page); border-top: 1px solid var(--nui-rule-hairline); }
 .mobileNav .navLink, .mobileNav .activeLink { min-height: 48px; padding: 0 0.25rem; border-bottom: 1px solid var(--nui-rule-hairline); font-size: 0.95rem; }
-.mobileThemeButton, .mobileLocaleButton { justify-content: flex-start; width: max-content; margin-top: 0.5rem; padding: 0 0.25rem; }
-.mobileLocaleButton { border-left: 0; }
+.mobileActions { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem; }
+.mobileActions .localeButton { justify-content: flex-start; width: max-content; }
+
 @media (max-width: 48rem) {
   .bar { min-height: 64px; padding: 0 1rem; }
   .desktopNav { display: none; }
+  .actions { display: none; }
   .menuButton { display: inline-flex; }
 }
+
 @media (prefers-reduced-motion: no-preference) {
-  .navLink, .activeLink, .themeButton, .mobileThemeButton, .localeButton, .mobileLocaleButton, .menuButton { transition: color 150ms ease; }
+  .navLink, .activeLink, .localeButton, .menuButton { transition: color 150ms ease; }
 }
