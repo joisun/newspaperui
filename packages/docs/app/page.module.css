@@ -1,57 +1,114 @@
 .page {
-  --home-sans: 'Helvetica Neue', 'Arial Nova', Arial, sans-serif;
   display: grid;
-  height: calc(100vh - 69px);
-  height: calc(100dvh - 69px);
-  grid-template-rows: auto minmax(0, 1fr);
-  overflow: hidden;
+  min-height: calc(100vh - 69px);
+  min-height: calc(100dvh - 69px);
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
   color: var(--nui-text-primary);
   background: var(--nui-bg-page);
 }
 
-.intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(20rem, 32rem);
-  gap: clamp(2rem, 8vw, 9rem);
-  align-items: end;
-  width: min(100%, 96rem);
-  margin: 0 auto;
-  padding: clamp(1.25rem, 2.2vw, 2rem) clamp(1.25rem, 5vw, 5rem) 0.75rem;
+/* —— 报头区 —— */
+.masthead {
+  border-top: 3px solid var(--nui-text-primary);
+  border-bottom: 1px solid var(--nui-rule-hairline);
+  padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1.25rem, 5vw, 4rem) clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
-.intro h1 {
-  max-width: 17ch;
-  margin: 0;
-  font: 620 clamp(2.25rem, 3.6vw, 4rem) / 0.96 var(--home-sans);
-  letter-spacing: -0.065em;
+.mastheadInner {
+  width: min(100%, 96rem);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mastheadKicker {
+  font-family: var(--font-family-meta);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--nui-text-muted);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.mastheadTitle {
+  font-family: var(--font-family-display);
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--nui-text-primary);
+  margin: 0 0 0.75rem;
   text-wrap: balance;
 }
 
-.intro > :last-child {
-  justify-self: end;
-  margin: 0 0 0.35rem;
+.mastheadMeta {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-family: var(--font-family-meta);
+  font-size: 11px;
+  color: var(--nui-text-muted);
+  letter-spacing: 0.08em;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--nui-rule-hairline);
 }
 
+/* —— 导语区 —— */
+.intro {
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--nui-rule-hairline);
+}
+
+.introContent {
+  width: min(100%, 96rem);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+}
+
+.introLede {
+  font-family: var(--font-family-body);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--nui-text-body);
+  margin: 0;
+  max-width: 52ch;
+}
+
+.introInstall {
+  justify-self: end;
+}
+
+/* —— 分隔线 —— */
+.rule {
+  height: 1px;
+  background: var(--nui-rule-hairline);
+  margin: 0 clamp(1.25rem, 5vw, 4rem);
+}
+
+/* —— 版面预览区 —— */
 .galleryWrap {
   container-type: size;
   display: grid;
   width: 100%;
   min-height: 0;
-  padding: 0.75rem clamp(1.5rem, 3vw, 3rem) 1.5rem;
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2rem);
   place-items: center;
-  overflow: hidden;
 }
 
 .gallery {
   position: relative;
-  width: min(80vw, 100%);
+  width: min(85vw, 100%);
   height: 100%;
   max-height: 100%;
   overflow: hidden;
   aspect-ratio: auto;
   border: 1px solid var(--nui-rule-hairline);
   border-radius: 0;
-  background: #eef0f1;
+  background: var(--nui-bg-surface);
   box-shadow: none;
 }
 
@@ -69,10 +126,10 @@
   margin: 0;
   overflow: hidden;
   opacity: 0;
-  transform: scale(1.012);
+  transform: translateY(8px);
   transition:
-    opacity 700ms ease,
-    transform 700ms ease;
+    opacity 600ms ease,
+    transform 600ms ease;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
@@ -80,7 +137,7 @@
 
 .gallerySlide[data-active='true'] {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -131,19 +188,14 @@
   margin-top: -1.125rem;
   padding: 0;
   place-items: center;
-  color: #0a0a0a;
-  border: 0;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 90%);
+  color: var(--nui-text-primary);
+  border: 1px solid var(--nui-rule-hairline);
+  border-radius: 0;
+  background: var(--nui-bg-surface);
   opacity: 0;
   cursor: pointer;
-  box-shadow:
-    0 1px rgb(10 10 10 / 6%),
-    0 6px 18px -6px rgb(10 10 10 / 22%);
-  backdrop-filter: blur(8px);
   transition:
     opacity 200ms ease,
-    transform 150ms ease,
     background-color 150ms ease;
 }
 
@@ -153,16 +205,12 @@
 }
 
 .galleryNav:hover {
-  background: #fff;
-}
-
-.galleryNav:active {
-  transform: scale(0.94);
+  background: var(--nui-bg-page);
 }
 
 .galleryNav:focus-visible {
   opacity: 1;
-  outline: 2px solid #0a0a0a;
+  outline: 2px solid var(--nui-text-primary);
   outline-offset: 2px;
 }
 
@@ -188,10 +236,9 @@
   align-items: center;
   gap: 0.375rem;
   padding: 0.375rem 0.5rem;
-  border-radius: 999px;
-  background: rgb(10 10 10 / 42%);
+  background: var(--nui-bg-surface);
+  border: 1px solid var(--nui-rule-hairline);
   transform: translateX(-50%);
-  backdrop-filter: blur(8px);
 }
 
 .galleryDot {
@@ -202,7 +249,7 @@
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: rgb(255 255 255 / 50%);
+  background: var(--nui-rule-hairline);
   cursor: pointer;
   transition:
     width 200ms ease,
@@ -210,56 +257,92 @@
 }
 
 .galleryDot:hover {
-  background: rgb(255 255 255 / 80%);
+  background: var(--nui-text-muted);
 }
 
 .galleryDot[data-active='true'] {
   width: 1rem;
-  background: #fff;
+  background: var(--nui-text-primary);
 }
 
 .galleryDot:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--nui-text-primary);
   outline-offset: 2px;
 }
 
-:global([data-theme='dark']) .gallery {
-  background: #161619;
+/* —— 页脚 —— */
+.footer {
+  border-top: 1px solid var(--nui-rule-hairline);
+  padding: 0.75rem clamp(1.25rem, 5vw, 4rem);
 }
 
+.footerInner {
+  width: min(100%, 96rem);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family-meta);
+  font-size: 11px;
+  color: var(--nui-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.footerPage {
+  font-variant-numeric: tabular-nums;
+}
+
+/* —— 深色模式 —— */
+:global([data-theme='dark']) .gallery {
+  background: var(--nui-bg-surface);
+}
+
+/* —— 移动端 —— */
 @media (max-width: 767px) {
   .page {
-    height: auto;
-    min-height: calc(100vh - 65px);
-    min-height: calc(100dvh - 65px);
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    overflow: visible;
+    grid-template-rows: auto auto auto auto auto;
+  }
+
+  .masthead {
+    padding: 1rem 1rem 0.75rem;
+  }
+
+  .mastheadTitle {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+  }
+
+  .mastheadMeta {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
   }
 
   .intro {
+    padding: 1.25rem 1rem;
+  }
+
+  .introContent {
     grid-template-columns: 1fr;
-    gap: 1.35rem;
-    padding: 2rem 1rem 0.75rem;
+    gap: 1.25rem;
   }
 
-  .intro h1 {
-    max-width: 13ch;
-    font-size: clamp(2rem, 9vw, 2.8rem);
-    line-height: 0.96;
+  .introLede {
+    font-size: 0.9375rem;
   }
 
-  .intro > :last-child {
-    width: min(100%, 20rem);
+  .introInstall {
     justify-self: start;
-    margin: 0;
+    width: 100%;
+  }
+
+  .rule {
+    margin: 0 1rem;
   }
 
   .galleryWrap {
     container-type: normal;
     display: block;
-    padding: 0.75rem 1.5rem 1.25rem;
-    overflow: visible;
+    padding: 1rem;
   }
 
   .gallery {
@@ -304,7 +387,9 @@
     padding: 0.6rem 0.75rem;
     border-bottom: 1px solid var(--nui-rule-hairline);
     color: var(--nui-text-primary);
-    font: 650 0.75rem/1 var(--home-sans);
+    font-family: var(--font-family-meta);
+    font-size: 0.75rem;
+    font-weight: 650;
     letter-spacing: -0.01em;
   }
 
@@ -320,8 +405,19 @@
   .galleryDots {
     display: none;
   }
+
+  .footer {
+    padding: 0.75rem 1rem;
+  }
+
+  .footerInner {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+  }
 }
 
+/* —— 减少动画偏好 —— */
 @media (prefers-reduced-motion: reduce) {
   .gallerySlide {
     transform: none;

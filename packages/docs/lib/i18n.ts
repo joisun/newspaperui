@@ -52,7 +52,12 @@ export const messages = {
       dark: '深色',
     },
     home: {
+      kicker: 'NEWSPAPERUI · REACT 组件库',
       title: '为 React 打造的编辑排版组件。',
+      date: '2026 年 9 月 1 日',
+      edition: '第 1 期 · 正式版',
+      price: '开源 · MIT 协议',
+      lede: '一套静态的、面向排版的 React 组件库：24 栏网格系统、五级字号体系、三种线型语言，以及克制到近乎固执的色彩纪律。它不做交互，不做数据，只做一件事——让内容看起来像真正的报纸。',
       galleryLabel: 'NewspaperUI 完整报纸 Demo 图库',
       previewLabel: (title: string) => `${title} 完整报纸页面`,
       previousPreview: '上一张预览',
@@ -60,6 +65,8 @@ export const messages = {
       choosePreview: '选择报纸预览',
       showPreview: (index: number, total: number, title: string) =>
         `显示第 ${index} 张预览，共 ${total} 张：${title}`,
+      footerText: '用代码排版，以印刷为准。',
+      footerPage: 'A1',
     },
     install: {
       copy: '复制',
@@ -162,7 +169,12 @@ export const messages = {
       dark: 'Dark',
     },
     home: {
+      kicker: 'NEWSPAPERUI · REACT COMPONENTS',
       title: 'Editorial components for React.',
+      date: 'September 1, 2026',
+      edition: 'Vol. 1 · First Edition',
+      price: 'Open Source · MIT License',
+      lede: 'A static, typography-first React component library: a 24-column grid system, a five-tier type scale, three rule weights, and a color discipline that borders on stubborn. No interactivity, no data fetching — just content that reads like a real newspaper.',
       galleryLabel: 'NewspaperUI full newspaper demo gallery',
       previewLabel: (title: string) => `${title} complete newspaper page`,
       previousPreview: 'Previous preview',
@@ -170,6 +182,8 @@ export const messages = {
       choosePreview: 'Choose newspaper preview',
       showPreview: (index: number, total: number, title: string) =>
         `Show preview ${index} of ${total}: ${title}`,
+      footerText: 'Set in code, printed with restraint.',
+      footerPage: 'A1',
     },
     install: {
       copy: 'Copy',

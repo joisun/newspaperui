@@ -12,7 +12,7 @@ describe('LandingPage', () => {
     const { container } = render(<LandingPage />);
 
     expect(container.querySelectorAll('main')).toHaveLength(1);
-    expect(container.querySelector('[aria-labelledby="home-title"] h1')).toHaveTextContent(
+    expect(container.querySelector('h1#home-title')).toHaveTextContent(
       'Editorial components for React.',
     );
   });
