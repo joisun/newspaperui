@@ -12,6 +12,10 @@ const blocks = [
   { href: '/blocks/jp-horizontal', lang: 'JAPANESE · 日本語', title: '朝日新聞 · 横組み', description: '24-column horizontal Japanese editorial layout.', color: '#1B2A4A' },
   { href: '/blocks/jp-vertical', lang: 'JAPANESE · 日本語', title: '朝日新聞 · 縦組み', description: 'Traditional vertical-rl composition with responsive framing.', color: '#1B2A4A' },
   { href: '/blocks/zh-editorial', lang: 'CHINESE · 中文', title: '社论 · 时事评论', description: '双栏评论、专家观点与读者来信的完整结构。', color: '#CC2929' },
+  { href: '/blocks/en-frontpage', lang: 'ENGLISH', title: 'The Meridian Times · Front Page', description: 'Serious broadsheet front page with briefs column, banner story and market sidebar.', color: '#7A1F1F' },
+  { href: '/blocks/en-obituary', lang: 'ENGLISH', title: 'Obituaries · Dame Vera Ellison', description: 'Restrained single-column memorial page with dates, portrait and quiet rhythm.', color: '#7A1F1F' },
+  { href: '/blocks/zh-review', lang: 'CHINESE · 中文', title: '书评周刊 · 文化副刊', description: '通栏主推书评、三篇短评均布与新书速递的周刊版式。', color: '#CC2929' },
+  { href: '/blocks/zh-daily-brief', lang: 'CHINESE · 中文', title: '开发者情报 · 每日简报', description: '模型与 Agent 情报日报：核证边界、今日新增与模型留存分区。', color: '#CC2929' },
 ];
 
 export default function BlocksIndex() {

@@ -7,6 +7,6 @@ describe('BlocksIndex', () => {
 
     expect(container.querySelectorAll('main')).toHaveLength(1);
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(6);
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(10);
   });
 });

@@ -70,7 +70,7 @@ export const messages = {
     blocks: {
       kicker: '生产级版式 · 复制、调整、发布',
       title: '报纸版式',
-      subtitle: '六套完整编辑布局，覆盖中文、英文与日文排版。',
+      subtitle: '九套完整编辑布局，覆盖中文、英文与日文排版。',
       block: '版式',
       view: '查看版式',
       descriptions: [
@@ -80,6 +80,10 @@ export const messages = {
         '24 列横排日文编辑布局。',
         '传统 vertical-rl 排版与响应式框架。',
         '双栏评论、专家观点与读者来信的完整结构。',
+        '英式大报严肃头版：要闻立柱、通栏头条与市场行情栏。',
+        '讣告版：克制的单栏纪念页，生卒年、肖像与静默的阅读节奏。',
+        '通栏主推书评、三篇短评均布与新书速递的周刊版式。',
+        '模型与 Agent 情报日报：核证边界、今日新增与模型留存分区。',
       ],
     },
     create: {
@@ -176,7 +180,7 @@ export const messages = {
     blocks: {
       kicker: 'Production blocks · Copy, adapt, publish',
       title: 'Newspaper Blocks',
-      subtitle: 'Six complete editorial layouts across Chinese, English, and Japanese typography.',
+      subtitle: 'Ten complete editorial layouts across Chinese, English, and Japanese typography.',
       block: 'Block',
       view: 'View block',
       descriptions: [
@@ -186,6 +190,10 @@ export const messages = {
         'A 24-column horizontal Japanese editorial layout.',
         'Traditional vertical-rl composition with responsive framing.',
         'A complete two-column opinion layout with expert views and reader letters.',
+        'A serious broadsheet front page with a briefs column, banner story and market sidebar.',
+        'A restrained single-column memorial page with dates, portrait and a quiet reading rhythm.',
+        'A weekly review layout with a featured banner review, three even columns and new arrivals.',
+        'A daily intelligence brief for models and agents: evidence boundary, new arrivals and model retention sections.',
       ],
     },
     create: {
