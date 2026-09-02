@@ -65,8 +65,9 @@ export function Header() {
       aria-label={dark ? messages.nav.light : messages.nav.dark}
       aria-pressed={dark}
     >
-      <span className={styles.themeTrack} aria-hidden="true">
-        <span className={styles.themeThumb} data-theme={dark ? 'dark' : 'light'} />
+      <span className={styles.themeCircle} data-theme={dark ? 'dark' : 'light'} aria-hidden="true">
+        <span className={styles.circleDark} />
+        <span className={styles.circleLight} />
       </span>
     </button>
   );
@@ -96,11 +97,8 @@ export function Header() {
         <nav className={styles.desktopNav} aria-label={messages.nav.primary}>
           {navigationLinks()}
           <a className={styles.navLink} href="https://github.com/joisun/newspaperui" target="_blank" rel="noreferrer">GitHub</a>
-        </nav>
-
-        <div className={styles.actions}>
           {themeToggle}
-        </div>
+        </nav>
 
         <button
           type="button"
