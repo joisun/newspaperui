@@ -1,0 +1,254 @@
+---
+title: Editorial charts
+description: ChartFrame, BarChart, LineChart and PieChart with annotations, sources and full data tables
+---
+
+Charts inherit NewspaperUI paper, ink and typography tokens for stories, sidebars and data editions. All examples use **fictional data**.
+
+Import `ChartFrame`, `BarChart`, `LineChart` and `PieChart` from `newspaperui`, and import `newspaperui/style.css` at your application entry. No additional chart dependency is required.
+
+Explore the complete [data journalism Block](/en/blocks/data-journalism), or copy a live example below.
+
+## ChartFrame and horizontal bars
+
+`ChartFrame` provides a title, description, attribution and notes. Charts can also stand alone. Each chart requires a descriptive accessible name through `label`.
+
+<ComponentDemo
+  title="Public transport commute share"
+  code={[
+    "<ChartFrame title=\"Public transport commute share\" source=\"Fictional sample data\" sourceLabel=\"Source\" as=\"h3\">",
+    "  <BarChart",
+    "    label=\"Public transport commute share\"",
+    "    locale=\"en\"",
+    "    unit=\"%\"",
+    "    data={[",
+    "      { label: 'Centre', value: 72, highlight: true },",
+    "      { label: 'Riverside', value: 64 },",
+    "      { label: 'University', value: 58 },",
+    "    ]}",
+    "    referenceLine={{ value: 60, label: 'Reference' }}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="Public transport commute share" source="Fictional sample data" sourceLabel="Source" as="h3">
+    <BarChart
+      label="Public transport commute share"
+      locale="en"
+      unit="%"
+      data={[
+        { label: 'Centre', value: 72, highlight: true },
+        { label: 'Riverside', value: 64 },
+        { label: 'University', value: 58 },
+      ]}
+      referenceLine={{ value: 60, label: 'Reference' }}
+    />
+  </ChartFrame>
+</ComponentDemo>
+
+## Columns and negative values
+
+Set `orientation="vertical"`. Positive and negative values extend from zero in opposite directions. Zero values have zero length; input order is preserved.
+
+<ComponentDemo
+  title="Change in travel share"
+  code={[
+    "<ChartFrame title=\"Change in travel share\" source=\"Fictional sample data\" sourceLabel=\"Source\">",
+    "  <BarChart",
+    "    label=\"Change in travel share\" locale=\"en\" orientation=\"vertical\"",
+    "    unit=\"Percentage points\"",
+    "    data={[",
+    "      { label: 'Car', value: -8 },",
+    "      { label: 'Bus', value: -3 },",
+    "      { label: 'Walking', value: 4 },",
+    "      { label: 'Rail', value: 7, highlight: true },",
+    "    ]}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="Change in travel share" source="Fictional sample data" sourceLabel="Source">
+    <BarChart
+      label="Change in travel share" locale="en" orientation="vertical"
+      unit="Percentage points"
+      data={[
+        { label: 'Car', value: -8 },
+        { label: 'Bus', value: -3 },
+        { label: 'Walking', value: 4 },
+        { label: 'Rail', value: 7, highlight: true },
+      ]}
+    />
+  </ChartFrame>
+</ComponentDemo>
+
+## Lines, annotations and missing values
+
+`labels` defines equally spaced categories. Dates are not parsed or positioned by elapsed time. Every `values` array must match `labels` in length. `null` creates a gap; `0` remains a valid value. Annotation `index` is zero-based.
+
+<ComponentDemo
+  title="Annual journeys"
+  code={[
+    "<ChartFrame title=\"Annual journeys\" source=\"Fictional sample data\" sourceLabel=\"Source\"",
+    "  note=\"Car data is missing for 2021, so the line is interrupted.\">",
+    "  <LineChart",
+    "    label=\"Annual journeys\" locale=\"en\" unit=\"Million journeys\"",
+    "    labels={['2019', '2020', '2021', '2022', '2023', '2024']}",
+    "    series={[",
+    "      { label: 'Rail', values: [32, 28, 36, 44, 50, 58], highlight: true },",
+    "      { label: 'Car', values: [52, 55, null, 45, 40, 34] },",
+    "    ]}",
+    "    annotations={[{ index: 3, label: 'New line opens (fictional event)' }]}",
+    "    referenceLine={{ value: 40, label: 'Reference' }}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="Annual journeys" source="Fictional sample data" sourceLabel="Source"
+    note="Car data is missing for 2021, so the line is interrupted.">
+    <LineChart
+      label="Annual journeys" locale="en" unit="Million journeys"
+      labels={['2019', '2020', '2021', '2022', '2023', '2024']}
+      series={[
+        { label: 'Rail', values: [32, 28, 36, 44, 50, 58], highlight: true },
+        { label: 'Car', values: [52, 55, null, 45, 40, 34] },
+      ]}
+      annotations={[{ index: 3, label: 'New line opens (fictional event)' }]}
+      referenceLine={{ value: 40, label: 'Reference' }}
+    />
+  </ChartFrame>
+</ComponentDemo>
+
+## Pie and donut charts
+
+`PieChart` preserves input order and distinguishes categories with patterns and labels. Prefer six or fewer categories; use horizontal bars for longer lists. Set `variant="donut"` for a ring.
+
+<ComponentDemo
+  title="Travel by mode · pie"
+  code={[
+    "<ChartFrame title=\"Travel by mode · pie\" source=\"Fictional sample data\" sourceLabel=\"Source\">",
+    "  <PieChart",
+    "    label=\"Travel by mode · pie\" locale=\"en\" variant=\"pie\"",
+    "    data={[",
+    "      { label: 'Rail', value: 42 },",
+    "      { label: 'Bus', value: 26 },",
+    "      { label: 'Walking and cycling', value: 18 },",
+    "      { label: 'Car', value: 14 },",
+    "    ]}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="Travel by mode · pie" source="Fictional sample data" sourceLabel="Source">
+    <PieChart
+      label="Travel by mode · pie" locale="en" variant="pie"
+      data={[
+        { label: 'Rail', value: 42 },
+        { label: 'Bus', value: 26 },
+        { label: 'Walking and cycling', value: 18 },
+        { label: 'Car', value: 14 },
+      ]}
+    />
+  </ChartFrame>
+</ComponentDemo>
+<ComponentDemo
+  title="Travel by mode · donut"
+  code={[
+    "<ChartFrame title=\"Travel by mode · donut\" source=\"Fictional sample data\" sourceLabel=\"Source\">",
+    "  <PieChart",
+    "    label=\"Travel by mode · donut\" locale=\"en\" variant=\"donut\"",
+    "    data={[",
+    "      { label: 'Rail', value: 42 },",
+    "      { label: 'Bus', value: 26 },",
+    "      { label: 'Walking and cycling', value: 18 },",
+    "      { label: 'Car', value: 14 },",
+    "    ]}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="Travel by mode · donut" source="Fictional sample data" sourceLabel="Source">
+    <PieChart
+      label="Travel by mode · donut" locale="en" variant="donut"
+      data={[
+        { label: 'Rail', value: 42 },
+        { label: 'Bus', value: 26 },
+        { label: 'Walking and cycling', value: 18 },
+        { label: 'Car', value: 14 },
+      ]}
+    />
+  </ChartFrame>
+</ComponentDemo>
+
+## Props
+
+### ChartFrame
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| title | string | Required | Visible heading |
+| children | ReactNode | Required | Chart content |
+| description | string | — | Description below the heading |
+| number | string | — | Figure number, such as FIG. 01 |
+| source | ReactNode | — | Attribution, optionally a link |
+| sourceLabel | string | Source | Attribution prefix |
+| note | ReactNode | — | Methodology, missing values or other notes |
+| as | "h2" / "h3" / "h4" | h3 | Heading level |
+| span | number | — | Column span as a direct Section child, clamped to parent columns |
+| className / style | string / CSSProperties | — | Container overrides |
+
+### Shared chart props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| label | string | Required | SVG accessible name and data-table caption |
+| unit | string | — | Display unit; does not transform input values |
+| locale | string | en | Number format; zh locales use Chinese UI text, others use English |
+| formatValue | (value: number) => string | Intl.NumberFormat | Custom numeric display; does not affect geometry or pie shares |
+| className / style | string / CSSProperties | — | Container overrides |
+
+### BarChart
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| data | ChartDatum[] | Required | `{ label: string, value: number, highlight?: boolean }` |
+| orientation | "horizontal" / "vertical" | horizontal | Bar direction |
+| referenceLine | ChartReferenceLine | — | `{ value: number, label: string }`; included in the domain |
+
+### LineChart
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| labels | string[] | Required | Equally spaced categories |
+| series | LineSeries[] | Required | `{ label: string, values: (number \| null)[], highlight?: boolean }` |
+| annotations | ChartAnnotation[] | [] | `{ index: number, label: string }`; numbered markers and notes |
+| referenceLine | ChartReferenceLine | — | `{ value: number, label: string }`; included in the domain |
+
+### PieChart
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| data | ChartDatum[] | Required | Finite nonnegative values |
+| variant | "pie" / "donut" | pie | Filled pie or ring |
+
+All prop types, plus `ChartDatum`, `ChartReferenceLine`, `LineSeries` and `ChartAnnotation`, are exported from `newspaperui`.
+
+## Data rules and boundaries
+
+- **Zero baseline**: bar and line domains include zero and every value, including a supplied reference line.
+- **Missing values**: only lines accept `null`. `[12, null, 18]` renders two isolated points, without substituting zero or bridging the gap.
+- **Invalid data**: `NaN`, `Infinity`, mismatched line lengths and out-of-range annotation indexes show an error message instead of a misleading plot. Pie charts also reject negative values.
+- **Empty data**: empty arrays or all-null lines show an empty message. All-zero bars and lines still render; all-zero pies explain why shares cannot be calculated.
+- **Share denominator**: the sum of all supplied categories. `[20, 30]` becomes `40% / 60%`, not `20% / 30%`. Disclose subsets in a note. Rounded percentages may not sum to exactly 100%.
+- **Single values and zeros**: one positive value renders a full circle. Zero-valued pie categories remain in the labels and data table without drawing a sector.
+
+## Layout, themes and accessibility
+
+Place charts inside an `Article`, or use `ChartFrame span={12}` as a direct `Section` child. `span` means grid columns, not pixels.
+
+Bars and lines measure their container, reducing ticks in narrow columns. In wide columns, lines with a value for the final category display their name and final value beside the endpoint, without a duplicate legend. Trailing missing values retain the legend to avoid presenting an older observation as the latest value. Pies place the graphic and legend side by side in wide containers and stack them in narrow columns. A minimum container width of 240px is recommended. Long axis labels are abbreviated; full labels and values remain in SVG titles and the expandable data table. Split dense series or long category lists into multiple charts.
+
+The first homepage slide is a compact data edition with three chart types and links to the full Block and this documentation. Desktop autoplay pauses on hover or keyboard focus; mobile previews follow normal document flow.
+
+Charts use existing `--nui-*` color and font variables. For Chinese headings, set `--font-family-headline` and `--font-family-body` to `var(--font-family-cjk-serif)` on a containing element. There is no animation by default, and essential information does not depend on hover. The data table is keyboard-operable. Print styles hide its interactive entry and render charts in black and white. Keep methodology, source and essential notes in `ChartFrame` so they remain visible in print.
+
+This release covers static editorial charts. Stacking, zoom, proportional time axes and image downloads are not included.

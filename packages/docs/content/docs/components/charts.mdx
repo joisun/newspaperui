@@ -1,0 +1,254 @@
+---
+title: 报纸图表
+description: ChartFrame、BarChart、LineChart、PieChart：带标注、来源和完整数据表的新闻配图
+---
+
+图表继承 NewspaperUI 的纸色、墨色与字体，适合嵌入报道、侧栏和数据专版。所有示例均使用**虚构数据**。
+
+从 `newspaperui` 导入 `ChartFrame`、`BarChart`、`LineChart`、`PieChart`，并在应用入口导入 `newspaperui/style.css`。无需额外图表依赖。
+
+查看完整的[数据新闻 Block](/blocks/data-journalism)，或从下面的实时示例复制组件代码。
+
+## ChartFrame 与横向柱状图
+
+`ChartFrame` 提供标题、说明、来源与备注；图表也可独立使用。图表的 `label` 是必填的可访问名称，请描述图表展示的内容。
+
+<ComponentDemo
+  title="公共交通通勤占比"
+  code={[
+    "<ChartFrame title=\"公共交通通勤占比\" source=\"虚构示例数据\" sourceLabel=\"来源\" as=\"h3\">",
+    "  <BarChart",
+    "    label=\"公共交通通勤占比\"",
+    "    locale=\"zh-CN\"",
+    "    unit=\"%\"",
+    "    data={[",
+    "      { label: '中心区', value: 72, highlight: true },",
+    "      { label: '滨江区', value: 64 },",
+    "      { label: '大学城', value: 58 },",
+    "    ]}",
+    "    referenceLine={{ value: 60, label: '参考值' }}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="公共交通通勤占比" source="虚构示例数据" sourceLabel="来源" as="h3">
+    <BarChart
+      label="公共交通通勤占比"
+      locale="zh-CN"
+      unit="%"
+      data={[
+        { label: '中心区', value: 72, highlight: true },
+        { label: '滨江区', value: 64 },
+        { label: '大学城', value: 58 },
+      ]}
+      referenceLine={{ value: 60, label: '参考值' }}
+    />
+  </ChartFrame>
+</ComponentDemo>
+
+## 纵向柱状图与负数
+
+设置 `orientation="vertical"`。正负数向零线两侧展开，零值保持零长度，输入顺序保持不变。
+
+<ComponentDemo
+  title="出行占比变化"
+  code={[
+    "<ChartFrame title=\"出行占比变化\" source=\"虚构示例数据\" sourceLabel=\"来源\">",
+    "  <BarChart",
+    "    label=\"出行占比变化\" locale=\"zh-CN\" orientation=\"vertical\"",
+    "    unit=\"百分点\"",
+    "    data={[",
+    "      { label: '私人汽车', value: -8 },",
+    "      { label: '公交', value: -3 },",
+    "      { label: '步行', value: 4 },",
+    "      { label: '轨道交通', value: 7, highlight: true },",
+    "    ]}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="出行占比变化" source="虚构示例数据" sourceLabel="来源">
+    <BarChart
+      label="出行占比变化" locale="zh-CN" orientation="vertical"
+      unit="百分点"
+      data={[
+        { label: '私人汽车', value: -8 },
+        { label: '公交', value: -3 },
+        { label: '步行', value: 4 },
+        { label: '轨道交通', value: 7, highlight: true },
+      ]}
+    />
+  </ChartFrame>
+</ComponentDemo>
+
+## 折线图、事件标注与缺失值
+
+`labels` 是等距类别轴，不会解析日期或按实际时间间隔定位。每组 `values` 必须与 `labels` 等长。`null` 表示缺失并断开线段；`0` 是有效数值。标注通过从零开始的 `index` 对应类别。
+
+<ComponentDemo
+  title="年度出行量"
+  code={[
+    "<ChartFrame title=\"年度出行量\" source=\"虚构示例数据\" sourceLabel=\"来源\"",
+    "  note=\"2021 年汽车数据缺失，因此保留断点。\">",
+    "  <LineChart",
+    "    label=\"年度出行量\" locale=\"zh-CN\" unit=\"百万人次\"",
+    "    labels={['2019', '2020', '2021', '2022', '2023', '2024']}",
+    "    series={[",
+    "      { label: '轨道交通', values: [32, 28, 36, 44, 50, 58], highlight: true },",
+    "      { label: '私人汽车', values: [52, 55, null, 45, 40, 34] },",
+    "    ]}",
+    "    annotations={[{ index: 3, label: '新线路开通（虚构事件）' }]}",
+    "    referenceLine={{ value: 40, label: '参考值' }}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="年度出行量" source="虚构示例数据" sourceLabel="来源"
+    note="2021 年汽车数据缺失，因此保留断点。">
+    <LineChart
+      label="年度出行量" locale="zh-CN" unit="百万人次"
+      labels={['2019', '2020', '2021', '2022', '2023', '2024']}
+      series={[
+        { label: '轨道交通', values: [32, 28, 36, 44, 50, 58], highlight: true },
+        { label: '私人汽车', values: [52, 55, null, 45, 40, 34] },
+      ]}
+      annotations={[{ index: 3, label: '新线路开通（虚构事件）' }]}
+      referenceLine={{ value: 40, label: '参考值' }}
+    />
+  </ChartFrame>
+</ComponentDemo>
+
+## 饼图与环图
+
+`PieChart` 按输入顺序绘制，使用纹理和标签区分类别。建议展示不超过六个类别；类别较多时优先用横向柱状图。`variant="donut"` 切换为环图。
+
+<ComponentDemo
+  title="出行方式构成 · pie"
+  code={[
+    "<ChartFrame title=\"出行方式构成 · pie\" source=\"虚构示例数据\" sourceLabel=\"来源\">",
+    "  <PieChart",
+    "    label=\"出行方式构成 · pie\" locale=\"zh-CN\" variant=\"pie\"",
+    "    data={[",
+    "      { label: '轨道交通', value: 42 },",
+    "      { label: '公交', value: 26 },",
+    "      { label: '步行与骑行', value: 18 },",
+    "      { label: '私人汽车', value: 14 },",
+    "    ]}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="出行方式构成 · pie" source="虚构示例数据" sourceLabel="来源">
+    <PieChart
+      label="出行方式构成 · pie" locale="zh-CN" variant="pie"
+      data={[
+        { label: '轨道交通', value: 42 },
+        { label: '公交', value: 26 },
+        { label: '步行与骑行', value: 18 },
+        { label: '私人汽车', value: 14 },
+      ]}
+    />
+  </ChartFrame>
+</ComponentDemo>
+<ComponentDemo
+  title="出行方式构成 · donut"
+  code={[
+    "<ChartFrame title=\"出行方式构成 · donut\" source=\"虚构示例数据\" sourceLabel=\"来源\">",
+    "  <PieChart",
+    "    label=\"出行方式构成 · donut\" locale=\"zh-CN\" variant=\"donut\"",
+    "    data={[",
+    "      { label: '轨道交通', value: 42 },",
+    "      { label: '公交', value: 26 },",
+    "      { label: '步行与骑行', value: 18 },",
+    "      { label: '私人汽车', value: 14 },",
+    "    ]}",
+    "  />",
+    "</ChartFrame>",
+  ].join('\n')}
+>
+<ChartFrame title="出行方式构成 · donut" source="虚构示例数据" sourceLabel="来源">
+    <PieChart
+      label="出行方式构成 · donut" locale="zh-CN" variant="donut"
+      data={[
+        { label: '轨道交通', value: 42 },
+        { label: '公交', value: 26 },
+        { label: '步行与骑行', value: 18 },
+        { label: '私人汽车', value: 14 },
+      ]}
+    />
+  </ChartFrame>
+</ComponentDemo>
+
+## 属性
+
+### ChartFrame
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| title | string | 必填 | 可见标题 |
+| children | ReactNode | 必填 | 图表内容 |
+| description | string | — | 标题下的说明 |
+| number | string | — | 图表编号，如 FIG. 01 |
+| source | ReactNode | — | 数据来源，可传入链接 |
+| sourceLabel | string | Source | 来源前缀；中文示例使用“来源” |
+| note | ReactNode | — | 统计口径、缺失说明等 |
+| as | "h2" / "h3" / "h4" | h3 | 标题级别 |
+| span | number | — | 作为 Section 直接子元素时跨栏，限制在父级列数内 |
+| className / style | string / CSSProperties | — | 自定义容器样式 |
+
+### 图表通用属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| label | string | 必填 | SVG 可访问名称与数据表标题 |
+| unit | string | — | 单位说明；不会转换输入数值 |
+| locale | string | en | 数字格式；以 zh 开头时内置文案为中文，其余为英文 |
+| formatValue | (value: number) => string | Intl.NumberFormat | 自定义数值显示，不改变几何计算与饼图占比 |
+| className / style | string / CSSProperties | — | 自定义容器样式 |
+
+### BarChart
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| data | ChartDatum[] | 必填 | `{ label: string, value: number, highlight?: boolean }` |
+| orientation | "horizontal" / "vertical" | horizontal | 柱形方向 |
+| referenceLine | ChartReferenceLine | — | `{ value: number, label: string }`，计入轴范围 |
+
+### LineChart
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| labels | string[] | 必填 | 等距类别轴 |
+| series | LineSeries[] | 必填 | `{ label: string, values: (number \| null)[], highlight?: boolean }` |
+| annotations | ChartAnnotation[] | [] | `{ index: number, label: string }`，显示编号与对应说明 |
+| referenceLine | ChartReferenceLine | — | `{ value: number, label: string }`，计入轴范围 |
+
+### PieChart
+
+| 属性 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| data | ChartDatum[] | 必填 | 每项必须是有限的非负数 |
+| variant | "pie" / "donut" | pie | 饼图或环图 |
+
+所有属性类型及 `ChartDatum`、`ChartReferenceLine`、`LineSeries`、`ChartAnnotation` 均可从 `newspaperui` 导入。
+
+## 数据规则与边界
+
+- **零基线**：柱状图和折线图的默认轴范围都包含零及所有数据；参考线也纳入范围。
+- **缺失值**：只有折线接受 `null`。如 `[12, null, 18]` 显示两个孤立数据点，不把缺失当作零，也不连接跨越缺口的线。
+- **无效数据**：`NaN`、`Infinity`、折线长度不匹配或标注索引越界会显示错误文案，不绘制错误图形。饼图还拒绝负数。
+- **空数据**：空数组或全缺失折线显示“暂无数据”。有效的全零柱形／折线仍绘制；全零饼图说明无法计算占比。
+- **占比分母**：使用传入所有类别的数值之和。例如 `[20, 30]` 显示 `40% / 60%`，而不是 `20% / 30%`。传入子集时请在备注中说明；舍入后总和可能不精确等于 100%。
+- **单值与零项**：单个正值绘制完整圆；饼图零值类别保留在标签与数据表中，不绘制扇区。
+
+## 布局、主题与可访问性
+
+图表可以放入 `Article`；也可以让 `ChartFrame span={12}` 成为 `Section` 的直接子元素。不要把 `span` 当作像素宽度。
+
+柱状图和折线图按容器宽度重新排布，窄栏减少刻度；宽栏中，数据完整到最后一个类别的折线会直接在线尾显示名称与末值，省去重复图例。存在末尾缺失值时保留图例，避免把较早的数值当作最新值。饼图在宽容器中将图形与图例并排，在窄栏中上下排列。建议容器至少 240px。过长的轴标签会缩略；原文和完整数值仍保留在 SVG 标题及“查看数据”表格中。密集系列或大量类别应拆成多张图。
+
+首页轮播第一张是三种图表组成的数据专版，可进入完整 Block 或本页。桌面端在悬浮或键盘焦点进入预览时暂停轮播，移动端按文档顺序展示。
+
+使用现有 `--nui-*` 颜色变量和字体变量。中文标题可在容器中将 `--font-family-headline` 与 `--font-family-body` 设置为 `var(--font-family-cjk-serif)`。默认无动画；关键信息不依赖悬浮。数据表可通过键盘展开；打印时隐藏该交互入口，并将图表转为黑白。请将数据口径、来源和必要备注放在 `ChartFrame` 中，确保打印后仍可见。
+
+当前提供静态新闻配图，尚不包含堆叠、缩放、时间比例轴或图片下载功能。

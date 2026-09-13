@@ -1,4 +1,4 @@
 {
   "title": "Components",
-  "pages": ["layout", "article", "masthead", "rule", "media", "footer", "data"]
+  "pages": ["layout", "article", "masthead", "rule", "media", "footer", "data", "charts"]
 }

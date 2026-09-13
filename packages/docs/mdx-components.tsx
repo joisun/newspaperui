@@ -7,6 +7,7 @@ import {
   Image, Figure, Video, PullQuote,
   BreakingNewsBanner, NewsSidebar, Folio, IndexBox, Factbox, RelatedArticles,
   AuthorCard, JumpLine,
+  ChartFrame, BarChart, LineChart, PieChart,
 } from './lib/nui-client';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -21,5 +22,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Image, Figure, Video, PullQuote,
     BreakingNewsBanner, NewsSidebar, Folio, IndexBox, Factbox, RelatedArticles,
     AuthorCard, JumpLine,
+    ChartFrame, BarChart, LineChart, PieChart,
   };
 }

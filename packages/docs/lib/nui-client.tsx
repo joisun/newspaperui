@@ -5,4 +5,5 @@ export {
   Image, Figure, Video, PullQuote,
   BreakingNewsBanner, NewsSidebar, Folio, IndexBox, Factbox, RelatedArticles,
   AuthorCard, JumpLine,
+  ChartFrame, BarChart, LineChart, PieChart,
 } from 'newspaperui';

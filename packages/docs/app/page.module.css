@@ -57,6 +57,7 @@
   margin: 0;
   overflow: hidden;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(8px);
   transition:
     opacity 600ms ease,
@@ -68,6 +69,7 @@
 
 .gallerySlide[data-active='true'] {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
   pointer-events: auto;
 }
@@ -109,14 +111,13 @@
 
 .galleryNav {
   position: absolute;
-  top: 50%;
+  bottom: .5rem;
   z-index: 4;
   display: grid;
   width: 2.25rem;
   min-width: 2.25rem;
   height: 2.25rem;
   min-height: 2.25rem;
-  margin-top: -1.125rem;
   padding: 0;
   place-items: center;
   color: var(--nui-text-primary);
@@ -259,6 +260,7 @@
     grid-template-rows: auto auto;
     overflow: visible;
     opacity: 1;
+    visibility: visible;
     transform: none;
     pointer-events: auto;
     border: 1px solid var(--nui-rule-hairline);

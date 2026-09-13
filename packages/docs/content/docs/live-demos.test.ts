@@ -40,6 +40,8 @@ describe('live documentation examples', () => {
     'components/media.mdx': 5,
     'components/footer.mdx': 3,
     'components/data.mdx': 4,
+    'components/charts.mdx': 5,
+    'components/charts.en.mdx': 5,
     'text/index.mdx': 8,
     'text/headline.mdx': 1,
     'text/bodytext.mdx': 2,

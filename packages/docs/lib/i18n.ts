@@ -58,7 +58,7 @@ export const messages = {
       date: '2026 年 9 月 1 日',
       edition: '第 1 期 · 正式版',
       price: '开源 · MIT 协议',
-      lede: '一套静态的、面向排版的 React 组件库：24 栏网格系统、五级字号体系、三种线型语言，以及克制到近乎固执的色彩纪律。它不做交互，不做数据，只做一件事——让内容看起来像真正的报纸。',
+      lede: '面向编辑排版的 React 组件库：24 栏网格、细致的文字层级，以及带来源和标注的报纸图表，让文章与数据呈现真实的阅读节奏。',
       galleryLabel: 'NewspaperUI 完整报纸 Demo 图库',
       previewLabel: (title: string) => `${title} 完整报纸页面`,
       previousPreview: '上一张预览',
@@ -78,7 +78,7 @@ export const messages = {
     blocks: {
       kicker: '生产级版式 · 复制、调整、发布',
       title: '报纸版式',
-      subtitle: '九套完整编辑布局，覆盖中文、英文与日文排版。',
+      subtitle: '十一套完整编辑布局，覆盖中文、英文与日文排版。',
       block: '版式',
       view: '查看版式',
       descriptions: [
@@ -92,6 +92,7 @@ export const messages = {
         '讣告版：克制的单栏纪念页，生卒年、肖像与静默的阅读节奏。',
         '通栏主推书评、三篇短评均布与新书速递的周刊版式。',
         '模型与 Agent 情报日报：核证边界、今日新增与模型留存分区。',
+        '数据新闻专版：趋势、排名与占比，配合事件标注和数据来源。',
       ],
     },
     create: {
@@ -176,7 +177,7 @@ export const messages = {
       date: 'September 1, 2026',
       edition: 'Vol. 1 · First Edition',
       price: 'Open Source · MIT License',
-      lede: 'A static, typography-first React component library: a 24-column grid system, a five-tier type scale, three rule weights, and a color discipline that borders on stubborn. No interactivity, no data fetching — just content that reads like a real newspaper.',
+      lede: 'Editorial React components: a 24-column grid, considered typography, and newspaper charts with sources and annotations, bringing a natural reading rhythm to stories and data.',
       galleryLabel: 'NewspaperUI full newspaper demo gallery',
       previewLabel: (title: string) => `${title} complete newspaper page`,
       previousPreview: 'Previous preview',
@@ -196,7 +197,7 @@ export const messages = {
     blocks: {
       kicker: 'Production blocks · Copy, adapt, publish',
       title: 'Newspaper Blocks',
-      subtitle: 'Ten complete editorial layouts across Chinese, English, and Japanese typography.',
+      subtitle: 'Eleven complete editorial layouts across Chinese, English, and Japanese typography.',
       block: 'Block',
       view: 'View block',
       descriptions: [
@@ -210,6 +211,7 @@ export const messages = {
         'A restrained single-column memorial page with dates, portrait and a quiet reading rhythm.',
         'A weekly review layout with a featured banner review, three even columns and new arrivals.',
         'A daily intelligence brief for models and agents: evidence boundary, new arrivals and model retention sections.',
+        'A data edition with trends, rankings and shares, supported by annotations and sources.',
       ],
     },
     create: {

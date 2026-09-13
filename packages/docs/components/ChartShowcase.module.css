@@ -1,0 +1,54 @@
+.edition {
+  container-type: inline-size;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 3vw, 2.5rem) 3.5rem;
+  color: var(--nui-text-primary);
+  background: var(--nui-bg-page);
+}
+.edition[lang='zh-CN'] {
+  --font-family-headline: var(--font-family-cjk-serif);
+  --font-family-body: var(--font-family-cjk-serif);
+}
+.folio {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 3px solid var(--nui-rule-decorative);
+  font: 500 .63rem/1.5 var(--font-family-meta);
+  letter-spacing: .12em;
+}
+.issue { margin-left: .75rem; color: var(--nui-text-secondary); }
+.header { padding: .75rem 0 1rem; }
+.header h2 { margin: 0; font: 500 clamp(2rem, 4.1vw, 3.1rem)/1.25 var(--font-family-headline); letter-spacing: -.04em; text-wrap: balance; }
+.header p { margin: .6rem 0 0; color: var(--nui-text-secondary); font: 400 .85rem/1.8 var(--font-family-body); }
+.charts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; align-items: start; }
+.charts > * { min-width: 0; }
+.charts :global(.nui-chart-frame) { padding-top: .75rem; }
+.charts :global(.nui-chart-header) { margin-bottom: 1rem; }
+.charts :global(.nui-chart-number) { margin-bottom: .45rem; }
+.charts :global(.nui-chart-data summary) { padding: .4rem 0; }
+.charts :global(.nui-chart-title) { font-size: 1.15rem; }
+.charts :global(.nui-chart-description) { font-family: var(--font-family-meta); font-size: .65rem; }
+.charts :global(.nui-pie-svg) { max-width: 150px; }
+.charts :global(.nui-pie-labels li) { padding: .25rem 0; }
+.footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; padding: .5rem .75rem 0; border-top: 1px solid var(--nui-rule-decorative); color: var(--nui-text-secondary); font: 400 .65rem/1.7 var(--font-family-meta); }
+.footer p { margin: 0; padding: .65rem 0; }
+.footer > div { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.footer a { padding: .65rem 0; color: var(--nui-text-primary); text-decoration: none; }
+.footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.footer a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+@container (min-width: 620px) {
+  .charts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trend { grid-column: 1 / -1; }
+}
+@container (min-width: 960px) {
+  .charts { grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr)); gap: 2rem; }
+  .trend { grid-column: auto; }
+}
+@media print {
+  .edition { --nui-bg-page: #fff; --nui-text-primary: #000; --nui-text-secondary: #333; --nui-rule-decorative: #000; }
+  .footer > div { display: none; }
+}

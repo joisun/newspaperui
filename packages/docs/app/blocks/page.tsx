@@ -16,6 +16,7 @@ const blocks = [
   { href: '/blocks/en-obituary', lang: 'ENGLISH', title: 'Obituaries · Dame Vera Ellison', description: 'Restrained single-column memorial page with dates, portrait and quiet rhythm.', color: '#7A1F1F' },
   { href: '/blocks/zh-review', lang: 'CHINESE · 中文', title: '书评周刊 · 文化副刊', description: '通栏主推书评、三篇短评均布与新书速递的周刊版式。', color: '#CC2929' },
   { href: '/blocks/zh-daily-brief', lang: 'CHINESE · 中文', title: '开发者情报 · 每日简报', description: '模型与 Agent 情报日报：核证边界、今日新增与模型留存分区。', color: '#CC2929' },
+  { href: '/blocks/data-journalism', lang: '中文 / ENGLISH', title: '城市观察 · The City Observer', description: '数据新闻专版：趋势、排名与占比，配合事件标注和数据来源。', color: 'var(--nui-text-primary)' },
 ];
 
 export default function BlocksIndex() {

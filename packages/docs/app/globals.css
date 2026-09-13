@@ -147,6 +147,12 @@ figure[data-rehype-pretty-code-figure] > pre,
   min-width: 14rem;
 }
 
+/* Chart data belongs to the preview and must fit narrow newspaper columns. */
+.prose .nui-chart-data table,
+.prose .nui-chart-data table :is(th, td):last-child {
+  min-width: 0;
+}
+
 aside a,
 nav a,
 a[href^='#'] {

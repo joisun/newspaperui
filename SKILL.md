@@ -98,7 +98,7 @@ The palette is **warm gray + one accent**, not a rainbow.
 | **Section break** | `3px solid var(--nui-rule-decorative)` | Major section transitions (head → body, body → footer) |
 | **Double rule** | Component `Rule variant="double"` | Decorative, classical, one per page max |
 
-**Never use 2px** — it's an intermediate weight that breaks the hairline → 3px hierarchy.
+For layout rules, keep the hairline → 3px hierarchy. Chart strokes and slice boundaries use their own functional weights for legibility.
 
 ### Accent Color Discipline
 
@@ -106,6 +106,7 @@ The palette is **warm gray + one accent**, not a rainbow.
   - Breaking news labels
   - "Today's new" / "Verified" stamps
   - Page-level urgency indicators
+  - One selected data series or category that supports the story's main finding
 - **Never use accent for**:
   - Decorative borders
   - Body text color
@@ -139,6 +140,24 @@ The palette is **warm gray + one accent**, not a rainbow.
 | Continuation marker | `JumpLine` | `direction="to"` at break, `direction="from"` at resume |
 | Widget column | `NewsSidebar` | Defaults to `span={6}` |
 | Image + caption | `Figure` | Use over raw `Image` when caption needed |
+| Data graphic + attribution | `ChartFrame` | `title`, `description`, `source`, `sourceLabel`, `note` |
+| Rankings / comparisons | `BarChart` | `label`, `data`, `orientation`, `referenceLine` |
+| Trends with gaps / events | `LineChart` | `label`, `labels`, `series`, `annotations` |
+| Part-to-whole composition | `PieChart` | `label`, `data`, `variant="pie\|donut"` |
+
+### Editorial charts
+
+Use `ChartFrame` with `BarChart`, `LineChart` or `PieChart` for data graphics inside stories. A frame may be a direct `Section` child with `span`, or sit inside an `Article`. Supply a descriptive chart `label`, visible units and an honest source; mark fictional sample data explicitly. Set `locale="zh-CN"` and `sourceLabel="来源"` for Chinese content.
+
+- Bar and line axes include zero; bar input order is preserved.
+- Line `labels` are equally spaced categories, not a proportional time axis. Each series has `values: (number | null)[]` of matching length. `null` breaks the line; `0` is valid.
+- Pie values must be finite and nonnegative. Shares use the total of all supplied categories; a zero total cannot be plotted.
+- Use patterns, dashes and text labels as well as color. Every chart includes an expandable data table; printed output retains the plot, notes and source in black and white.
+- Keep chart styling quiet: fine grid lines, slender bars, solid ink balanced with sparse hatching and stippling. Wide line charts label endpoints with names and values when the last category is present; retain legends for narrow views or trailing gaps.
+- The docs root layout loads the theme font families with stylesheet links because bundled CSS imports may follow ordinary rules and be ignored. Keep these links in sync with `packages/theme/src/fonts.css`.
+- The homepage starts with `packages/docs/components/ChartShowcase.tsx`, a compact, bilingual data edition. Reuse it as embedded content without introducing a nested `main`; keep full editions in Blocks.
+- Use charts for a small number of editorial comparisons. For dense series, split the graphic into smaller views. These components do not provide app-style filtering, zoom or live data fetching.
+- See `packages/docs/content/docs/components/charts.mdx` for the complete API and `packages/docs/app/blocks/data-journalism/page.tsx` for a bilingual edition.
 
 ### CJK Content
 
@@ -311,9 +330,9 @@ Run through this **after generating**, don't just eyeball:
 This library is for **static editorial content only**. Do not use for:
 
 - Interactive UI (forms, modals, dashboards)
-- Data-heavy apps (tables, charts, filters)
+- Data-heavy applications with interactive filtering, live dashboards or chart exploration (static editorial charts are supported)
 - Authentication flows
 - Real-time updates (comments, notifications)
 - Generic CSS Grid layout questions unrelated to editorial typography
 
-If the page has user-generated content, state management, or API calls — it's probably not a NewspaperUI page.
+Applications may supply data to editorial components. NewspaperUI handles presentation; data fetching and application state remain the application's responsibility.

@@ -1,4 +1,5 @@
 import 'newspaperui-theme/dist/style.css';
+import './charts/charts.css';
 
 // layout
 export { Layout, useLayout } from './layout/Layout';
@@ -65,3 +66,14 @@ export { AuthorCard } from './text/AuthorCard';
 export type { AuthorCardProps } from './text/AuthorCard';
 export { JumpLine } from './text/JumpLine';
 export type { JumpLineProps } from './text/JumpLine';
+
+// editorial charts
+export { ChartFrame } from './charts/ChartFrame';
+export type { ChartFrameProps } from './charts/ChartFrame';
+export { BarChart } from './charts/BarChart';
+export type { BarChartProps } from './charts/BarChart';
+export { LineChart } from './charts/LineChart';
+export type { LineChartProps, LineSeries, ChartAnnotation } from './charts/LineChart';
+export { PieChart } from './charts/PieChart';
+export type { PieChartProps } from './charts/PieChart';
+export type { ChartDatum, ChartProps, ChartReferenceLine } from './charts/shared';

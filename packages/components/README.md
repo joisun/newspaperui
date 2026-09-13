@@ -45,6 +45,7 @@ export function FrontPage() {
 - Multi-column text, drop caps, rules, captions, quotes, and publication metadata.
 - Typography presets for English, Chinese, Japanese, and German layouts.
 - Light and dark themes, complete example editions, and a visual theme creator.
+- Editorial bar, line, pie and donut charts with annotations, sources, accessible data tables and monochrome print styles. Explore the [chart docs](https://joisun.github.io/newspaperui/en/docs/components/charts/) and [data edition](https://joisun.github.io/newspaperui/en/blocks/data-journalism/).
 
 ## License
 

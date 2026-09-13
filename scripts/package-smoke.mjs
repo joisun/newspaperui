@@ -44,6 +44,15 @@ try {
   assert.equal(packedManifest.dependencies?.['newspaperui-theme'], undefined);
   assert.equal(packedManifest.dependencies?.['newspaperui-utils'], undefined);
 
+  const chartSmoke = `
+    if (!renderToStaticMarkup(createElement(Layout, null, 'ok')).includes('ok')) process.exit(1);
+    const html = renderToStaticMarkup(createElement(ChartFrame, {title: 'Transport'},
+      createElement(BarChart, {label: 'Bars', data: [{label: 'A', value: -1}, {label: 'B', value: 2}]}),
+      createElement(LineChart, {label: 'Trend', labels: ['A', 'B'], series: [{label: 'Rail', values: [1, 2]}]}),
+      createElement(PieChart, {label: 'Mix', variant: 'donut', data: [{label: 'A', value: 1}]})));
+    if ((html.match(/role="img"/g) || []).length !== 3 || !html.includes('100%') || /NaN|Infinity/.test(html)) process.exit(1);
+  `;
+
   for (const reactVersion of ['18.0.0', '19.2.8']) {
     const consumer = join(scratch, `consumer-react-${reactVersion.split('.')[0]}`);
     execFileSync('mkdir', ['-p', consumer]);
@@ -69,7 +78,7 @@ try {
       [
         '--input-type=module',
         '-e',
-        "import { createElement } from 'react'; import { renderToStaticMarkup } from 'react-dom/server'; import { Layout } from 'newspaperui'; const html = renderToStaticMarkup(createElement(Layout, null, 'ok')); if (!html.includes('ok')) process.exit(1)",
+        "import { createElement } from 'react'; import { renderToStaticMarkup } from 'react-dom/server'; import { Layout, ChartFrame, BarChart, LineChart, PieChart } from 'newspaperui';" + chartSmoke,
       ],
       { cwd: consumer, encoding: 'utf8' },
     );
@@ -78,13 +87,14 @@ try {
       'node',
       [
         '-e',
-        "const { createElement } = require('react'); const { renderToStaticMarkup } = require('react-dom/server'); const { Layout } = require('newspaperui'); const html = renderToStaticMarkup(createElement(Layout, null, 'ok')); if (!html.includes('ok')) process.exit(1)",
+        "const { createElement } = require('react'); const { renderToStaticMarkup } = require('react-dom/server'); const { Layout, ChartFrame, BarChart, LineChart, PieChart } = require('newspaperui');" + chartSmoke,
       ],
       { cwd: consumer, stdio: 'pipe' },
     );
 
     const installedCss = join(consumer, 'node_modules/newspaperui/dist/style.css');
     assert(readFileSync(installedCss, 'utf8').includes('--nui-bg-page'));
+    assert(readFileSync(installedCss, 'utf8').includes('.nui-chart-frame'));
   }
   process.stdout.write(`Package smoke passed: ${basename(tarball)}\n`);
 } finally {

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { InstallCommand } from '../components/InstallCommand';
 import { useLocale } from '../components/LocaleContext';
+import { ChartShowcase } from '../components/ChartShowcase';
 import EnFeature from './blocks/en-feature/page';
 import JpHorizontal from './blocks/jp-horizontal/page';
 import JpVertical from './blocks/jp-vertical/page';
@@ -16,6 +17,11 @@ const autoplayDelay = 4_500;
 const mobileListQuery = '(max-width: 767px)';
 
 const galleryItems = [
+  {
+    id: 'data-journalism',
+    title: '数据新闻 · Data Edition',
+    Preview: ChartShowcase,
+  },
   {
     id: 'zh-frontpage',
     title: '人民周报',
@@ -61,6 +67,7 @@ export default function LandingPage() {
   const { messages } = useLocale();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const [isMobileList, setIsMobileList] = useState(false);
   const [autoplayRevision, setAutoplayRevision] = useState(0);
 
@@ -75,7 +82,7 @@ export default function LandingPage() {
   }, []);
 
   useEffect(() => {
-    if (isMobileList || isHovered || window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    if (isMobileList || isHovered || isFocused || window.matchMedia('(prefers-reduced-motion: reduce)').matches)
       return undefined;
 
     const timer = window.setInterval(() => {
@@ -83,7 +90,7 @@ export default function LandingPage() {
     }, autoplayDelay);
 
     return () => window.clearInterval(timer);
-  }, [autoplayRevision, isHovered, isMobileList]);
+  }, [autoplayRevision, isHovered, isFocused, isMobileList]);
 
   function showPreview(index: number) {
     setActiveIndex(wrapIndex(index));
@@ -108,6 +115,10 @@ export default function LandingPage() {
           data-page-flow={isMobileList ? 'document' : undefined}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onFocusCapture={() => setIsFocused(true)}
+          onBlurCapture={event => {
+            if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setIsFocused(false);
+          }}
         >
           <div className={styles.galleryTrack}>
             {galleryItems.map((item, index) => {

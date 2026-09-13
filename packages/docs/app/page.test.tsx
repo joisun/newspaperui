@@ -20,16 +20,17 @@ describe('LandingPage', () => {
     expect(screen.getByText('pnpm add newspaperui')).toBeVisible();
   });
 
-  test('renders the seven previews as scrollable live components', () => {
+  test('opens with editorial charts among eight scrollable live previews', () => {
     const { container } = render(<LandingPage />);
 
     expect(
       screen.getByRole('region', { name: 'NewspaperUI full newspaper demo gallery' }),
     ).toBeVisible();
-    expect(container.querySelectorAll('[data-showcase-slide]')).toHaveLength(7);
+    expect(container.querySelectorAll('[data-showcase-slide]')).toHaveLength(8);
     expect(container.querySelectorAll('[data-showcase-slide][data-active="true"]')).toHaveLength(1);
     const activeSlide = container.querySelector('[data-showcase-slide][data-active="true"]');
-    expect(activeSlide).toContainElement(screen.getByText('历史性贸易协定昨日签署'));
+    expect(activeSlide).toHaveAttribute('data-showcase-slide', 'data-journalism');
+    expect(activeSlide?.querySelectorAll('svg[role="img"]')).toHaveLength(3);
     expect(activeSlide?.querySelector('[data-scrollable="true"]')).toBeInTheDocument();
     expect(
       screen.queryByAltText('人民周报 complete newspaper page preview'),
@@ -45,13 +46,13 @@ describe('LandingPage', () => {
     expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'nyt-frontpage');
 
     fireEvent.click(screen.getByRole('button', { name: 'Next preview' }));
-    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-frontpage');
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'data-journalism');
 
-    fireEvent.click(screen.getByRole('button', { name: 'Show preview 4 of 7: 朝日新聞 横組み' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Show preview 5 of 8: 朝日新聞 横組み' }));
     expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'jp-horizontal');
     expect(activeSlide()).toHaveTextContent(/歴史的通商協定が成立\s+23カ国が署名/u);
     expect(
-      screen.getByRole('button', { name: 'Show preview 4 of 7: 朝日新聞 横組み' }),
+      screen.getByRole('button', { name: 'Show preview 5 of 8: 朝日新聞 横組み' }),
     ).toHaveAttribute('aria-current', 'true');
   });
 
@@ -62,18 +63,18 @@ describe('LandingPage', () => {
     const activeSlide = () => container.querySelector('[data-showcase-slide][data-active="true"]');
 
     act(() => vi.advanceTimersByTime(4_499));
-    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-frontpage');
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'data-journalism');
 
     act(() => vi.advanceTimersByTime(1));
-    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-feature');
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-frontpage');
 
     fireEvent.mouseEnter(gallery);
     act(() => vi.advanceTimersByTime(4_500));
-    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-feature');
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-frontpage');
 
     fireEvent.mouseLeave(gallery);
     act(() => vi.advanceTimersByTime(4_500));
-    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'en-feature');
+    expect(activeSlide()).toHaveAttribute('data-showcase-slide', 'zh-feature');
   });
 
   test('flows every mobile preview through document scrolling', () => {
@@ -97,7 +98,7 @@ describe('LandingPage', () => {
     expect(gallery).toHaveAttribute('data-page-flow', 'document');
     expect(gallery).not.toHaveAttribute('aria-roledescription', 'carousel');
     expect(container.querySelectorAll('[data-showcase-slide][aria-hidden="false"]')).toHaveLength(
-      7,
+      8,
     );
     expect(container.querySelectorAll('[data-scrollable="true"]')).toHaveLength(0);
     expect(screen.queryByRole('button', { name: 'Previous preview' })).not.toBeInTheDocument();
@@ -106,8 +107,20 @@ describe('LandingPage', () => {
     act(() => vi.advanceTimersByTime(9_000));
     expect(container.querySelector('[data-showcase-slide][data-active="true"]')).toHaveAttribute(
       'data-showcase-slide',
-      'zh-frontpage',
+      'data-journalism',
     );
+  });
+
+  test('keeps the chart slide still while a reader uses its data table with the keyboard', () => {
+    vi.useFakeTimers();
+    const { container } = render(<LandingPage />);
+    const summary = container.querySelector('[data-showcase-slide="data-journalism"] summary')!;
+    fireEvent.focus(summary);
+    act(() => vi.advanceTimersByTime(9_000));
+    expect(container.querySelector('[data-active="true"][data-showcase-slide]')).toHaveAttribute('data-showcase-slide', 'data-journalism');
+    fireEvent.blur(summary, { relatedTarget: screen.getByRole('button', { name: 'Copy install command' }) });
+    act(() => vi.advanceTimersByTime(4_500));
+    expect(container.querySelector('[data-active="true"][data-showcase-slide]')).toHaveAttribute('data-showcase-slide', 'zh-frontpage');
   });
 
   test('does not autoplay when reduced motion is requested', () => {
@@ -128,7 +141,7 @@ describe('LandingPage', () => {
 
     expect(container.querySelector('[data-showcase-slide][data-active="true"]')).toHaveAttribute(
       'data-showcase-slide',
-      'zh-frontpage',
+      'data-journalism',
     );
   });
 

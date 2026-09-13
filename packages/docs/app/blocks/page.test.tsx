@@ -7,6 +7,7 @@ describe('BlocksIndex', () => {
 
     expect(container.querySelectorAll('main')).toHaveLength(1);
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(10);
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(11);
+    expect(screen.getByRole('link', { name: /The City Observer/ })).toHaveAttribute('href', '/blocks/data-journalism');
   });
 });
